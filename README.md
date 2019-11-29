@@ -1,4 +1,5 @@
-# HospitalMascotas
+# TTPS 2019 (Java)
+# Hospital de Mascotas (Angular)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
 

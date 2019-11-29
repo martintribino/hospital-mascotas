@@ -1,0 +1,25 @@
+<mat-toolbar color="transparent">
+  <mat-toolbar-row>
+    <nav class="title-navbar">
+      <h2 i18n="@@title">Veterinaria</h2>
+    </nav>
+    <mat-divider [vertical]="true"></mat-divider>
+    <nav class="router-navbar">
+      <button mat-button routerLink="home" i18n="@@homeText" routerLinkActive="active-link"> Home </button>
+      <button mat-button routerLink="services" i18n="@@serviceText" routerLinkActive="active-link"> Services </button>
+      <button mat-button routerLink="contact" i18n="@@contactText" routerLinkActive="active-link"> Contact </button>
+    </nav>
+    <mat-divider [vertical]="true"></mat-divider>
+    <nav class="profile-navbar">
+      <div *ngIf="isAuthenticated; else elseBlock">
+        <mat-menu #menu="matMenu">
+          <button mat-button [routerLink]="profileUrl" routerLinkActive="active-link">{{profileText}}</button>
+          <button mat-button [routerLink]="logoutUrl" i18n="@@logoutText" routerLinkActive="active-link">Logout</button>
+        </mat-menu>
+      </div>
+      <ng-template #elseBlock>
+        <button mat-button [routerLink]="loginUrl" i18n="@@loginText" routerLinkActive="active-link"> Login</button>
+      </ng-template>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>

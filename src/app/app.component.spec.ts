@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'hospital-mascotas'`, () => {
+  it(`should have as title 'veterinaria-front'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('hospital-mascotas');
+    expect(app.title).toEqual('veterinaria-front');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('hospital-mascotas app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('veterinaria-front app is running!');
   });
 });
