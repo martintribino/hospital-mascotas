@@ -1,0 +1,80 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+  <fieldset class="form-group">
+    <mat-hint i18n="@@inputData">Ingrese sus datos</mat-hint>
+    <mat-error i18n="@@signupErrorResponse">{{errorResponse}}</mat-error>
+    <mat-hint class="success-response">{{successResponse}}</mat-hint>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Nombre</mat-label>
+      <input matInput type="text" [disabled]="isSubmiting" formControlName="nombre" autocomplete="off"
+        placeholder="Nombre" maxlength="50" minlength="2" required>
+      <mat-hint i18n="@@nameText">Nombre</mat-hint>
+      <mat-error *ngIf="signupF.nombre?.errors?.minlength" i18n="@@fieldMinError">El campo debe
+        tener al menos 2 caracteres
+      </mat-error>
+      <mat-error *ngIf="signupF.nombre?.errors?.maxlength" i18n="@@fieldMaxError">El campo debe
+        tener como máximo 50 caracteres
+      </mat-error>
+      <mat-error *ngIf="signupF.nombre?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@surnameText">Apellido</mat-label>
+      <input matInput type="text" [disabled]="isSubmiting" formControlName="apellido" autocomplete="off"
+        placeholder="Apellido" maxlength="50" minlength="2" required>
+      <mat-hint i18n="@@surnameText">Apellido</mat-hint>
+      <mat-error *ngIf="signupF.apellido?.errors?.minlength" i18n="@@fieldMinError">El campo debe
+        tener al menos 2 caracteres
+      </mat-error>
+      <mat-error *ngIf="signupF.apellido?.errors?.maxlength" i18n="@@fieldMaxError">El campo debe
+        tener como máximo 50 caracteres
+      </mat-error>
+      <mat-error *ngIf="signupF.apellido?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@usernameText">Nombre de usuario</mat-label>
+      <input matInput type="text" [disabled]="isSubmiting" formControlName="nombreUsuario" autocomplete="off"
+        placeholder="Nombre de usuario" maxlength="50" minlength="2" required>
+      <mat-hint i18n="@@usernameText">Nombre de usuario</mat-hint>
+      <mat-error *ngIf="signupF.nombreUsuario?.errors?.minlength" i18n="@@fieldMinError">El campo debe
+        tener al menos 2 caracteres
+      </mat-error>
+      <mat-error *ngIf="signupF.nombreUsuario?.errors?.maxlength" i18n="@@fieldMaxError">El campo debe
+        tener como máximo 50 caracteres
+      </mat-error>
+      <mat-error *ngIf="signupF.nombreUsuario?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@passwordText">Clave</mat-label>
+      <input matInput type="password" [disabled]="isSubmiting" formControlName="clave" placeholder="" maxlength="50"
+        minlength="4" required>
+      <mat-hint i18n="@@passwordText">Clave</mat-hint>
+      <mat-error *ngIf="signupF.clave?.errors?.minlength" i18n="@@fieldMinError">El campo debe tener al menos 4
+        caracteres</mat-error>
+      <mat-error *ngIf="signupF.clave?.errors?.maxlength" i18n="@@fieldMaxError">El campo debe tener como máximo 50
+      </mat-error>
+      <mat-error *ngIf="signupF.clave?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard" *ngIf="signupF.clave?.valid">
+      <mat-label i18n="@@passwordConfirmText">Confirmar Clave</mat-label>
+      <input matInput type="password" [disabled]="isSubmiting" formControlName="confirmarClave" placeholder=""
+        maxlength="50" minlength="4" required>
+      <mat-hint i18n="@@passwordConfirmText">Confirmar Clave</mat-hint>
+      <mat-error *ngIf="signupF.confirmarClave?.errors?.matchPassword" i18n="@@passMismatchError">Las claves no
+        coinciden
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@documentoText">Documento</mat-label>
+      <input matInput type="number" [disabled]="isSubmiting" formControlName="documento" autocomplete="off"
+        placeholder="Documento" max="99999999" min="1" required>
+      <mat-hint i18n="@@surnameText">Documento</mat-hint>
+      <mat-error *ngIf="signupF.documento?.errors?.min" i18n="@@fieldMinNumberError">El campo debe
+        ser mayor a 1
+      </mat-error>
+      <mat-error *ngIf="signupF.documento?.errors?.max" i18n="@@fieldMaxNumberError">El campo debe
+        ser menor a 99999999
+      </mat-error>
+      <mat-error *ngIf="signupF.documento?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <button type="submit" [disabled]="!signupForm.valid" i18n="@@submitText">Submit</button>
+  </fieldset>
+</form>

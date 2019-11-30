@@ -5,17 +5,21 @@ export interface ILoginBody {
 }
 
 export interface IUser {
-  email: string;
   token: string;
   nombreUsuario: string;
-  image: string;
+  imagen: string;
 }
 
-export interface INavbar {
-  loginUrl: string;
-  profileUrl: string;
-  profileText: string;
-  logoutUrl: string;
-  isAuthenticated: boolean;
-  user: IUser;
+export interface IProfile {
+  nombre: string;
+  apellido: string;
+  dni: number;
+  telefono: number;
+  nombreUsuario: string;
+  email: string;
+  domicilio: string;
+  imagen: string;
+  nombreClinica?: string;
+  domicilioClinica?: string;
+  validado?: boolean;
 }
