@@ -6,7 +6,14 @@ mat-toolbar
 .profile-navbar, .router-navbar
   display flex
   justify-content flex-end;
-nav 
+.mat-icon-button
+  border 1px solid transparent
+.mat-toolbar-multiple-rows
+  min-height auto
+.mat-menu-trigger
+  box-shadow none
+nav
+  align-items center
   .mat-button
     display flex 
     margin 5px 10px
@@ -38,3 +45,9 @@ nav
     flex-direction column
     width 100%
     height auto
+    nav
+      .mat-button
+        font-size 0.7em
+        padding 0 4px
+        margin 0 4px
+        justify-content center
