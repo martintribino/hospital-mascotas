@@ -5,8 +5,8 @@
     <mat-hint class="success-response">{{successResponse}}</mat-hint>
     <mat-form-field appearance="standard">
       <mat-label i18n="@@usernameText">Nombre de usuario</mat-label>
-      <input matInput type="text" [disabled]="isSubmiting" formControlName="nombreUsuario" autocomplete="off"
-        placeholder="Nombre de usuario" maxlength="50" minlength="2" required>
+      <input matInput type="text" formControlName="nombreUsuario" autocomplete="off" placeholder="Nombre de usuario"
+        maxlength="50" minlength="2" required>
       <mat-hint i18n="@@usernameText">Nombre de usuario</mat-hint>
       <mat-error *ngIf="loginF.nombreUsuario?.errors?.minlength" i18n="@@fieldMinError">El campo debe
         tener al menos 2 caracteres
@@ -18,8 +18,7 @@
     </mat-form-field>
     <mat-form-field appearance="standard">
       <mat-label i18n="@@passwordText">Clave</mat-label>
-      <input matInput type="password" [disabled]="isSubmiting" formControlName="clave" placeholder="" maxlength="50"
-        minlength="4" required>
+      <input matInput type="password" formControlName="clave" placeholder="" maxlength="50" minlength="4" required>
       <mat-hint i18n="@@passwordText">Clave</mat-hint>
       <mat-error *ngIf="loginF.clave?.errors?.minlength" i18n="@@fieldMinError">El campo debe tener al menos 4
         caracteres</mat-error>

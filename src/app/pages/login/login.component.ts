@@ -1,11 +1,11 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ILoginBody } from 'src/app/interfaces/interfaces.model';
-import { Config } from 'protractor';
-import { AuthService } from 'src/app/rest/auth.service';
-import { Usuario } from 'src/app/model/usuario';
+import { AuthenticationService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +16,8 @@ import { Usuario } from 'src/app/model/usuario';
 @Injectable()
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    nombreUsuario: new FormControl('', [Validators.required]),
-    clave: new FormControl('', [Validators.required]),
+    nombreUsuario: new FormControl(''),
+    clave: new FormControl(''),
   });
   errorResponse: string;
   successResponse: string;
@@ -25,11 +25,13 @@ export class LoginComponent implements OnInit {
   isSubmiting: boolean;
   baseApiUrl = environment.baseApiUrl;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router) {
     this.isSubmiting = false;
     this.loginForm = new FormGroup({
-      nombreUsuario: new FormControl('', Validators.required),
-      clave: new FormControl('', Validators.required),
+      nombreUsuario: new FormControl(''),
+      clave: new FormControl(''),
     });
     this.errorResponse = "";
     this.successResponse = "";
@@ -55,26 +57,33 @@ export class LoginComponent implements OnInit {
     let response = this.authService.login(url, loginBody, options)
       .subscribe(
         (data: Response) => this.onSuccess(data),
-        (error: any) => this.handleError(error),
+        (error: HttpErrorResponse) => this.handleError(error),
         () => this.onComplete()
       );
-    //this.loginForm.reset();
   }
 
   onSuccess(result: Response) {
-    console.log(result);
-    this.authService.setSession(result);
     this.errorResponse = "";
     this.successResponse = "Autenticación correcta. Redirigiendo...";
     this.redirecting = true;
+    this.authService.isLoggedIn.subscribe(
+      () => {
+        this.router.navigate(['/loading-page'], { queryParams: {} });
+      },
+      () => { this.revert() }
+    );
+    this.authService.setSession(result);
+    this.authService.setUsuarioByToken();
   }
 
-  handleError(error: any) {
-    console.log(error);
+  handleError(error: HttpErrorResponse) {
     this.successResponse = "";
     switch (error.status) {
+      case 401: {
+        this.errorResponse = "No autorizado. Por favor, intente nuevamente.";
+        break;
+      }
       case 404:
-      case 401:
       case 400: {
         this.errorResponse = "Autenticación incorrecta. Por favor, intente nuevamente.";
         break;
@@ -88,7 +97,7 @@ export class LoginComponent implements OnInit {
   }
 
   onComplete() {
-    this.revert();
+    //this.revert();
   }
 
   revert() {

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
+import { AuthenticationService } from 'src/app/auth/auth.service';
+import { IUser } from 'src/app/interfaces/interfaces.model';
 
 @Component({
   selector: 'app-navbar',
@@ -6,21 +8,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.styl']
 })
 
+@Injectable()
 export class NavbarComponent implements OnInit {
   loginUrl: string;
   profileUrl: string;
-  profileText: string;
+  usuario: IUser = null;
   registerUrl: string;
   logoutUrl: string;
-  isAuthenticated: boolean;
 
-  constructor() {
-    this.isAuthenticated = false;
+  constructor(private authService: AuthenticationService) {
     this.loginUrl = "login";
     this.profileUrl = "profile";
     this.registerUrl = "signup";
-    this.profileText = "";
-    this.logoutUrl = "login";
+    this.authService.usuario.subscribe(
+      (usu: IUser) => {
+        this.usuario = usu;
+      }
+    );
+    this.logoutUrl = "logout";
   }
 
   ngOnInit() {

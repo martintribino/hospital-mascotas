@@ -5,12 +5,13 @@ import { LoginRoutingModule } from './login-routing.module';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from 'src/app/rest/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     LoginRoutingModule,
     CommonModule,
+    HttpClientModule,
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
@@ -19,9 +20,7 @@ import { AuthService } from 'src/app/rest/auth.service';
   declarations: [
     LoginComponent,
   ],
-  providers: [
-    AuthService
-  ]
+  providers: []
 })
 
 export class LoginModule { }

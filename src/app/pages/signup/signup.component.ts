@@ -11,19 +11,19 @@ import { PasswordValidation } from './password.validator';
 
 export class SignupComponent implements OnInit {
   signupForm = new FormGroup({
-    nombre: new FormControl('', [Validators.required]),
-    apellido: new FormControl('', [Validators.required]),
-    dni: new FormControl('', [Validators.required]),
-    telefono: new FormControl('', [Validators.required]),
-    nombreUsuario: new FormControl('', [Validators.required]),
-    clave: new FormControl('', [Validators.required]),
-    repetirClave: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    domicilio: new FormControl('', [Validators.required]),
-    imagen: new FormControl('', [Validators.required]),
-    nombreClinica: new FormControl('', [Validators.required]),
-    domicilioClinica: new FormControl('', [Validators.required]),
-    validado: new FormControl('', [Validators.required]),
+    nombre: new FormControl(''),
+    apellido: new FormControl(''),
+    dni: new FormControl(''),
+    telefono: new FormControl(''),
+    nombreUsuario: new FormControl(''),
+    clave: new FormControl(''),
+    repetirClave: new FormControl(''),
+    email: new FormControl(''),
+    domicilio: new FormControl(''),
+    imagen: new FormControl(''),
+    nombreClinica: new FormControl(''),
+    domicilioClinica: new FormControl(''),
+    validado: new FormControl(''),
   });
   errorResponse: string;
   successResponse: string;
@@ -33,19 +33,19 @@ export class SignupComponent implements OnInit {
   constructor() {
     this.isSubmiting = false;
     this.signupForm = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
-      apellido: new FormControl('', [Validators.required]),
-      documento: new FormControl('', [Validators.required]),
-      telefono: new FormControl('', [Validators.required]),
-      nombreUsuario: new FormControl('', [Validators.required]),
-      clave: new FormControl('', [Validators.required]),
+      nombre: new FormControl(''),
+      apellido: new FormControl(''),
+      documento: new FormControl(''),
+      telefono: new FormControl(''),
+      nombreUsuario: new FormControl(''),
+      clave: new FormControl(''),
       confirmarClave: new FormControl(''),
-      email: new FormControl('', [Validators.required]),
-      domicilio: new FormControl('', [Validators.required]),
-      imagen: new FormControl('', [Validators.required]),
-      nombreClinica: new FormControl('', [Validators.required]),
-      domicilioClinica: new FormControl('', [Validators.required]),
-      validado: new FormControl('', [Validators.required]),
+      email: new FormControl(''),
+      domicilio: new FormControl(''),
+      imagen: new FormControl(''),
+      nombreClinica: new FormControl(''),
+      domicilioClinica: new FormControl(''),
+      validado: new FormControl(''),
     }, PasswordValidation.MatchPassword);
     this.errorResponse = "";
     this.successResponse = "";

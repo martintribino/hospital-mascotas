@@ -5,8 +5,8 @@
     <mat-hint class="success-response">{{successResponse}}</mat-hint>
     <mat-form-field appearance="standard">
       <mat-label i18n="@@nameText">Nombre</mat-label>
-      <input matInput type="text" [disabled]="isSubmiting" formControlName="nombre" autocomplete="off"
-        placeholder="Nombre" maxlength="50" minlength="2" required>
+      <input matInput type="text" formControlName="nombre" autocomplete="off" placeholder="Nombre" maxlength="50"
+        minlength="2" required>
       <mat-hint i18n="@@nameText">Nombre</mat-hint>
       <mat-error *ngIf="signupF.nombre?.errors?.minlength" i18n="@@fieldMinError">El campo debe
         tener al menos 2 caracteres
@@ -18,8 +18,8 @@
     </mat-form-field>
     <mat-form-field appearance="standard">
       <mat-label i18n="@@surnameText">Apellido</mat-label>
-      <input matInput type="text" [disabled]="isSubmiting" formControlName="apellido" autocomplete="off"
-        placeholder="Apellido" maxlength="50" minlength="2" required>
+      <input matInput type="text" formControlName="apellido" autocomplete="off" placeholder="Apellido" maxlength="50"
+        minlength="2" required>
       <mat-hint i18n="@@surnameText">Apellido</mat-hint>
       <mat-error *ngIf="signupF.apellido?.errors?.minlength" i18n="@@fieldMinError">El campo debe
         tener al menos 2 caracteres
@@ -31,8 +31,8 @@
     </mat-form-field>
     <mat-form-field appearance="standard">
       <mat-label i18n="@@usernameText">Nombre de usuario</mat-label>
-      <input matInput type="text" [disabled]="isSubmiting" formControlName="nombreUsuario" autocomplete="off"
-        placeholder="Nombre de usuario" maxlength="50" minlength="2" required>
+      <input matInput type="text" formControlName="nombreUsuario" autocomplete="off" placeholder="Nombre de usuario"
+        maxlength="50" minlength="2" required>
       <mat-hint i18n="@@usernameText">Nombre de usuario</mat-hint>
       <mat-error *ngIf="signupF.nombreUsuario?.errors?.minlength" i18n="@@fieldMinError">El campo debe
         tener al menos 2 caracteres
@@ -44,8 +44,7 @@
     </mat-form-field>
     <mat-form-field appearance="standard">
       <mat-label i18n="@@passwordText">Clave</mat-label>
-      <input matInput type="password" [disabled]="isSubmiting" formControlName="clave" placeholder="" maxlength="50"
-        minlength="4" required>
+      <input matInput type="password" formControlName="clave" placeholder="" maxlength="50" minlength="4" required>
       <mat-hint i18n="@@passwordText">Clave</mat-hint>
       <mat-error *ngIf="signupF.clave?.errors?.minlength" i18n="@@fieldMinError">El campo debe tener al menos 4
         caracteres</mat-error>
@@ -55,8 +54,8 @@
     </mat-form-field>
     <mat-form-field appearance="standard" *ngIf="signupF.clave?.valid">
       <mat-label i18n="@@passwordConfirmText">Confirmar Clave</mat-label>
-      <input matInput type="password" [disabled]="isSubmiting" formControlName="confirmarClave" placeholder=""
-        maxlength="50" minlength="4" required>
+      <input matInput type="password" formControlName="confirmarClave" placeholder="" maxlength="50" minlength="4"
+        required>
       <mat-hint i18n="@@passwordConfirmText">Confirmar Clave</mat-hint>
       <mat-error *ngIf="signupF.confirmarClave?.errors?.matchPassword" i18n="@@passMismatchError">Las claves no
         coinciden
@@ -64,8 +63,8 @@
     </mat-form-field>
     <mat-form-field appearance="standard">
       <mat-label i18n="@@documentoText">Documento</mat-label>
-      <input matInput type="number" [disabled]="isSubmiting" formControlName="documento" autocomplete="off"
-        placeholder="Documento" max="99999999" min="1" required>
+      <input matInput type="number" formControlName="documento" autocomplete="off" placeholder="Documento"
+        max="99999999" min="1" required>
       <mat-hint i18n="@@surnameText">Documento</mat-hint>
       <mat-error *ngIf="signupF.documento?.errors?.min" i18n="@@fieldMinNumberError">El campo debe
         ser mayor a 1

@@ -11,13 +11,13 @@
     </nav>
     <mat-divider [vertical]="true"></mat-divider>
     <nav class="profile-navbar">
-      <div *ngIf="isAuthenticated; else elseBlock">
-        <mat-menu #menu="matMenu">
-          <button mat-button [routerLink]="profileUrl" routerLinkActive="active-link">{{profileText}}</button>
-          <button mat-button [routerLink]="logoutUrl" i18n="@@logoutText" routerLinkActive="active-link">Cerrar
-            sesión</button>
-        </mat-menu>
+      <div *ngIf="(authService.isLoggedIn | async); then ifBlock else elseBlock">
       </div>
+      <ng-template #ifBlock>
+        <button mat-button [routerLink]="profileUrl" routerLinkActive="active-link">{{usuario?.nombreUsuario}}</button>
+        <button mat-button [routerLink]="logoutUrl" i18n="@@logoutText" routerLinkActive="active-link">Cerrar
+          sesión</button>
+      </ng-template>
       <ng-template #elseBlock>
         <button mat-button [routerLink]="loginUrl" i18n="@@loginText" routerLinkActive="active-link"> Iniciar
           sesión</button>

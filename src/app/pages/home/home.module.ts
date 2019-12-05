@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
+import { MatCardModule } from '@angular/material';
+import { CommonModule } from '@angular/common';
 
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
   imports: [
-    HomeRoutingModule
+    HomeRoutingModule,
+    CommonModule,
+    MatCardModule
   ],
   declarations: [
     HomeComponent
