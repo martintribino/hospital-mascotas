@@ -12,6 +12,13 @@ mat-toolbar
   min-height auto
 .mat-menu-trigger
   box-shadow none
+.hamburguer-menu
+  .mat-button-wrapper
+    span
+      display flex
+      width 100%
+      justify-content space-between
+      align-items center
 nav
   align-items center
   .mat-button
@@ -39,6 +46,18 @@ nav
       font-weight bold
       font-size 0.8em
       border 1px solid rgba(#ffffff, 0.3)
+
+@media screen and (max-width: md)
+  .router-navbar
+    button
+      font-size 0.8em
+      padding 0 8px
+      margin: 4px 8px;
+      justify-content: center;
+      .mat-button-wrapper
+        display flex
+        align-items center
+
 @media (max-width: sm )
   mat-toolbar-row 
     display flex

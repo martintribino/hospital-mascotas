@@ -1,6 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { IUser } from 'src/app/interfaces/interfaces.model';
+import { Usuario } from 'src/app/model/usuario';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ import { IUser } from 'src/app/interfaces/interfaces.model';
 export class NavbarComponent implements OnInit {
   loginUrl: string;
   profileUrl: string;
-  usuario: IUser = null;
+  usuario: IUser = new Usuario();
   registerUrl: string;
   logoutUrl: string;
 
@@ -20,15 +21,15 @@ export class NavbarComponent implements OnInit {
     this.loginUrl = "login";
     this.profileUrl = "profile";
     this.registerUrl = "signup";
+    this.logoutUrl = "logout";
+  }
+
+  ngOnInit() {
     this.authService.usuario.subscribe(
       (usu: IUser) => {
         this.usuario = usu;
       }
     );
-    this.logoutUrl = "logout";
-  }
-
-  ngOnInit() {
   }
 
 }

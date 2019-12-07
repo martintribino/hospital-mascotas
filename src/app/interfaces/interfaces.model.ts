@@ -1,12 +1,4 @@
 
-export interface IJWToken {
-  nombre_usuario: string;
-  role: string;
-  imagen?: string;
-  iat: Date;
-  exp: Date;
-}
-
 export interface ILoginBody {
   nombre_usuario: string;
   clave: string;
@@ -28,6 +20,7 @@ export interface IMascota {
 export interface IUser {
   nombreUsuario: string;
   role: string;
+  token?: string;
   imagen?: string;
 }
 

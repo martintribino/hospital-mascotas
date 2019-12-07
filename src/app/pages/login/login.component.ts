@@ -4,7 +4,7 @@ import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
-import { ILoginBody } from 'src/app/interfaces/interfaces.model';
+import { ILoginBody, IUser } from 'src/app/interfaces/interfaces.model';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -52,26 +52,27 @@ export class LoginComponent implements OnInit {
     let headers = new HttpHeaders().set("Content-Type", "application/json"),
       options = {
         headers: headers,
-        observe: 'response'
+        //observe: 'body',
+        //responseType: 'json'
       };
-    let response = this.authService.login(url, loginBody, options)
+    this.authService.login(url, loginBody, options)
       .subscribe(
-        (data: Response) => this.onSuccess(data),
-        (error: HttpErrorResponse) => this.handleError(error),
-        () => this.onComplete()
+        (data: IUser) => this.onSuccess(data),
+        (error: HttpErrorResponse) => this.handleError(error)
       );
   }
 
-  onSuccess(result: Response) {
+  onSuccess(result: IUser) {
     this.errorResponse = "";
     this.successResponse = "Autenticación correcta. Redirigiendo...";
     this.redirecting = true;
-    this.authService.isLoggedIn.subscribe(
-      () => {
-        this.router.navigate(['/loading-page'], { queryParams: {} });
-      },
-      () => { this.revert() }
-    );
+    this.authService.isLoggedIn
+      .subscribe(
+        () => {
+          this.router.navigate(['/loading-page'], { queryParams: {} });
+        },
+        () => { this.revert() }
+      );
     this.authService.setSession(result);
     this.authService.setUsuarioByToken();
   }
@@ -94,10 +95,6 @@ export class LoginComponent implements OnInit {
       }
     }
     this.revert();
-  }
-
-  onComplete() {
-    //this.revert();
   }
 
   revert() {

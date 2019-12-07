@@ -102,12 +102,20 @@ mat-form-field
       color successColor
     .mat-form-field-underline
       background-color successColor
+.desktop
+  display flex
+.mobile
+  display none
 
 @media screen and (max-width: md)
   .title-navbar
     display none
 
 @media screen and (max-width: sm)
+  .desktop
+    display none
+  .mobile
+    display flex
   app-home
     flex-direction column
   .container

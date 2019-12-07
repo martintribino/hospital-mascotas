@@ -1438,8 +1438,18 @@ mat-footer-row,mat-header-row,mat-row,td.mat-cell,td.mat-footer-cell,th.mat-head
   .mat-menu-content
     display flex
     flex-direction column
+    padding 8px 12px
     button
+      display flex
       box-shadow none
+      padding 0 8px
+      .mat-button-wrapper
+        display flex
+        width 100%
+        justify-content flex-end
+        align-items center
+        label
+          margin-right 10px
   &:not([class*=mat-elevation-z])
     box-shadow 0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
 

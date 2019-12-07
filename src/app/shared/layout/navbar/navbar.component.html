@@ -1,21 +1,22 @@
 <mat-toolbar color="transparent">
   <mat-toolbar-row>
     <nav class="title-navbar">
-      <h2 i18n="@@title">Veterinaria</h2>
+      <h2 i18n="@@title">Hospital</h2>
     </nav>
-    <mat-divider [vertical]="true"></mat-divider>
     <nav class="router-navbar">
-      <button mat-button routerLink="home" i18n="@@homeText" routerLinkActive="active-link"> Inicio </button>
-      <button mat-button routerLink="services" i18n="@@serviceText" routerLinkActive="active-link"> Servicios </button>
-      <button mat-button routerLink="contact" i18n="@@contactText" routerLinkActive="active-link"> Contacto </button>
-      <mat-menu #menu="matMenu" class="hamburguer-menu">
-        <div *ngIf="(authService.isLoggedIn | async); then ifBlock else elseBlock">
-        </div>
+      <div class="desktop">
+        <button mat-button routerLink="home" i18n="@@homeText" routerLinkActive="active-link"> Inicio </button>
+        <button mat-button routerLink="services" i18n="@@serviceText" routerLinkActive="active-link"> Servicios
+        </button>
+        <button mat-button routerLink="contact" i18n="@@contactText" routerLinkActive="active-link"> Contacto </button>
+        <div *ngIf="(authService.isLoggedIn | async); then ifBlock else elseBlock"></div>
         <ng-template #ifBlock>
-          <button mat-button [routerLink]="profileUrl"
-            routerLinkActive="active-link">{{usuario?.nombreUsuario}}</button>
-          <button mat-button [routerLink]="logoutUrl" i18n="@@logoutText" routerLinkActive="active-link">Cerrar
-            sesión</button>
+          <button mat-button [routerLink]="profileUrl" routerLinkActive="active-link">
+            {{(usuario?.nombreUsuario)}}
+          </button>
+          <button mat-button [routerLink]="logoutUrl" i18n="@@logoutText" routerLinkActive="active-link">
+            Cerrar sesión
+          </button>
         </ng-template>
         <ng-template #elseBlock>
           <button mat-button [routerLink]="loginUrl" i18n="@@loginText" routerLinkActive="active-link"> Iniciar
@@ -23,10 +24,48 @@
           <button mat-button [routerLink]="registerUrl" i18n="@@registerText" routerLinkActive="active-link">
             Registrarse</button>
         </ng-template>
-      </mat-menu>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="hamburguer menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
+      </div>
+      <div class="mobile">
+        <mat-menu #menu="matMenu" class="hamburguer-menu">
+          <button mat-button routerLink="home" i18n="@@homeText" routerLinkActive="active-link">
+            <label>Inicio</label>
+            <mat-icon>home</mat-icon>
+          </button>
+          <button mat-button routerLink="services" i18n="@@serviceText" routerLinkActive="active-link">
+            <label>Servicios</label>
+            <mat-icon>business_center</mat-icon>
+          </button>
+          <button mat-button routerLink="contact" i18n="@@contactText" routerLinkActive="active-link">
+            <label>Contacto</label>
+            <mat-icon>contacts</mat-icon>
+          </button>
+          <div *ngIf="(authService.isLoggedIn | async); then ifBlockMob else elseBlockMob">
+          </div>
+          <ng-template #ifBlockMob>
+            <button mat-button [routerLink]="profileUrl" routerLinkActive="active-link">
+              <label>{{(usuario?.nombreUsuario)}}</label>
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <button mat-button [routerLink]="logoutUrl" i18n="@@logoutText" routerLinkActive="active-link">
+              <label>Cerrar sesión</label>
+              <mat-icon>power_settings_new</mat-icon>
+            </button>
+          </ng-template>
+          <ng-template #elseBlockMob>
+            <button mat-button [routerLink]="loginUrl" i18n="@@loginText" routerLinkActive="active-link">
+              <label>Iniciar sesión</label>
+              <mat-icon>pets</mat-icon>
+            </button>
+            <button mat-button [routerLink]="registerUrl" i18n="@@registerText" routerLinkActive="active-link">
+              <label>Registrarse</label>
+              <mat-icon>group_add</mat-icon>
+            </button>
+          </ng-template>
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="hamburguer menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
     </nav>
   </mat-toolbar-row>
 </mat-toolbar>

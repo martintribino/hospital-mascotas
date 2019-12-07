@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ILoginBody, IUser, IProfile, IJWToken } from '../interfaces/interfaces.model';
+import { ILoginBody, IUser } from '../interfaces/interfaces.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -25,13 +25,13 @@ export class AuthenticationService {
 
   setUsuarioByToken() {
     let usu: IUser,
-      jwtoken = localStorage.getItem('jwtoken'),
-      decodedToken = this.helper.decodeToken(jwtoken);
+      jwtoken = JSON.parse(localStorage.getItem('jwtuser'));
     try {
       usu = {
-        nombreUsuario: decodedToken.nombre_usuario,
-        role: decodedToken.role,
-        imagen: decodedToken.imagen
+        nombreUsuario: jwtoken.nombreUsuario,
+        role: jwtoken.role,
+        imagen: jwtoken.imagen,
+        token: jwtoken.token
       };
       this.updateLoggedInState(true);
     } catch (error) {
@@ -50,32 +50,25 @@ export class AuthenticationService {
   }
 
   login(url: string, body: ILoginBody, options: Object) {
-    return this.http.post<Response>(url, body, options);
+    return this.http.post<IUser>(url, body, options);
   }
 
-  getPerfil(options: Object) {
-    let url = this.baseApiUrl + '/auth/perfil';
-    return this.http.get<IProfile>(url, options);
-  }
-
-  getUsuario(options: Object) {
-    let url = this.baseApiUrl + `/auth/usuario`;
-    return this.http.get<IUser>(url, options);
-  }
-
-  setSession(authResult: Response) {
-    if (authResult == null || authResult.headers == null)
+  setSession(authResult: IUser) {
+    if (authResult == null)
       return;
-    let jwtokenHeader = authResult.headers.get("X-JWToken");
+    let jwtokenHeader = authResult.token;
     if (jwtokenHeader == undefined)
       return;
-    localStorage.setItem('jwtoken', jwtokenHeader);
+    this.updateLoggedInState(true);
+    localStorage.setItem('jwtuser', JSON.stringify(authResult));
+    this.setUsuario(authResult);
     console.log("--- Log in ---");
   }
 
   logout() {
     this.updateLoggedInState(false);
-    localStorage.removeItem("jwtoken");
+    localStorage.removeItem("jwtuser");
+    this.unsetUsuario();
     console.log("--- Log out ---");
   }
 
@@ -88,7 +81,7 @@ export class AuthenticationService {
   }
 
   public isExpired(): boolean {
-    let jwtoken = localStorage.getItem('jwtoken');
+    let jwtoken = localStorage.getItem('jwtuser');
     return this.helper.isTokenExpired(jwtoken);
   }
 

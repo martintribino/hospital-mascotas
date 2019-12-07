@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit {
   }
 
   onSuccess(result) {
-    console.log(result);
     this.mascSubject.next(result);
   }
 

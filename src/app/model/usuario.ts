@@ -1,13 +1,15 @@
+import { IUser } from '../interfaces/interfaces.model';
 
-export class Usuario {
-  nombre_usuario: string;
-  clave: string;
-  roles: Array<string>;
+export class Usuario implements IUser {
+  nombreUsuario: string;
+  role: string;
   token?: string;
+  imagen?: string;
 
   constructor() {
-    this.nombre_usuario = "";
-    this.clave = "";
-    this.roles = [];
+    this.nombreUsuario = "";
+    this.role = "";
+    this.token = "";
+    this.imagen = "";
   }
 }
