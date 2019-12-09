@@ -24,15 +24,32 @@ export interface IUser {
   imagen?: string;
 }
 
+export interface ISignup {
+  nombre: string;
+  apellido: string;
+  nombreUsuario: string;
+  dni: number;
+  role: string;
+  email: string;
+  clave: string;
+  confirmarClave: string;
+  telefono: number;
+  domicilio?: string;
+  imagen?: string;
+  nombreClinica?: string;
+  domicilioClinica?: string;
+  validado?: boolean;
+}
+
 export interface IProfile {
   nombre: string;
   apellido: string;
-  dni: number;
-  telefono: number;
   nombreUsuario: string;
+  dni: number;
   email: string;
-  domicilio: string;
-  imagen: string;
+  domicilio?: string;
+  telefono?: number;
+  imagen?: string;
   nombreClinica?: string;
   domicilioClinica?: string;
   validado?: boolean;

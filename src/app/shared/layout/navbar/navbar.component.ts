@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   profileUrl: string;
   usuario: IUser = new Usuario();
   registerUrl: string;
+  mascotasUrl: string;
   logoutUrl: string;
 
   constructor(private authService: AuthenticationService) {
@@ -22,6 +23,7 @@ export class NavbarComponent implements OnInit {
     this.profileUrl = "profile";
     this.registerUrl = "signup";
     this.logoutUrl = "logout";
+    this.mascotasUrl = "mascotas";
   }
 
   ngOnInit() {

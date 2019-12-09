@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ILoginBody, IUser } from '../interfaces/interfaces.model';
-import { HttpClient } from '@angular/common/http';
+import { ILoginBody, IUser, IProfile, ISignup } from '../interfaces/interfaces.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
   baseApiUrl = environment.baseApiUrl;
-  private usuarioSubject = new ReplaySubject<IUser>(1);
+  private usuarioSubject = new BehaviorSubject<IUser>(null);
   public usuario = this.usuarioSubject.asObservable();
   private authSubject = new BehaviorSubject<boolean>(false);
   public isLoggedIn = this.authSubject.asObservable();
-  private helper = new JwtHelperService();
+  private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
-    if (this.isExpired()) {
-      this.logout();
-    }
+    this.headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
+    this.unsetUsuario();
     this.updateLoggedInState(false);
     this.setUsuarioByToken();
   }
@@ -45,11 +44,21 @@ export class AuthenticationService {
     this.usuarioSubject.next(usu);
   }
 
+  getUsuario(): IUser {
+    return this.usuarioSubject.getValue();
+  }
+
   unsetUsuario() {
     this.usuarioSubject.next(null);
   }
 
-  login(url: string, body: ILoginBody, options: Object) {
+  login(body: ILoginBody) {
+    let url: string = this.baseApiUrl + "/login/",
+      options = {
+        headers: this.headers,
+        //observe: 'body',
+        //responseType: 'json'
+      };
     return this.http.post<IUser>(url, body, options);
   }
 
@@ -65,6 +74,18 @@ export class AuthenticationService {
     console.log("--- Log in ---");
   }
 
+  signup(body: ISignup) {
+    console.log("--- Sign Up ---");
+    console.log(body);
+    let url: string = this.baseApiUrl + "/profile/",
+      options = {
+        headers: this.headers,
+        //observe: 'body',
+        //responseType: 'json'
+      };
+    return this.http.post<IProfile>(url, body, options);
+  }
+
   logout() {
     this.updateLoggedInState(false);
     localStorage.removeItem("jwtuser");
@@ -78,11 +99,6 @@ export class AuthenticationService {
 
   public isAuthenticated(): Observable<boolean> {
     return this.isLoggedIn;
-  }
-
-  public isExpired(): boolean {
-    let jwtoken = localStorage.getItem('jwtuser');
-    return this.helper.isTokenExpired(jwtoken);
   }
 
 }

@@ -11,6 +11,9 @@
         <button mat-button routerLink="contact" i18n="@@contactText" routerLinkActive="active-link"> Contacto </button>
         <div *ngIf="(authService.isLoggedIn | async); then ifBlock else elseBlock"></div>
         <ng-template #ifBlock>
+          <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
+            Mascotas
+          </button>
           <button mat-button [routerLink]="profileUrl" routerLinkActive="active-link">
             {{(usuario?.nombreUsuario)}}
           </button>

@@ -1,9 +1,8 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { FormGroup, FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { environment } from 'src/environments/environment';
 import { ILoginBody, IUser } from 'src/app/interfaces/interfaces.model';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
   successResponse: string;
   redirecting: boolean;
   isSubmiting: boolean;
-  baseApiUrl = environment.baseApiUrl;
 
   constructor(
     private authService: AuthenticationService,
@@ -43,19 +41,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.isSubmiting = true;
-    let url = this.baseApiUrl + '/login';
     let loginBody: ILoginBody = {
       "nombre_usuario": this.loginF.nombreUsuario.value,
       "clave": this.loginF.clave.value
     };
     this.redirecting = false;
-    let headers = new HttpHeaders().set("Content-Type", "application/json"),
-      options = {
-        headers: headers,
-        //observe: 'body',
-        //responseType: 'json'
-      };
-    this.authService.login(url, loginBody, options)
+    this.authService.login(loginBody)
       .subscribe(
         (data: IUser) => this.onSuccess(data),
         (error: HttpErrorResponse) => this.handleError(error)

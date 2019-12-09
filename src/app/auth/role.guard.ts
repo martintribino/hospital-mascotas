@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AuthenticationService } from './auth.service';
-import decode from 'jwt-decode';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,12 +11,12 @@ export class RoleGuard implements CanActivate {
   constructor(public auth: AuthenticationService, public router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const allowedRoles: string[] = route.data.allowedRoles;
-    const token = localStorage.getItem('jwtoken');
-    const tokenPayload = decode(token);
+    let allowedRoles: string[] = route.data.allowedRoles,
+      usu = this.auth.getUsuario();
     if (
-      this.auth.isAuthenticated() &&
-      allowedRoles.includes(tokenPayload.role)
+      this.auth.isLoggedIn &&
+      usu != null &&
+      allowedRoles.includes(usu.role)
     ) {
       return true;
     }
