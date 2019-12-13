@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { MascotaService } from 'src/app/auth/mascota.service';
 import { IMascota } from 'src/app/interfaces/interfaces.model';
-import { HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -17,19 +16,13 @@ export class HomeComponent implements OnInit {
   public mascotas = this.mascSubject.asObservable();
 
   constructor(
-    private mascService: MascotaService,
-    private router: Router
+    private mascService: MascotaService
   ) {
     this.mascSubject.next([]);
   }
 
   ngOnInit() {
-    let headers = new HttpHeaders().set("Content-Type", "application/json"),
-      options = {
-        headers: headers,
-        //observe: 'response'
-      };
-    this.mascService.getMascotas(options).subscribe(
+    this.mascService.getMascotas().subscribe(
       (data) => this.onSuccess(data),
       (error) => this.handleError(error)
     );

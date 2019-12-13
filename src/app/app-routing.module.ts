@@ -7,8 +7,16 @@ import { RoleGuard } from './auth/role.guard';
 
 export const routes: Routes = [
   {
-    path: 'profile',
-    loadChildren: () => import("./pages/profile/profile.module").then(mod => mod.ProfileModule),
+    path: 'edit-perfil',
+    loadChildren: () => import("./pages/edit-perfil/edit-perfil.module").then(mod => mod.EditPerfilModule),
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: ['administrador', 'duenio', 'veterinario']
+    }
+  },
+  {
+    path: 'edit-user',
+    loadChildren: () => import("./pages/edit-user/edit-user.module").then(mod => mod.EditUserModule),
     canActivate: [RoleGuard],
     data: {
       allowedRoles: ['administrador', 'duenio', 'veterinario']
@@ -19,7 +27,15 @@ export const routes: Routes = [
     loadChildren: () => import("./pages/mascotas/mascotas.module").then(mod => mod.MascotasModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: ['administrador', 'duenio', 'veterinario']
+      allowedRoles: ['duenio', 'veterinario']
+    }
+  },
+  {
+    path: 'create-mascota',
+    loadChildren: () => import("./pages/create-mascota/create-mascota.module").then(mod => mod.CreateMascotaModule),
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: ['duenio']
     }
   },
   { path: 'services', loadChildren: () => import("./pages/services/services.module").then(mod => mod.ServicesModule) },

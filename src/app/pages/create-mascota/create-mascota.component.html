@@ -1,0 +1,59 @@
+<form [formGroup]="mascotasForm" (ngSubmit)="onSubmit()" novalidate>
+  <fieldset class="form-group">
+    <mat-hint i18n="@@inputData">Datos de la nueva mascota</mat-hint>
+    <mat-error i18n="@@loginErrorResponse">{{errorResponse}}</mat-error>
+    <mat-hint class="success-response">{{successResponse}}</mat-hint>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Nombre</mat-label>
+      <input matInput type="text" formControlName="nombre" autocomplete="off" placeholder="Nombre" maxlength="40"
+        minlength="2" required>
+      <mat-hint i18n="@@nameText">Nombre</mat-hint>
+      <mat-error *ngIf="crearMascF.nombre?.errors?.minlength" i18n="@@fieldMinError">El campo debe
+        tener al menos 2 caracteres
+      </mat-error>
+      <mat-error *ngIf="crearMascF.nombre?.errors?.maxlength" i18n="@@fieldMaxError">El campo debe
+        tener como máximo 40 caracteres
+      </mat-error>
+      <mat-error *ngIf="crearMascF.nombre?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Especie</mat-label>
+      <input matInput type="text" formControlName="especie" autocomplete="off" placeholder="Especie" required>
+      <mat-hint i18n="@@nameText">Especie</mat-hint>
+      <mat-error *ngIf="crearMascF.especie?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Raza</mat-label>
+      <input matInput type="text" formControlName="raza" autocomplete="off" placeholder="Raza" required>
+      <mat-hint i18n="@@nameText">Raza</mat-hint>
+      <mat-error *ngIf="crearMascF.raza?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Sexo</mat-label>
+      <input matInput type="text" formControlName="sexo" autocomplete="off" placeholder="Sexo" required>
+      <mat-hint i18n="@@nameText">Sexo</mat-hint>
+      <mat-error *ngIf="crearMascF.sexo?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Color</mat-label>
+      <input matInput type="text" formControlName="color" autocomplete="off" placeholder="Color">
+      <mat-hint i18n="@@nameText">Color</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Señas</mat-label>
+      <input matInput type="text" formControlName="senias" autocomplete="off" placeholder="Señas">
+      <mat-hint i18n="@@nameText">Señas</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Fecha de nacimiento</mat-label>
+      <input matInput type="text" formControlName="fecha" autocomplete="off" placeholder="Fecha de nacimiento">
+      <mat-hint i18n="@@nameText">Fecha de nacimiento</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label i18n="@@nameText">Imagen</mat-label>
+      <input matInput type="text" formControlName="imagen" autocomplete="off" placeholder="Imagen">
+      <mat-hint i18n="@@nameText">Imagen</mat-hint>
+    </mat-form-field>
+    <button type="submit" [disabled]="mascotasForm.invalid || isSubmiting" i18n="@@crearMascText">Crear mascota</button>
+  </fieldset>
+</form>

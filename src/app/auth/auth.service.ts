@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ILoginBody, IUser, IProfile, ISignup } from '../interfaces/interfaces.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+
+import { ILoginBody, IUser } from '../interfaces/interfaces.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-  baseApiUrl = environment.baseApiUrl;
+  private endpoints = environment.endpoints;
   private usuarioSubject = new BehaviorSubject<IUser>(null);
   public usuario = this.usuarioSubject.asObservable();
   private authSubject = new BehaviorSubject<boolean>(false);
@@ -33,11 +34,20 @@ export class AuthenticationService {
         token: jwtoken.token
       };
       this.updateLoggedInState(true);
+      this.setUsuario(usu);
     } catch (error) {
       usu = null;
       this.updateLoggedInState(false);
+      this.unsetUsuario();
     }
-    this.setUsuario(usu);
+  }
+
+  checkToken() {
+    let url: string = this.endpoints.checkToken,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.get<Response>(url, options);
   }
 
   setUsuario(usu: IUser) {
@@ -53,7 +63,7 @@ export class AuthenticationService {
   }
 
   login(body: ILoginBody) {
-    let url: string = this.baseApiUrl + "/login/",
+    let url: string = this.endpoints.login,
       options = {
         headers: this.headers,
         //observe: 'body',
@@ -71,24 +81,12 @@ export class AuthenticationService {
     this.updateLoggedInState(true);
     localStorage.setItem('jwtuser', JSON.stringify(authResult));
     this.setUsuario(authResult);
-    console.log("--- Log in ---");
-  }
-
-  signup(body: ISignup) {
-    console.log("--- Sign Up ---");
-    console.log(body);
-    let url: string = this.baseApiUrl + "/profile/",
-      options = {
-        headers: this.headers,
-        //observe: 'body',
-        //responseType: 'json'
-      };
-    return this.http.post<IProfile>(url, body, options);
+    console.log("--- Set Session ---");
   }
 
   logout() {
-    this.updateLoggedInState(false);
     localStorage.removeItem("jwtuser");
+    this.updateLoggedInState(false);
     this.unsetUsuario();
     console.log("--- Log out ---");
   }

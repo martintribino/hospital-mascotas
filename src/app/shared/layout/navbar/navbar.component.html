@@ -11,12 +11,28 @@
         <button mat-button routerLink="contact" i18n="@@contactText" routerLinkActive="active-link"> Contacto </button>
         <div *ngIf="(authService.isLoggedIn | async); then ifBlock else elseBlock"></div>
         <ng-template #ifBlock>
-          <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
+          <button mat-button [matMenuTriggerFor]="mascMenu" routerLinkActive="active-link">
             Mascotas
           </button>
-          <button mat-button [routerLink]="profileUrl" routerLinkActive="active-link">
+          <mat-menu #mascMenu="matMenu" class="mascota-menu">
+            <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
+              Mis mascotas
+            </button>
+            <button mat-button [routerLink]="createMascotasUrl" routerLinkActive="active-link">
+              Crear mascota
+            </button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="perfilMenu" routerLinkActive="active-link">
             {{(usuario?.nombreUsuario)}}
           </button>
+          <mat-menu #perfilMenu="matMenu" class="perfil-menu">
+            <button mat-button [routerLink]="editPerfilUrl" routerLinkActive="active-link">
+              Editar Perfil
+            </button>
+            <button mat-button [routerLink]="editUserUrl" routerLinkActive="active-link">
+              Editar Usuario
+            </button>
+          </mat-menu>
           <button mat-button [routerLink]="logoutUrl" i18n="@@logoutText" routerLinkActive="active-link">
             Cerrar sesión
           </button>
@@ -45,10 +61,28 @@
           <div *ngIf="(authService.isLoggedIn | async); then ifBlockMob else elseBlockMob">
           </div>
           <ng-template #ifBlockMob>
-            <button mat-button [routerLink]="profileUrl" routerLinkActive="active-link">
-              <label>{{(usuario?.nombreUsuario)}}</label>
-              <mat-icon>account_circle</mat-icon>
+            <button mat-menu-item [matMenuTriggerFor]="mascMenu" routerLinkActive="active-link">
+              Mascotas
             </button>
+            <mat-menu #mascMenu="matMenu" class="mascota-menu">
+              <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
+                Mis mascotas
+              </button>
+              <button mat-button [routerLink]="createMascotasUrl" routerLinkActive="active-link">
+                Crear mascota
+              </button>
+            </mat-menu>
+            <button mat-menu-item [matMenuTriggerFor]="perfilMenu" routerLinkActive="active-link">
+              {{(usuario?.nombreUsuario)}}
+            </button>
+            <mat-menu #perfilMenu="matMenu" class="perfil-menu">
+              <button mat-button [routerLink]="editPerfilUrl" routerLinkActive="active-link">
+                Editar Perfil
+              </button>
+              <button mat-button [routerLink]="editUserUrl" routerLinkActive="active-link">
+                Editar Usuario
+              </button>
+            </mat-menu>
             <button mat-button [routerLink]="logoutUrl" i18n="@@logoutText" routerLinkActive="active-link">
               <label>Cerrar sesión</label>
               <mat-icon>power_settings_new</mat-icon>

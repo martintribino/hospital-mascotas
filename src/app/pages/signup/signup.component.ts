@@ -6,6 +6,7 @@ import { IProfile, ISignup } from 'src/app/interfaces/interfaces.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
+import { PerfilService } from 'src/app/auth/perfil.service';
 
 @Component({
   selector: 'app-signup',
@@ -35,7 +36,7 @@ export class SignupComponent implements OnInit {
   isSubmiting: boolean;
   roles: Array<{ clave: string, valor: string }>;
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+  constructor(private perfilService: PerfilService, private router: Router) {
     this.isSubmiting = false;
     this.signupForm = new FormGroup({
       nombre: new FormControl(''),
@@ -80,7 +81,7 @@ export class SignupComponent implements OnInit {
       "dni": this.signupF.documento.value,
       "telefono": this.signupF.telefono.value,
     };
-    this.authService.signup(loginBody)
+    this.perfilService.signup(loginBody)
       .subscribe(
         (data: IProfile) => this.onSuccess(data),
         (error: HttpErrorResponse) => this.handleError(error),

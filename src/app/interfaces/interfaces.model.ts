@@ -2,6 +2,8 @@
 export interface ILoginBody {
   nombre_usuario: string;
   clave: string;
+  confirmar_clave?: string;
+  nombre_usuario_viejo?: string;
 }
 
 export interface IMascota {
@@ -9,12 +11,24 @@ export interface IMascota {
   especie: string;
   raza: string;
   sexo: string;
-  color: string;
-  senias: string;
-  fecha_nacimiento: Date;
-  imagen: string;
-  duenio: IProfile;
-  veterinario: IProfile;
+  color?: string;
+  senias?: string;
+  fecha_nacimiento?: Date;
+  imagen?: string;
+  duenio?: IProfile;
+  veterinario?: IProfile;
+}
+
+export interface IMascotaBody {
+  nombre: string;
+  especie: string;
+  raza: string;
+  sexo: string;
+  color?: string;
+  senias?: string;
+  username: string;
+  fecha_nacimiento?: Date;
+  imagen?: string;
 }
 
 export interface IUser {
@@ -22,6 +36,19 @@ export interface IUser {
   role: string;
   token?: string;
   imagen?: string;
+}
+
+export interface IEditarPerfil {
+  nombre: string;
+  apellido: string;
+  dni: number;
+  email: string;
+  telefono?: number;
+  domicilio?: string;
+  imagen?: string;
+  nombreClinica?: string;
+  domicilioClinica?: string;
+  validado?: boolean;
 }
 
 export interface ISignup {

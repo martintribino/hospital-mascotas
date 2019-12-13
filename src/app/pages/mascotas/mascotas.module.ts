@@ -4,13 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MascotasComponent } from './mascotas.component';
 import { MascotasRoutingModule } from './mascotas-routing.module';
+import { MatCardModule } from '@angular/material';
 
 
 @NgModule({
   imports: [
     MascotasRoutingModule,
     CommonModule,
-    HttpClientModule,
+    MatCardModule
   ],
   declarations: [
     MascotasComponent,
