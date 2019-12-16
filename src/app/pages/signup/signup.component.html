@@ -44,7 +44,7 @@
     </mat-form-field>
     <mat-form-field appearance="standard">
       <mat-label i18n="@@roleText">Rol</mat-label>
-      <mat-select formControlName="role" name="role">
+      <mat-select formControlName="role" name="role" required>
         <mat-option *ngFor="let rol of roles" [value]="rol.clave">
           {{rol.valor}}
         </mat-option>
