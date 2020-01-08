@@ -40,13 +40,6 @@ export class MascotasComponent implements OnInit {
 
   handleError(error: HttpErrorResponse) {
     this.mascSubject.next([]);
-    if (error.status === 0 ||
-      error.status === 401 ||
-      error.status === 403
-    ) {
-      this.authService.logout();
-      this.router.navigate(['/login'], { queryParams: {} });
-    }
   }
 
 }

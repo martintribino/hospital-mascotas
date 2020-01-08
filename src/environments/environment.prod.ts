@@ -14,5 +14,6 @@ export const environment = {
     perfil: "http://localhost:8080/hospital-mascotas-java/api/usuario/profile/",
     mascota: "http://localhost:8080/hospital-mascotas-java/api/mascotas/",
     mascotasDuenio: "http://localhost:8080/hospital-mascotas-java/api/mascotas/duenio/",
+    veterinariosValidados: "http://localhost:8080/hospital-mascotas-java/api/veterinarios/XValidacion/",
   }
 };

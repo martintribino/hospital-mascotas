@@ -15,12 +15,17 @@ export class RoleGuard implements CanActivate {
       usu = this.auth.getUsuario();
     if (
       this.auth.isLoggedIn &&
-      usu != null &&
-      allowedRoles.includes(usu.role)
+      usu != null
     ) {
-      return true;
+      if (allowedRoles.includes(usu.role)) {
+        return true;
+      } else {
+        this.router.navigate(['not-allowed']);
+        return false;
+      }
+    } else {
+      this.router.navigate(['login']);
+      return false;
     }
-    this.router.navigate(['login']);
-    return false;
   }
 }

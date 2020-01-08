@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment.prod';
 import { ILoginBody, IUser, ISignup, IProfile, IEditarPerfil } from '../interfaces/interfaces.model';
@@ -50,6 +50,22 @@ export class PerfilService {
 
   getPerfil(): IProfile {
     return this.perfilSubject.getValue();
+  }
+
+  borrarPerfil(username: string) {
+    let url: string = this.endpoints.perfil + "?username=" + username,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.delete(url, options);
+  }
+
+  validarPerfil(username: string) {
+    let url: string = this.endpoints.perfil + "/validar?username=" + username,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.put(url, options);
   }
 
   signup(body: ISignup) {

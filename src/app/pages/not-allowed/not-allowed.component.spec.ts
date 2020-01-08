@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VeterinarioComponent } from './veterinario.component';
+import { NotAllowedComponent } from './not-allowed.component';
 
-describe('VeterinarioComponent', () => {
-  let component: VeterinarioComponent;
-  let fixture: ComponentFixture<VeterinarioComponent>;
+describe('NotAllowedComponent', () => {
+  let component: NotAllowedComponent;
+  let fixture: ComponentFixture<NotAllowedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VeterinarioComponent ]
+      declarations: [ NotAllowedComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VeterinarioComponent);
+    fixture = TestBed.createComponent(NotAllowedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

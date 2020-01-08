@@ -1,0 +1,49 @@
+<div class="admin-veterinarios">
+  <h3>Validar veterinarios:</h3>
+  <div *ngIf="(obs | async)?.length > 0; then ifBlock else elseBlock">
+  </div>
+  <ng-template #ifBlock>
+    <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      [length]="(veterinarios | async)?.length" (page)="pageEvent = handlePage($event)">
+    </mat-paginator>
+    <div *ngFor="let veterinario of (obs | async)">
+      <mat-card [@veterinarioFadeAnimation]="'in'" class="veterinario-card">
+        <mat-card-header>
+          <img mat-card-avatar *ngIf="veterinario.imagen !== null" [src]="veterinario.imagen"
+            alt="{{veterinario.imagen}}">
+          <img mat-card-avatar *ngIf="veterinario.imagen === null" src="assets/images/vet_default_image.png"
+            alt="default image">
+          <mat-card-title>{{veterinario.nombre}} {{veterinario.apellido}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="spinner-content" *ngIf="loadingDict[veterinario.usuario?.nombreUsuario]">
+          <mat-progress-spinner mode="indeterminate">
+          </mat-progress-spinner>
+        </mat-card-content>
+        <mat-card-content>
+          <p>Datos de perfil:</p>
+          <p *ngIf="veterinario.email">Email: {{veterinario.email}}</p>
+        </mat-card-content>
+        <mat-card-content *ngIf="veterinario.nombreClinica || veterinario.domicilioClinica">
+          <p>Datos de la clinica:</p>
+          <p *ngIf="veterinario.nombreClinica">Nombre: {{veterinario.nombreClinica}}</p>
+          <p *ngIf="veterinario.domicilioClinica">Domicilio: {{veterinario.domicilioClinica}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-icon-button class="button-validar" aria-label="Validar veterinario"
+            (click)="validarPerfil(veterinario)">
+            <mat-icon>done</mat-icon><span class="mobile-hidden">Validar</span>
+          </button>
+          <button mat-icon-button class="button-rechazar" aria-label="Rechazar veterinario"
+            (click)="borrarPerfil(veterinario)">
+            <mat-icon>close</mat-icon><span class="mobile-hidden">Rechazar</span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <div class="no-veterinario-card">
+      <h4 matLine> No hay veterinarios sin validar. </h4>
+    </div>
+  </ng-template>
+</div>

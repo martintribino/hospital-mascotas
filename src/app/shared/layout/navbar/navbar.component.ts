@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   logoutUrl: string;
   editPerfilUrl: string;
   editUserUrl: string;
+  validatVeterinarioUrl: string;
 
   constructor(private authService: AuthenticationService) {
     this.loginUrl = "login";
@@ -29,6 +30,7 @@ export class NavbarComponent implements OnInit {
     this.editPerfilUrl = "edit-perfil";
     this.editUserUrl = "edit-user";
     this.createMascotasUrl = "create-mascota";
+    this.validatVeterinarioUrl = "validate-veterinarios";
   }
 
   ngOnInit() {
@@ -37,6 +39,18 @@ export class NavbarComponent implements OnInit {
         this.usuario = usu;
       }
     );
+  }
+
+  isAdministrador(role: string): boolean {
+    return role == Usuario.adminRole;
+  }
+
+  isDuenio(role: string): boolean {
+    return role == Usuario.duenioRole;
+  }
+
+  isVeterinario(role: string): boolean {
+    return role == Usuario.vetRole;
   }
 
 }

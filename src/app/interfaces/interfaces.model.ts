@@ -1,9 +1,16 @@
 
+export interface IPaginatorEv {
+  length: number;
+  pageIndex: number;
+  pageSize: number;
+  previousPageIndex: number;
+}
+
 export interface ILoginBody {
-  nombre_usuario: string;
+  nombreUsuario: string;
   clave: string;
   confirmar_clave?: string;
-  nombre_usuario_viejo?: string;
+  nombreUsuarioViejo?: string;
 }
 
 export interface IMascota {
@@ -71,7 +78,7 @@ export interface ISignup {
 export interface IProfile {
   nombre: string;
   apellido: string;
-  nombreUsuario: string;
+  usuario: IUser;
   dni: number;
   email: string;
   domicilio?: string;
@@ -80,4 +87,8 @@ export interface IProfile {
   nombreClinica?: string;
   domicilioClinica?: string;
   validado?: boolean;
+}
+
+export interface IDictionary<T> {
+  [key: string]: T;
 }

@@ -46,10 +46,10 @@ export class EditUserComponent implements OnInit {
   onSubmit() {
     this.isSubmiting = true;
     let loginBody: ILoginBody = {
-      "nombre_usuario": this.loginF.nombreUsuario.value,
+      "nombreUsuario": this.loginF.nombreUsuario.value,
       "clave": this.loginF.clave.value,
       "confirmar_clave": this.loginF.confirmarClave.value,
-      "nombre_usuario_viejo": this.usuario.nombreUsuario
+      "nombreUsuarioViejo": this.usuario.nombreUsuario
     };
     this.perfilService.editarUsuario(loginBody)
       .subscribe(
@@ -70,13 +70,6 @@ export class EditUserComponent implements OnInit {
     this.errorResponse = "";
     this.successResponse = "";
     this.isSubmiting = false;
-    if (error.status === 0 ||
-      error.status === 401 ||
-      error.status === 403
-    ) {
-      this.authService.logout();
-      this.router.navigate(['/login'], { queryParams: {} });
-    }
     this.clean();
   }
 

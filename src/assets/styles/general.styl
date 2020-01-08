@@ -1,5 +1,6 @@
 body
   margin 0
+  word-break break-word
 app-header
   background-color primaryBack
 app-navbar, .container
@@ -9,7 +10,7 @@ nav
   display flex
   width 100%
 app-login, app-signup, app-not-found, app-loading-page, app-home, app-navbar, app-header,
-app-services, app-edit-user, app-edit-perfil, app-create-mascota
+app-services, app-edit-user, app-edit-perfil, app-create-mascota, app-validate-veterinarios
   display: flex;
   width: 100%;
   justify-content: center;
@@ -21,6 +22,7 @@ app-contact
 app-home
   flex-direction row
   align-items center
+  flex-wrap wrap
 .spinner-page
   display flex
   margin 2em auto
@@ -47,6 +49,10 @@ app-home
       margin 30px
       border 5px solid primaryBack
       border-radius 5px
+      h4
+        display flex
+        justify-content center
+        margin-bottom 0
       .mat-hint
         display flex
         justify-content center
@@ -129,3 +135,8 @@ mat-form-field
       line-height: 1.5em;
       .form-group
         margin 0px
+
+@media screen and (max-width: xs)
+  body
+    .mobile-hidden
+      display none

@@ -1,0 +1,70 @@
+@import "../../../assets/styles/vars"
+
+.admin-veterinarios
+  display flex
+  width 100%
+  flex-direction column
+  align-items center
+  mat-card
+    width 500px
+    margin-bottom 0.2em
+    position relative
+    mat-card-header
+      width 100%
+      margin-bottom 1em
+      .mat-card-avatar
+        border 1px solid rgba(0, 140, 187, 0.4);
+        padding 8px
+    .spinner-content
+      display flex
+      width 100%
+      height 100%
+      position absolute
+      justify-content center
+      align-items center
+      top 0
+      left 0
+      margin 0
+      background-color rgba(0, 0, 0, 0.25);
+    mat-card-content
+      margin-bottom 1em
+    mat-card-actions
+      display flex
+      flex-direction row
+      justify-content flex-end
+      padding 0
+      .button-validar
+        color successColor
+        box-shadow none
+        border outset 1px successColor
+      .button-rechazar
+        color errorColor
+        box-shadow none
+        border outset 1px errorColor
+      button
+        display flex
+        align-items center
+        margin 1%
+        color primaryBack
+        background-color transparent
+        border-radius 8px
+    &:not([class*=mat-elevation-z])
+      box-shadow: 0 -2px 1px -1px rgb(0, 140, 187), 0 -1px 1px 0 rgb(0, 140, 187), 0 -1px 3px 0 rgb(0, 140, 187)
+@media screen and (max-width: sm)
+  .admin-veterinarios
+    mat-card
+      width 70%
+      margin 0 auto
+      mat-card-actions
+        justify-content center
+@media screen and (max-width: xs)
+  .admin-veterinarios
+    mat-card
+      width 94%
+      margin 0 auto
+      padding 4% 2%
+      mat-card-actions
+        justify-content space-evenly
+        button
+          border-radius 50%
+          padding 0.4em

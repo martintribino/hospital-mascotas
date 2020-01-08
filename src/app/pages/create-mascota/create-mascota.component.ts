@@ -83,13 +83,13 @@ export class CreateMascotaComponent implements OnInit {
     this.errorResponse = "No se ha podido crear la mascota. Por favor intente nuevamente.";
     this.successResponse = "";
     this.isSubmiting = false;
-    if (error.status === 0 ||
+    /*if (error.status === 0 ||
       error.status === 401 ||
       error.status === 403
     ) {
       this.authService.logout();
       this.router.navigate(['/login'], { queryParams: {} });
-    }
+    }*/
     this.clean();
   }
 

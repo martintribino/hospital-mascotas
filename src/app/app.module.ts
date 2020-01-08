@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,13 +11,16 @@ import {
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthenticationService } from './auth/auth.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { CreateMascotaComponent } from './pages/create-mascota/create-mascota.component';
+import { NotAllowedComponent } from './pages/not-allowed/not-allowed.component';
+import { MatPaginatorIntl } from '@angular/material';
+import { getEsPaginatorIntl } from 'src/helpers/es-paginator-intl';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     NotFoundComponent,
+    NotAllowedComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -28,9 +30,8 @@ import { CreateMascotaComponent } from './pages/create-mascota/create-mascota.co
   ],
   providers: [
     AuthenticationService,
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: MatPaginatorIntl, useValue: getEsPaginatorIntl() }
   ],
   bootstrap: [AppComponent]
 })

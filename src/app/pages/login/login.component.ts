@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.isSubmiting = true;
     let loginBody: ILoginBody = {
-      "nombre_usuario": this.loginF.nombreUsuario.value,
+      "nombreUsuario": this.loginF.nombreUsuario.value,
       "clave": this.loginF.clave.value
     };
     this.redirecting = false;

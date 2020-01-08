@@ -1,12 +1,12 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { VeterinarioComponent } from './veterinario.component';
+import { ValidateVeterinariosComponent } from './validate-veterinarios.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: VeterinarioComponent
+    component: ValidateVeterinariosComponent
   }
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class VeterinarioRoutingModule { }
+export class ValidateVeterinariosRoutingModule { }

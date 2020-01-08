@@ -1,40 +1,40 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
   <fieldset class="form-group">
-    <mat-hint i18n="@@inputData">Edite sus datos</mat-hint>
-    <mat-error i18n="@@loginErrorResponse">{{errorResponse}}</mat-error>
+    <h4>Edite su usuario</h4>
+    <mat-error>{{errorResponse}}</mat-error>
     <mat-hint class="success-response">{{successResponse}}</mat-hint>
     <mat-form-field appearance="standard">
-      <mat-label i18n="@@usernameText">{{usuario.nombreUsuario}}</mat-label>
+      <mat-label>{{usuario.nombreUsuario}}</mat-label>
       <input matInput type="text" formControlName="nombreUsuario" autocomplete="off"
         placeholder="{{usuario.nombreUsuario}}" maxlength="50" minlength="2" required>
-      <mat-hint i18n="@@usernameText">{{usuario.nombreUsuario}}</mat-hint>
-      <mat-error *ngIf="loginF.nombreUsuario?.errors?.minlength" i18n="@@fieldMinError">El campo debe
+      <mat-hint>{{usuario.nombreUsuario}}</mat-hint>
+      <mat-error *ngIf="loginF.nombreUsuario?.errors?.minlength">El campo debe
         tener al menos 2 caracteres
       </mat-error>
-      <mat-error *ngIf="loginF.nombreUsuario?.errors?.maxlength" i18n="@@fieldMaxError">El campo debe
+      <mat-error *ngIf="loginF.nombreUsuario?.errors?.maxlength">El campo debe
         tener como máximo 50 caracteres
       </mat-error>
-      <mat-error *ngIf="loginF.nombreUsuario?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+      <mat-error *ngIf="loginF.nombreUsuario?.errors?.required">Campo requerido</mat-error>
     </mat-form-field>
     <mat-form-field appearance="standard">
-      <mat-label i18n="@@passwordText">Clave</mat-label>
+      <mat-label>Clave</mat-label>
       <input matInput type="password" formControlName="clave" placeholder="" maxlength="50" minlength="4" required>
-      <mat-hint i18n="@@passwordText">Clave</mat-hint>
-      <mat-error *ngIf="loginF.clave?.errors?.minlength" i18n="@@fieldMinError">El campo debe tener al menos 4
+      <mat-hint>Clave</mat-hint>
+      <mat-error *ngIf="loginF.clave?.errors?.minlength">El campo debe tener al menos 4
         caracteres</mat-error>
-      <mat-error *ngIf="loginF.clave?.errors?.maxlength" i18n="@@fieldMaxError">El campo debe tener como máximo 50
+      <mat-error *ngIf="loginF.clave?.errors?.maxlength">El campo debe tener como máximo 50
       </mat-error>
-      <mat-error *ngIf="loginF.clave?.errors?.required" i18n="@@fieldReqError">Campo requerido</mat-error>
+      <mat-error *ngIf="loginF.clave?.errors?.required">Campo requerido</mat-error>
     </mat-form-field>
     <mat-form-field appearance="standard" *ngIf="loginF.clave?.valid">
-      <mat-label i18n="@@passwordConfirmText">Confirmar Clave</mat-label>
+      <mat-label>Confirmar Clave</mat-label>
       <input matInput type="password" formControlName="confirmarClave" placeholder="" maxlength="150" minlength="4"
         required>
-      <mat-hint i18n="@@passwordConfirmText">Confirmar Clave</mat-hint>
-      <mat-error *ngIf="loginF.confirmarClave?.errors?.matchPassword" i18n="@@passMismatchError">Las claves no
+      <mat-hint>Confirmar Clave</mat-hint>
+      <mat-error *ngIf="loginF.confirmarClave?.errors?.matchPassword">Las claves no
         coinciden
       </mat-error>
     </mat-form-field>
-    <button type="submit" [disabled]="loginForm.invalid || isSubmiting" i18n="@@submitText">Submit</button>
+    <button type="submit" [disabled]="loginForm.invalid || isSubmiting">Submit</button>
   </fieldset>
 </form>

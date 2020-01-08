@@ -60,7 +60,7 @@ export class SignupComponent implements OnInit {
     this.roles = [
       { clave: 'duenio', valor: 'Dueño' },
       { clave: 'veterinario', valor: 'Veterinario' },
-      //{ clave: 'administrador', valor: 'Administrador' },
+      { clave: 'administrador', valor: 'Administrador' },
     ];
   }
 

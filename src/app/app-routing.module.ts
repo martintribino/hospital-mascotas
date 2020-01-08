@@ -3,15 +3,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RoleGuard } from './auth/role.guard';
+import { Usuario } from './model/usuario';
+import { NotAllowedComponent } from './pages/not-allowed/not-allowed.component';
 
 
 export const routes: Routes = [
+  {
+    path: 'validate-veterinarios',
+    loadChildren: () => import("./pages/validate-veterinarios/validate-veterinarios.module").then(mod => mod.ValidateVeterinariosModule),
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: [Usuario.adminRole]
+    }
+  },
   {
     path: 'edit-perfil',
     loadChildren: () => import("./pages/edit-perfil/edit-perfil.module").then(mod => mod.EditPerfilModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: ['administrador', 'duenio', 'veterinario']
+      allowedRoles: Usuario.allowedUserRoles
     }
   },
   {
@@ -19,7 +29,7 @@ export const routes: Routes = [
     loadChildren: () => import("./pages/edit-user/edit-user.module").then(mod => mod.EditUserModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: ['administrador', 'duenio', 'veterinario']
+      allowedRoles: Usuario.allowedUserRoles
     }
   },
   {
@@ -27,7 +37,7 @@ export const routes: Routes = [
     loadChildren: () => import("./pages/mascotas/mascotas.module").then(mod => mod.MascotasModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: ['duenio', 'veterinario']
+      allowedRoles: [Usuario.duenioRole, Usuario.vetRole]
     }
   },
   {
@@ -35,7 +45,7 @@ export const routes: Routes = [
     loadChildren: () => import("./pages/create-mascota/create-mascota.module").then(mod => mod.CreateMascotaModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: ['duenio']
+      allowedRoles: [Usuario.duenioRole]
     }
   },
   { path: 'services', loadChildren: () => import("./pages/services/services.module").then(mod => mod.ServicesModule) },
@@ -46,7 +56,8 @@ export const routes: Routes = [
   { path: 'logout', loadChildren: () => import("./pages/logout/logout.module").then(mod => mod.LogoutModule) },
   { path: 'loading-page', loadChildren: () => import("./pages/loading-page/loading-page.module").then(mod => mod.LoadingPageModule) },
   { path: 'not-found', component: NotFoundComponent },
-  { path: '', loadChildren: () => import("./pages/home/home.module").then(mod => mod.HomeModule) },
+  { path: 'not-allowed', component: NotAllowedComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'not-found' }
 ];
 
