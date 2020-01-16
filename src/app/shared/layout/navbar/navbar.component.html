@@ -10,34 +10,24 @@
         <div *ngIf="(authService.isLoggedIn | async); then ifBlock else elseBlock"></div>
         <ng-template #ifBlock>
           <ng-container *ngIf="authService.usuario | async as usu">
-            <div *ngIf="isAdministrador(usu.role)">
+            <ng-container *ngIf="isAdministrador(usu.role)">
               <button mat-button [routerLink]="validatVeterinarioUrl" routerLinkActive="active-link">
                 Validar Veterinarios
               </button>
-            </div>
-            <div *ngIf="isDuenio(usu.role)">
-              <button mat-button [matMenuTriggerFor]="mascMenu" routerLinkActive="active-link">
+            </ng-container>
+            <ng-container *ngIf="isDuenio(usu.role)">
+              <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
                 Mascotas
               </button>
-              <mat-menu #mascMenu="matMenu" class="mascota-menu">
-                <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
-                  Mis mascotas
-                </button>
-                <button mat-button [routerLink]="createMascotasUrl" routerLinkActive="active-link">
-                  Crear mascota
-                </button>
-              </mat-menu>
-            </div>
-            <div *ngIf="isVeterinario(usu.role)">
-              <button mat-button [matMenuTriggerFor]="mascMenu" routerLinkActive="active-link">
+            </ng-container>
+            <ng-container *ngIf="isVeterinario(usu.role)">
+              <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
                 Mascotas
               </button>
-              <mat-menu #mascMenu="matMenu" class="mascota-menu">
-                <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
-                  Mis mascotas
-                </button>
-              </mat-menu>
-            </div>
+              <button mat-button [routerLink]="solicitudesUrl" routerLinkActive="active-link">
+                Solicitudes
+              </button>
+            </ng-container>
             <button mat-button [matMenuTriggerFor]="perfilMenu" routerLinkActive="active-link">
               {{(usu.nombreUsuario)}}
             </button>
@@ -84,31 +74,33 @@
                   Validar Veterinarios
                 </button>
               </div>
-              <div *ngIf="isDuenio(usu.role)">
-                <button mat-menu-item [matMenuTriggerFor]="mascMenu" routerLinkActive="active-link">
-                  Mascotas
+              <ng-container *ngIf="isDuenio(usu.role)">
+                <button mat-menu-item [routerLink]="mascotasUrl" routerLinkActive="active-link">
+                  <span class="mat-button-wrapper">
+                    <label>Mascotas</label>
+                    <mat-icon>pets</mat-icon>
+                  </span>
                 </button>
-                <mat-menu #mascMenu="matMenu" class="mascota-menu">
-                  <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
-                    Mis mascotas
-                  </button>
-                  <button mat-button [routerLink]="createMascotasUrl" routerLinkActive="active-link">
-                    Crear mascota
-                  </button>
-                </mat-menu>
-              </div>
-              <div *ngIf="isVeterinario(usu.role)">
-                <button mat-button [matMenuTriggerFor]="mascMenu" routerLinkActive="active-link">
-                  Mascotas
+              </ng-container>
+              <ng-container *ngIf="isVeterinario(usu.role)">
+                <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
+                  <span class="mat-button-wrapper">
+                    <label>Mascotas</label>
+                    <mat-icon>pets</mat-icon>
+                  </span>
                 </button>
-                <mat-menu #mascMenu="matMenu" class="mascota-menu">
-                  <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
-                    Mis mascotas
-                  </button>
-                </mat-menu>
-              </div>
+                <button mat-button [routerLink]="solicitudesUrl" routerLinkActive="active-link">
+                  <span class="mat-button-wrapper">
+                    <label>Solicitudes</label>
+                    <mat-icon>input</mat-icon>
+                  </span>
+                </button>
+              </ng-container>
               <button mat-menu-item [matMenuTriggerFor]="perfilMenu" routerLinkActive="active-link">
-                {{(usuario?.nombreUsuario)}}
+                <span class="mat-button-wrapper">
+                  <label>{{(usuario?.nombreUsuario)}}</label>
+                  <mat-icon>face</mat-icon>
+                </span>
               </button>
               <mat-menu #perfilMenu="matMenu" class="perfil-menu">
                 <button mat-button [routerLink]="editPerfilUrl" routerLinkActive="active-link">
@@ -127,7 +119,7 @@
           <ng-template #elseBlockMob>
             <button mat-button [routerLink]="loginUrl" routerLinkActive="active-link">
               <label>Iniciar sesión</label>
-              <mat-icon>pets</mat-icon>
+              <mat-icon>group_in</mat-icon>
             </button>
             <button mat-button [routerLink]="registerUrl" routerLinkActive="active-link">
               <label>Registrarse</label>

@@ -4,7 +4,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { ILoginBody, IUser } from 'src/app/interfaces/interfaces.model';
-import { AuthenticationService } from 'src/app/auth/auth.service';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { share } from 'rxjs/internal/operators/share';
 
 @Component({
   selector: 'app-login',
@@ -41,15 +42,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.isSubmiting = true;
+    this.redirecting = false;
     let loginBody: ILoginBody = {
       "nombreUsuario": this.loginF.nombreUsuario.value,
       "clave": this.loginF.clave.value
     };
-    this.redirecting = false;
     this.authService.login(loginBody)
       .subscribe(
         (data: IUser) => this.onSuccess(data),
-        (error: HttpErrorResponse) => this.handleError(error)
+        (error: HttpErrorResponse) => this.handleError(error),
+        () => this.handleCompleted()
       );
   }
 
@@ -62,7 +64,7 @@ export class LoginComponent implements OnInit {
         () => {
           this.router.navigate(['/loading-page'], { queryParams: {} });
         },
-        () => { this.revert() }
+        () => { this.revert(); this.redirecting = false; }
       );
     this.authService.setSession(result);
     this.authService.setUsuarioByToken();
@@ -85,11 +87,16 @@ export class LoginComponent implements OnInit {
         break;
       }
     }
+    this.isSubmiting = false;
     this.revert();
   }
 
-  revert() {
+  handleCompleted() {
+    this.isSubmiting = false;
     this.redirecting = false;
+  }
+
+  revert() {
     this.loginForm.reset();
   }
 

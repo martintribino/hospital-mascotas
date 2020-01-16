@@ -3,10 +3,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { PasswordValidation } from '../signup/password.validator';
-import { PerfilService } from 'src/app/auth/perfil.service';
+import { PerfilService } from 'src/app/services/perfil.service';
 import { ILoginBody, IUser } from 'src/app/interfaces/interfaces.model';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/auth/auth.service';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-edit-user',

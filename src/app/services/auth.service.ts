@@ -62,12 +62,10 @@ export class AuthenticationService {
     this.usuarioSubject.next(null);
   }
 
-  login(body: ILoginBody) {
+  login(body: ILoginBody): Observable<IUser> {
     let url: string = this.endpoints.login,
       options = {
-        headers: this.headers,
-        //observe: 'body',
-        //responseType: 'json'
+        headers: this.headers
       };
     return this.http.post<IUser>(url, body, options);
   }

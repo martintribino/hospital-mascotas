@@ -5,7 +5,6 @@ import { NavbarModule } from './layout/navbar/navbar.module';
   imports: [
     NavbarModule,
   ],
-  declarations: [],
   exports: [
     NavbarModule,
   ]

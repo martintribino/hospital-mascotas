@@ -10,14 +10,15 @@ nav
   display flex
   width 100%
 app-login, app-signup, app-not-found, app-loading-page, app-home, app-navbar, app-header,
-app-services, app-edit-user, app-edit-perfil, app-create-mascota, app-validate-veterinarios
+app-services, app-edit-user, app-edit-perfil, app-create-mascota, app-validate-veterinarios,
+app-mascotas, app-form-mascota
   display: flex;
   width: 100%;
   justify-content: center;
 app-services
   flex-direction column
   text-align center
-app-contact
+app-contact, app-mascotas
   flex-direction column
 app-home
   flex-direction row
@@ -27,53 +28,94 @@ app-home
   display flex
   margin 2em auto
   justify-content center
+form
+  display flex
+  width 100%
+  margin 0 auto
+  max-width 500px
+  font-size 1.1em
+  background formBackColor
+  box-shadow 1px 1px 25px rgba(0,0,0,0.35)
+  border-radius 10px
+  line-height: 1.7em;
+  .form-group
+    display flex
+    width 100%
+    padding 0
+    justify-content center
+    margin 0
+    border 3px solid primaryBack
+    border-radius 5px
+    h4
+      display flex
+      justify-content center
+      margin-bottom 0
+    .mat-hint
+      display flex
+      justify-content center
+      &.success-response
+        display flex
+        justify-content center
+        color successColor
+    .mat-error
+      display flex
+      width 100%
+      justify-content center
+      margin 0.4em auto
+    .mat-form-field
+      display flex
+      justify-content center
+      width 60%
+      margin 2% auto
+      .mat-datepicker-toggle
+        svg
+          fill primaryBack
+      .mat-error
+        display flex
+        width 100%
+        justify-content flex-start
 .container
   display: flex;
   width: 100%;
   justify-content: center;
-  form
+  .mat-paginator
+    margin 0 auto
+    width 75%
+    padding 0 3%
+.mat-table
+  margin 0 auto
+  width 75%
+  padding 1% 3%
+  flex-wrap wrap
+  align-self flex-start
+  .mat-row
+    cursor pointer
+  .descripcion-cell
     display flex
-    width 100%
-    margin 5% auto
-    max-width 500px
-    font-size 1.1em
-    background formBackColor
-    box-shadow 1px 1px 25px rgba(0,0,0,0.35)
-    border-radius 10px
-    line-height: 1.7em;
-    .form-group
-      display flex
-      width 100%
-      padding 0
-      justify-content center
-      margin 30px
-      border 5px solid primaryBack
-      border-radius 5px
-      h4
-        display flex
-        justify-content center
-        margin-bottom 0
-      .mat-hint
-        display flex
-        justify-content center
-        &.success-response
-          display flex
-          justify-content center
-          color successColor
-      .mat-error
-        display flex
-        width 100%
-        justify-content center
-        margin 0.4em auto
-      .mat-form-field
-        display flex
-        justify-content center
-        width 50%
-        margin 2% auto
-        .mat-error
-          display flex
-          width 100%
-          justify-content flex-start
+    flex-direction column
+    span
+      margin 0.2em auto
+  .mat-card-avatar
+    width 50px
+    border-radius: 50%
+    margin 0.4em auto
+  button
+    background-color transparent
+    border none
+    box-shadow none
+    .mat-icon
+      color primaryBack
+      &:hover
+        color rgba(primaryBack, 0.75)
+.mat-menu-content
+  button
+    background-color transparent
+    border none
+    box-shadow none
+    .mat-icon
+      color primaryBack
+      &:hover
+        color rgba(primaryBack, 0.75)
 button 
   box-shadow inset 0 1px 0 0 formBorderColor
   background-color primaryBack
@@ -84,6 +126,26 @@ button
   text-decoration none
   font 1em Arial,Helvetica,sans-serif
   margin 5% auto
+  &.fab-button
+    display flex
+    align-items center
+    box-shadow none
+    border none
+    background-color transparent
+    color primaryBack
+    padding 0
+    font-size 1.6em
+    .mat-icon
+      border none
+      box-shadow none
+      font-size 1.6em
+      height 100%
+      width 100%
+    &:hover
+      color rgba(primaryBack, 0.75)
+    &.top-right
+      top 10%
+      right 5%
   &:disabled
     background-color disabledColor
     color primaryBack
@@ -102,23 +164,60 @@ button
       color successColor
 mat-form-field
   &.ng-valid
-    color successColor
-    .mat-hint
+    &.ng-touched
       color successColor
-    .mat-form-field-label
-      color successColor
-    .mat-form-field-underline
-      background-color successColor
+      .mat-hint
+        color successColor
+      .mat-form-field-label
+        color successColor
+      .mat-form-field-underline
+        background-color successColor
 .desktop
   display flex
 .mobile
   display none
+.mat-form-field-wrapper
+  width 100%
+.no-mascota-card
+  min-width 50%
 
 @media screen and (max-width: md)
   .title-navbar
     display none
+  .mat-table
+    padding 1%
+    width 90%
+    .mat-cell
+      &:first-of-type
+        padding-left 12px
+      &:last-of-type
+        padding-right 12px
 
 @media screen and (max-width: sm)
+  .cdk-overlay-pane
+    .panelClass
+      max-width 100%
+  .no-mascota-card
+    min-width 100%
+  .mat-table
+    font-size 0.9em
+    margin 0 auto
+    width 95%
+    padding 1%
+    flex-wrap wrap
+    align-self flex-start
+    .mat-cell
+      &:first-of-type
+        padding-left 6px
+      &:last-of-type
+        padding-right 6px
+    .mat-card-avatar
+      width 50px
+  .mat-paginator
+    font-size 0.9em
+    margin 1em auto
+    width 100%
+    padding 0
   .desktop
     display none
   .mobile
@@ -135,7 +234,6 @@ mat-form-field
       line-height: 1.5em;
       .form-group
         margin 0px
-
 @media screen and (max-width: xs)
   body
     .mobile-hidden

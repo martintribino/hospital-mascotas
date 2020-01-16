@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MascotaService } from 'src/app/auth/mascota.service';
+import { MascotaService } from 'src/app/services/mascota.service';
 import { IMascota } from 'src/app/interfaces/interfaces.model';
 import { BehaviorSubject } from 'rxjs';
 

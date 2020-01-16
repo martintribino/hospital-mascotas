@@ -1,9 +1,9 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { PerfilService } from 'src/app/auth/perfil.service';
+import { PerfilService } from 'src/app/services/perfil.service';
 import { IProfile } from 'src/app/interfaces/interfaces.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthenticationService } from 'src/app/auth/auth.service';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-loading-page',

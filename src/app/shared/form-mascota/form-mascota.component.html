@@ -1,0 +1,65 @@
+<form [formGroup]="mascotasForm">
+  <fieldset class="form-group">
+    <mat-hint>Datos de la mascota</mat-hint>
+    <mat-error>{{errorResponse}}</mat-error>
+    <mat-hint class="success-response">{{successResponse}}</mat-hint>
+    <mat-form-field appearance="standard">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" formControlName="nombre" autocomplete="off" placeholder="Nombre" maxlength="40"
+        minlength="2" required>
+      <mat-hint>Nombre</mat-hint>
+      <mat-error *ngIf="crearMascF.nombre?.errors?.minlength">El campo debe
+        tener al menos 2 caracteres
+      </mat-error>
+      <mat-error *ngIf="crearMascF.nombre?.errors?.maxlength">El campo debe
+        tener como máximo 40 caracteres
+      </mat-error>
+      <mat-error *ngIf="crearMascF.nombre?.errors?.required">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Especie</mat-label>
+      <input matInput type="text" formControlName="especie" autocomplete="off" placeholder="Especie" required>
+      <mat-hint>Especie</mat-hint>
+      <mat-error *ngIf="crearMascF.especie?.errors?.required">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Raza</mat-label>
+      <input matInput type="text" formControlName="raza" autocomplete="off" placeholder="Raza" required>
+      <mat-hint>Raza</mat-hint>
+      <mat-error *ngIf="crearMascF.raza?.errors?.required">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Sexo</mat-label>
+      <input matInput type="text" formControlName="sexo" autocomplete="off" placeholder="Sexo" required>
+      <mat-hint>Sexo</mat-hint>
+      <mat-error *ngIf="crearMascF.sexo?.errors?.required">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field class="standard">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input matInput type="text" [max]="maxDate" [matDatepicker]="picker" formControlName="fechaNacimiento"
+        autocomplete="off" placeholder="Escoja una fecha" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-hint>Fecha de nacimiento</mat-hint>
+      <mat-error *ngIf="crearMascF.fechaNacimiento?.errors?.parse">Fecha no válida</mat-error>
+      <mat-error *ngIf="crearMascF.fechaNacimiento?.errors?.required">Campo requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Color</mat-label>
+      <input matInput type="text" formControlName="color" autocomplete="off" placeholder="Color">
+      <mat-hint>Color</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Señas</mat-label>
+      <input matInput type="text" formControlName="senias" autocomplete="off" placeholder="Señas">
+      <mat-hint>Señas</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Imagen</mat-label>
+      <input matInput type="text" formControlName="imagen" autocomplete="off" placeholder="Imagen">
+      <mat-hint>Imagen</mat-hint>
+    </mat-form-field>
+    <button type="submit" [mat-dialog-close]="mascota" (click)="onSubmit()"
+      [disabled]="mascotasForm.invalid">Enviar</button>
+  </fieldset>
+</form>

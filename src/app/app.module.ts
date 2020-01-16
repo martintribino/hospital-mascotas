@@ -9,7 +9,7 @@ import {
   SharedModule, HeaderComponent
 } from './shared';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { AuthenticationService } from './auth/auth.service';
+import { AuthenticationService } from './services/auth.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { NotAllowedComponent } from './pages/not-allowed/not-allowed.component';
 import { MatPaginatorIntl } from '@angular/material';

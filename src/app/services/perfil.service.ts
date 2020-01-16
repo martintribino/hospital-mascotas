@@ -53,7 +53,8 @@ export class PerfilService {
   }
 
   borrarPerfil(username: string) {
-    let url: string = this.endpoints.perfil + "?username=" + username,
+    let owner: string = this.getPerfil().usuario.nombreUsuario || "",
+      url: string = this.endpoints.perfil + "?username=" + username + "&owner=" + owner,
       options = {
         headers: this.headers,
       };
@@ -61,7 +62,8 @@ export class PerfilService {
   }
 
   validarPerfil(username: string) {
-    let url: string = this.endpoints.perfil + "/validar?username=" + username,
+    let owner: string = this.getPerfil().usuario.nombreUsuario || "",
+      url: string = this.endpoints.perfil + "/validar?username=" + username + "&owner=" + owner,
       options = {
         headers: this.headers,
       };

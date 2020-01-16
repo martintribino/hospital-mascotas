@@ -4,9 +4,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { PasswordValidation } from './password.validator';
 import { IProfile, ISignup } from 'src/app/interfaces/interfaces.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthenticationService } from 'src/app/auth/auth.service';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { PerfilService } from 'src/app/auth/perfil.service';
+import { PerfilService } from 'src/app/services/perfil.service';
 
 @Component({
   selector: 'app-signup',
@@ -100,6 +100,7 @@ export class SignupComponent implements OnInit {
     this.errorResponse = "No se pudo crear el usuario. Por favor intentelo de nuevo mas tarde.";
     this.successResponse = "";
     this.redirecting = false;
+    this.isSubmiting = false;
   }
 
   handleCompleted() {
@@ -107,7 +108,6 @@ export class SignupComponent implements OnInit {
   }
 
   revert() {
-    this.redirecting = false;
     this.signupForm.reset();
   }
 

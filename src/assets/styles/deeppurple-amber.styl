@@ -1457,7 +1457,7 @@ mat-footer-row,mat-header-row,mat-row,td.mat-cell,td.mat-footer-cell,th.mat-head
   color rgba(0,0,0,.38)
 
 .mat-menu-item .mat-icon-no-color,.mat-menu-item-submenu-trigger::after
-  color rgba(0,0,0,.54)
+  color #008cbb
 
 .mat-menu-item-highlighted:not([disabled]),.mat-menu-item.cdk-keyboard-focused:not([disabled]),.mat-menu-item.cdk-program-focused:not([disabled]),.mat-menu-item:hover:not([disabled])
   background rgba(0,0,0,.04)
@@ -1840,6 +1840,10 @@ mat-footer-row,mat-header-row,mat-row,td.mat-cell,td.mat-footer-cell,th.mat-head
   color inherit
 
 .mat-snack-bar-container
-  color rgba(255,255,255,.7)
-  background #323232
+  color rgba(255,255,255,.6)
+  background #008cbb
   box-shadow 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)
+  &.error
+    background indianred
+  &.success
+    background forestgreen

@@ -4,9 +4,7 @@ import { MatInputModule, MatFormFieldModule, MatToolbarModule, MatIconModule, Ma
 import { NavbarComponent } from './navbar.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthenticationService } from 'src/app/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
 @NgModule({

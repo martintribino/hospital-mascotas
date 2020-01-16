@@ -14,19 +14,22 @@ export interface ILoginBody {
 }
 
 export interface IMascota {
+  slug: string;
   nombre: string;
   especie: string;
   raza: string;
   sexo: string;
   color?: string;
   senias?: string;
-  fecha_nacimiento?: Date;
+  fechaNacimiento?: Date;
   imagen?: string;
   duenio?: IProfile;
   veterinario?: IProfile;
+  open?: boolean;
 }
 
 export interface IMascotaBody {
+  slug?: string;
   nombre: string;
   especie: string;
   raza: string;
@@ -34,7 +37,8 @@ export interface IMascotaBody {
   color?: string;
   senias?: string;
   username: string;
-  fecha_nacimiento?: Date;
+  duenio?: IProfile;
+  fechaNacimiento?: Date;
   imagen?: string;
 }
 

@@ -1,0 +1,43 @@
+<div class="admin-solicitudes">
+  <h3>Validar solicitudes:</h3>
+  <div *ngIf="(obs | async)?.length > 0; then ifBlock else elseBlock">
+  </div>
+  <ng-template #ifBlock>
+    <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      [length]="(solicitudes | async)?.length" (page)="pageEvent = handlePage($event)">
+    </mat-paginator>
+    <div *ngFor="let solicitud of (obs | async)">
+      <mat-card [@solicitudesFadeAnimation]="'in'" class="solicitud-card">
+        <mat-card-header>
+          <img mat-card-avatar *ngIf="solicitud.mascota?.imagen !== null" [src]="solicitud.mascota?.imagen"
+            alt="{{solicitud.mascota?.imagen}}">
+          <img mat-card-avatar *ngIf="solicitud.mascota?.imagen === null" src="assets/images/pet_default_image.png"
+            alt="default image">
+          <mat-card-title>{{solicitud.mascota?.nombre}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="spinner-content" *ngIf="loadingDict[solicitud.slug]">
+          <mat-progress-spinner mode="indeterminate">
+          </mat-progress-spinner>
+        </mat-card-content>
+        <mat-card-content *ngIf="solicitud.mascota != null ">
+          <p>Datos de la mascota:</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-icon-button class="button-validar" aria-label="Validar solicitud"
+            (click)="validarSolicitud(solicitud)">
+            <mat-icon>done</mat-icon><span class="mobile-hidden">Validar</span>
+          </button>
+          <button mat-icon-button class="button-rechazar" aria-label="Rechazar solicitud"
+            (click)="borrarSolicitud(solicitud)">
+            <mat-icon>close</mat-icon><span class="mobile-hidden">Rechazar</span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <div class="no-solicitud-card">
+      <h4 matLine> No hay dolicitudes pendientes. </h4>
+    </div>
+  </ng-template>
+</div>

@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IProfile, IDictionary, IPaginatorEv } from 'src/app/interfaces/interfaces.model';
-import { VeterinarioService } from 'src/app/auth/veterinario.service';
-import { MatPaginator, MatTableDataSource, MatSnackBar, MatSnackBarModule } from '@angular/material';
-import { PerfilService } from 'src/app/auth/perfil.service';
+import { VeterinarioService } from 'src/app/services/veterinario.service';
+import { MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { PerfilService } from 'src/app/services/perfil.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -11,16 +11,12 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   templateUrl: './validate-veterinarios.component.html',
   styleUrls: ['./validate-veterinarios.component.styl'],
   animations: [
-    // the fade-in/fade-out animation.
     trigger('veterinarioFadeAnimation', [
-      // the "in" style determines the "resting" state of the element when it is visible.
       state('in', style({ opacity: 1 })),
-      // fade in when created. this could also be written as transition('void => *')
       transition(':enter', [
         style({ opacity: 0 }),
         animate(700)
       ]),
-      // fade out when destroyed. this could also be written as transition('void => *')
       transition(':leave',
         animate(600, style({ opacity: 0 })))
     ])
@@ -35,9 +31,8 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<IProfile>;
   pageSize: number = 5;
   currentPage: number = 0;
-  pageSizeOptions: number[] = [2, 5, 10, 25];
+  pageSizeOptions: number[] = [5, 10, 20, 25, 50];
   loadingDict: Array<IDictionary<boolean>>;
-  borradoDict: Array<IDictionary<boolean>>;
 
   constructor(
     private vetService: VeterinarioService,
@@ -47,7 +42,6 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
   ) {
     this.vetSubject.next([]);
     this.loadingDict = [];
-    this.borradoDict = [];
     this.dataSource = new MatTableDataSource<IProfile>([]);
   }
 
@@ -56,12 +50,6 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
       (data) => this.onSuccess(data),
       (error) => this.handleError(error)
     );
-  }
-
-  openSnackBar(messageParam: string, actionParam: string, durationParam: number) {
-    this.snackBar.open(messageParam, actionParam, {
-      duration: durationParam,
-    });
   }
 
   public handlePage(e: IPaginatorEv) {
@@ -100,8 +88,8 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
       return;
     this.loadingDict[nombreUsuario] = true;
     this.perfilService.borrarPerfil(nombreUsuario).subscribe(
-      () => this.handleSuccessVet(nombreUsuario, "--- veterinario eliminado ---"),
-      () => this.handleErrorVet(nombreUsuario, "--- veterinario no eliminado ---")
+      () => this.handleSuccessVet(nombreUsuario, "--- veterinario eliminado ---", "Se eliminó el veterinario "),
+      () => this.handleErrorVet(nombreUsuario, "--- veterinario no eliminado ---", "No se pudo eliminar el veterinario ")
     );
   }
 
@@ -111,12 +99,12 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
       return;
     this.loadingDict[nombreUsuario] = true;
     this.perfilService.validarPerfil(nombreUsuario).subscribe(
-      () => this.handleSuccessVet(nombreUsuario, "--- veterinario validado ---"),
-      () => this.handleErrorVet(nombreUsuario, "--- veterinario no validado ---")
+      () => this.handleSuccessVet(nombreUsuario, "--- veterinario validado ---", "Se validó el veterinario "),
+      () => this.handleErrorVet(nombreUsuario, "--- veterinario no validado ---", "No se pudo validar el veterinario ")
     );
   }
 
-  handleSuccessVet(nombreUsuario: string, logMessage: string) {
+  handleSuccessVet(nombreUsuario: string, logMessage: string, snackMessage: string) {
     let result: Array<IProfile> = [];
     this.vetSubject.value.map((obj) => {
       let nomUsu = obj.usuario.nombreUsuario || null;
@@ -135,14 +123,28 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
       previousPageIndex: 0
     };
     this.handlePage(pgntr);
+    this.snackBar.open(
+      snackMessage + nombreUsuario,
+      "",
+      {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: 'success'
+      }
+    );
     console.log(logMessage);
   }
 
-  handleErrorVet(nombreUsuario: string, logMessage: string) {
-    this.openSnackBar(
-      "No se pudo validar el veterinario: " + nombreUsuario,
+  handleErrorVet(nombreUsuario: string, logMessage: string, snackMessage: string) {
+    this.snackBar.open(
+      snackMessage + nombreUsuario,
       "",
-      2000)
+      {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: 'error'
+      }
+    );
     this.loadingDict[nombreUsuario] = false;
     console.log(logMessage);
   }

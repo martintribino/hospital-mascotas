@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateMascotaComponent } from './create-mascota.component';
+import { FormMascotaComponent } from './form-mascota.component';
 
-describe('CreateMascotaComponent', () => {
-  let component: CreateMascotaComponent;
-  let fixture: ComponentFixture<CreateMascotaComponent>;
+describe('FormMascotaComponent', () => {
+  let component: FormMascotaComponent;
+  let fixture: ComponentFixture<FormMascotaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateMascotaComponent ]
+      declarations: [ FormMascotaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateMascotaComponent);
+    fixture = TestBed.createComponent(FormMascotaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -33,6 +33,7 @@ nav
     overflow hidden
     text-overflow ellipsis
     box-shadow 0 0
+    max-width 125px
     .mat-button-wrapper
       white-space nowrap
       overflow hidden
@@ -47,6 +48,9 @@ nav
       border 1px solid rgba(#ffffff, 0.3)
 
 @media screen and (max-width: md)
+  nav
+    .mat-button
+      max-width 100px
   .router-navbar
     button
       font-size 0.8em

@@ -1,0 +1,15 @@
+<h3 mat-dialog-title>Solicitudes para veterinarios</h3>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-select placeholder="Veterinario" [(ngModel)]="veterinario" (selectionChange)="onSelect($event)"
+      cdkFocusInitial>
+      <mat-option *ngFor="let vet of data" [value]="vet">
+        {{vet.nombre}} {{vet.apellido}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [mat-dialog-close]="veterinario" [disabled]="veterinario == null">Enviar</button>
+</mat-dialog-actions>

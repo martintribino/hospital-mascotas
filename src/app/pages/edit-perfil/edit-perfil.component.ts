@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { IUser, IProfile, IEditarPerfil } from 'src/app/interfaces/interfaces.model';
-import { AuthenticationService } from 'src/app/auth/auth.service';
-import { PerfilService } from 'src/app/auth/perfil.service';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { PerfilService } from 'src/app/services/perfil.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 

@@ -41,11 +41,11 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'create-mascota',
-    loadChildren: () => import("./pages/create-mascota/create-mascota.module").then(mod => mod.CreateMascotaModule),
+    path: 'solicitudes',
+    loadChildren: () => import("./pages/solicitudes/solicitudes.module").then(mod => mod.SolicitudesModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: [Usuario.duenioRole]
+      allowedRoles: [Usuario.vetRole]
     }
   },
   { path: 'services', loadChildren: () => import("./pages/services/services.module").then(mod => mod.ServicesModule) },
