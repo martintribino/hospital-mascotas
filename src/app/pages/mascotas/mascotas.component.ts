@@ -12,6 +12,7 @@ import { MascotaService } from 'src/app/services/mascota.service';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SubscriptionDialogComponent } from 'src/app/shared/subscription-dialog/subscription-dialog.component';
 import { FormMascotaComponent } from 'src/app/shared/form-mascota/form-mascota.component';
+import { Usuario } from 'src/app/model/usuario';
 
 @Component({
   selector: 'app-mascotas',
@@ -259,6 +260,21 @@ export class MascotasComponent implements OnInit {
         panelClass: clase
       }
     );
+  }
+
+  isAdministrador(): boolean {
+    let usu = this.authService.getUsuario();
+    return usu.role == Usuario.adminRole;
+  }
+
+  isDuenio(): boolean {
+    let usu = this.authService.getUsuario();
+    return usu.role == Usuario.duenioRole;
+  }
+
+  isVeterinario(): boolean {
+    let usu = this.authService.getUsuario();
+    return usu.role == Usuario.vetRole;
   }
 
 }

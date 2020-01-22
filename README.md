@@ -1,9 +1,7 @@
 # TTPS 2019 (Java)
 # Hospital de Mascotas (Angular)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
-
-## Install
+## Instalacion
 
 git clone git@github.com:martintribino/hospital-mascotas.git
 npm install

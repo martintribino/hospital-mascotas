@@ -13,6 +13,28 @@ export interface ILoginBody {
   nombreUsuarioViejo?: string;
 }
 
+export enum Estado {
+  ESPERA = "ESPERA",
+  APROBADO = "APROBADO",
+  RECHAZADO = "RECHAZADO"
+}
+
+export interface ISolicitud {
+  slug: string;
+  fecha: Date;
+  estado: Estado;
+  mascota: IMascota;
+  veterinario: IProfile;
+}
+
+export interface ISolicitudBody {
+  slug: string;
+  fecha: Date;
+  estado: Estado;
+  mascota: string;
+  veterinario: string;
+}
+
 export interface IMascota {
   slug: string;
   nombre: string;

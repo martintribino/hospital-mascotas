@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { IDictionary, IMascota } from 'src/app/interfaces/interfaces.model';
-import { MatTableDataSource, MatSnackBar } from '@angular/material';
+import { IDictionary, ISolicitud, Estado, ISolicitudBody } from 'src/app/interfaces/interfaces.model';
+import { MatTableDataSource, MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -28,10 +28,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class SolicitudesComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  private solicitudSubject = new BehaviorSubject<Array<IMascota>>([]);
+  private solicitudSubject = new BehaviorSubject<Array<ISolicitud>>([]);
   public solicitudes = this.solicitudSubject.asObservable();
-  obs: Observable<IMascota[]>;
-  dataSource: MatTableDataSource<IMascota>;
+  obs: Observable<Array<ISolicitud>>;
+  dataSource: MatTableDataSource<ISolicitud>;
   pageSize: number = 5;
   currentPage: number = 0;
   pageSizeOptions: number[] = [5, 10, 20, 25, 50];
@@ -46,15 +46,76 @@ export class SolicitudesComponent implements OnInit {
   ) {
     this.solicitudSubject.next([]);
     this.loadingDict = [];
-    this.dataSource = new MatTableDataSource<IMascota>([]);
+    this.dataSource = new MatTableDataSource<ISolicitud>([]);
   }
 
   ngOnInit() {
     let usu = this.authService.getUsuario();
     if (usu != null) {
-      this.solService.obtenerSolicitudesXUsuario(usu.nombreUsuario).subscribe(
-        (data) => this.onSuccess(data),
-        (error) => this.onError(error)
+      this.solService.obtenerSolicitudesXUsuarioYEstado(
+        usu.nombreUsuario, Estado.ESPERA).subscribe(
+          (data) => this.onSuccess(data),
+          () => this.onError()
+        );
+    } else {
+      this.authService.logout();
+      this.router.navigate(['/login'], { queryParams: {} });
+    }
+  }
+
+  onSuccess(result: Array<ISolicitud>) {
+    this.solicitudSubject.next(result);
+    this.changeDetectorRef.detectChanges();
+    this.dataSource = new MatTableDataSource<ISolicitud>(result);
+    this.obs = this.dataSource.connect();
+    this.dataSource.paginator = this.paginator;
+  }
+
+  onError() {
+    this.solicitudSubject.next([]);
+    if (this.dataSource) {
+      this.dataSource.disconnect();
+    }
+  }
+
+  aceptarSolicitud(solicitud: ISolicitud) {
+    this.modificarSolicitud(solicitud, Estado.APROBADO);
+  }
+
+  rechazarSolicitud(solicitud: ISolicitud) {
+    this.modificarSolicitud(solicitud, Estado.RECHAZADO);
+  }
+
+  modificarSolicitud(solicitud: ISolicitud, estado: Estado) {
+    let usu = this.authService.getUsuario();
+    if (usu != null) {
+      this.loadingDict[solicitud.slug] = true;
+      solicitud.estado = estado;
+      let strMessage = "",
+        solicitudBody: ISolicitudBody = {
+          "slug": solicitud.slug,
+          "fecha": solicitud.fecha,
+          "estado": estado,
+          "mascota": solicitud.mascota.slug,
+          "veterinario": solicitud.veterinario.usuario.nombreUsuario
+        };
+      switch (solicitud.estado) {
+        case Estado.APROBADO:
+          strMessage = "aprobada";
+          break;
+        case Estado.ESPERA:
+          strMessage = "en espera";
+          break;
+        case Estado.RECHAZADO:
+          strMessage = "rechazada";
+          break;
+        default:
+          strMessage = "en espera";
+          break;
+      }
+      this.solService.modificarSolicitud(usu.nombreUsuario, solicitudBody).subscribe(
+        () => this.solicitudSuccess(solicitud, `solicitud de mascota ${solicitud.mascota.nombre} ${strMessage}`),
+        () => this.solicitudError(solicitud, `solicitud de mascota ${solicitud.mascota.nombre} no actualizada`)
       );
     } else {
       this.authService.logout();
@@ -62,19 +123,29 @@ export class SolicitudesComponent implements OnInit {
     }
   }
 
-  onSuccess(result: Array<IMascota>) {
-    this.solicitudSubject.next(result);
-    this.changeDetectorRef.detectChanges();
-    this.dataSource = new MatTableDataSource<IMascota>(result);
-    this.obs = this.dataSource.connect();
-    this.dataSource.paginator = this.paginator;
+  private solicitudSuccess(solicitud: ISolicitud, strSuccess: string) {
+    this.showError(strSuccess, "success");
+    this.loadingDict[solicitud.slug] = false;
+    console.log(`---${strSuccess}---`);
+    this.ngOnInit();
   }
 
-  onError(error: HttpErrorResponse) {
-    this.solicitudSubject.next([]);
-    if (this.dataSource) {
-      this.dataSource.disconnect();
-    }
+  private solicitudError(solicitud: ISolicitud, strError: string) {
+    this.showError(strError, "error");
+    this.loadingDict[solicitud.slug] = false;
+    console.log(`---${strError}---`);
+  }
+
+  private showError(strError: string, clase: string = "", time: number = 2000, pos: MatSnackBarVerticalPosition = "top") {
+    this.snackBar.open(
+      strError,
+      "",
+      {
+        duration: time,
+        verticalPosition: pos,
+        panelClass: clase
+      }
+    );
   }
 
 }

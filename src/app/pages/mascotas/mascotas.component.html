@@ -31,7 +31,7 @@
     </ng-container>
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>
-        <button mat-mini-fab aria-label="Crear mascota" (click)="onCreate()" class="fab-button">
+        <button mat-mini-fab *ngIf="isDuenio()" aria-label="Crear mascota" (click)="onCreate()" class="fab-button">
           +<mat-icon>pets</mat-icon>
         </button>
       </mat-header-cell>
@@ -43,11 +43,12 @@
         <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
           <button mat-icon-button [disabled]="loadingDict[mascota.slug] == 'true' "
             matTooltip="Suscribirse a un veterinario" matTooltipPosition="below" (click)="onSubscription(mascota)"
-            aria-label="suscribirse a un veterinario" *ngIf="mascota.veterinario == null">
+            aria-label="suscribirse a un veterinario" *ngIf="isDuenio()">
             <mat-icon>subscriptions</mat-icon>
           </button>
-          <button mat-icon-button [disabled]="loadingDict[mascota.slug] == 'true' " matTooltip="Editar"
-            matTooltipPosition="below" (click)="onEdit(mascota)" aria-label="editar mascota">
+          <button mat-icon-button *ngIf="isDuenio() || isAdministrador()"
+            [disabled]="loadingDict[mascota.slug] == 'true' " matTooltip="Editar" matTooltipPosition="below"
+            (click)="onEdit(mascota)" aria-label="editar mascota">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button [disabled]="loadingDict[mascota.slug] == 'true' " matTooltip="Eliminar"
@@ -97,7 +98,7 @@
 <ng-template #elseBlock>
   <div class="no-mascota-card">
     <h3 matLine> No tiene mascotas aún. </h3>
-    <div><button mat-mini-fab aria-label="Crear mascota" (click)="onCreate()" class="fab-button">
+    <div *ngIf="isDuenio()"><button mat-mini-fab aria-label="Crear mascota" (click)="onCreate()" class="fab-button">
         <mat-icon>pets</mat-icon>
       </button>
       Crear
