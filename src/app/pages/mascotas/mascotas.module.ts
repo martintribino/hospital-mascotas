@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MascotasComponent } from './mascotas.component';
 import { MascotasRoutingModule } from './mascotas-routing.module';
 import {
@@ -9,6 +8,7 @@ import {
 } from '@angular/material';
 import { SubscriptionDialogModule } from 'src/app/shared/subscription-dialog/subscription-dialog.module';
 import { FormMascotaModule } from 'src/app/shared/form-mascota/form-mascota.module';
+import { FormFichaModule } from 'src/app/shared/form-ficha/form-ficha.module';
 
 @NgModule({
   imports: [
@@ -27,6 +27,7 @@ import { FormMascotaModule } from 'src/app/shared/form-mascota/form-mascota.modu
     MatMenuModule,
     SubscriptionDialogModule,
     FormMascotaModule,
+    FormFichaModule,
     MatSnackBarModule
   ],
   declarations: [

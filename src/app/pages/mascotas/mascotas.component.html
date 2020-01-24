@@ -41,17 +41,21 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
-          <button mat-icon-button [disabled]="loadingDict[mascota.slug] == 'true' "
-            matTooltip="Suscribirse a un veterinario" matTooltipPosition="below" (click)="onSubscription(mascota)"
-            aria-label="suscribirse a un veterinario" *ngIf="isDuenio()">
+          <button mat-icon-button [disabled]="loadingDict[mascota.slug]" matTooltip="Editar Ficha Publica"
+            matTooltipPosition="below" (click)="onEditFicha(mascota)" aria-label="Editar Ficha Publica"
+            *ngIf="isDuenio()">
+            <mat-icon>no_encryption</mat-icon>
+          </button>
+          <button mat-icon-button [disabled]="loadingDict[mascota.slug]" matTooltip="Suscribirse a un veterinario"
+            matTooltipPosition="below" (click)="onSubscription(mascota)" aria-label="suscribirse a un veterinario"
+            *ngIf="isDuenio()">
             <mat-icon>subscriptions</mat-icon>
           </button>
-          <button mat-icon-button *ngIf="isDuenio() || isAdministrador()"
-            [disabled]="loadingDict[mascota.slug] == 'true' " matTooltip="Editar" matTooltipPosition="below"
-            (click)="onEdit(mascota)" aria-label="editar mascota">
+          <button mat-icon-button *ngIf="isDuenio() || isAdministrador()" [disabled]="loadingDict[mascota.slug]"
+            matTooltip="Editar" matTooltipPosition="below" (click)="onEdit(mascota)" aria-label="editar mascota">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button [disabled]="loadingDict[mascota.slug] == 'true' " matTooltip="Eliminar"
+          <button mat-icon-button [disabled]="loadingDict[mascota.slug]" matTooltip="Eliminar"
             matTooltipPosition="below" (click)="onDelete(mascota)" aria-label="eliminar mascota">
             <mat-icon>delete</mat-icon>
           </button>

@@ -47,6 +47,7 @@ export interface IMascota {
   imagen?: string;
   duenio?: IProfile;
   veterinario?: IProfile;
+  ficha?: IFicha;
   open?: boolean;
 }
 
@@ -60,8 +61,31 @@ export interface IMascotaBody {
   senias?: string;
   username: string;
   duenio?: IProfile;
+  ficha?: IFicha;
+  veterinario?: IProfile;
   fechaNacimiento?: Date;
   imagen?: string;
+}
+
+export interface IFicha {
+  slug?: string;
+  nombre: boolean;
+  especie: boolean;
+  raza: boolean;
+  sexo: boolean;
+  color: boolean;
+  senias: boolean;
+  fechaNacimiento: boolean;
+  imagen: boolean;
+  duenio: boolean;
+  mascota?: IMascota;
+}
+
+export interface IQRImagen {
+  qrcode: string;
+  extension: string;
+  width: number;
+  height: number;
 }
 
 export interface IUser {

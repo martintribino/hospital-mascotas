@@ -1,0 +1,14 @@
+<h4>Ficha Pública</h4>
+<form [formGroup]="fichaForm" class="estandar ficha">
+  <mat-checkbox formControlName="nombre">Nombre</mat-checkbox>
+  <mat-checkbox formControlName="especie">Especie</mat-checkbox>
+  <mat-checkbox formControlName="raza">Raza</mat-checkbox>
+  <mat-checkbox formControlName="sexo">Sexo</mat-checkbox>
+  <mat-checkbox formControlName="color">Color</mat-checkbox>
+  <mat-checkbox formControlName="senias">Señas</mat-checkbox>
+  <mat-checkbox formControlName="fechaNacimiento">Fecha de Nacimiento</mat-checkbox>
+  <mat-checkbox formControlName="imagen">Imagen</mat-checkbox>
+  <mat-checkbox formControlName="duenio">Dueño</mat-checkbox>
+  <mat-checkbox formControlName="veterinario">Veterinario</mat-checkbox>
+  <button type="submit" [mat-dialog-close]="mascota" (click)="onSubmit()" [disabled]="fichaForm.invalid">Enviar</button>
+</form>

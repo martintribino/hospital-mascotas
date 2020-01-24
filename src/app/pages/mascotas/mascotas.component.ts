@@ -2,17 +2,17 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator, MatTableDataSource, MatSnackBar, MatDialog, MatSnackBarVerticalPosition } from '@angular/material';
 import { trigger, state, transition, style, animate } from '@angular/animations';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 import { VeterinarioService } from 'src/app/services/veterinario.service';
-import { IDictionary, IMascota, IPaginatorEv, IProfile, IMascotaBody } from 'src/app/interfaces/interfaces.model';
+import { IDictionary, IMascota, IPaginatorEv, IProfile, IMascotaBody, IFicha } from 'src/app/interfaces/interfaces.model';
 import { MascotaService } from 'src/app/services/mascota.service';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SubscriptionDialogComponent } from 'src/app/shared/subscription-dialog/subscription-dialog.component';
 import { FormMascotaComponent } from 'src/app/shared/form-mascota/form-mascota.component';
 import { Usuario } from 'src/app/model/usuario';
+import { FormFichaComponent } from 'src/app/shared/form-ficha/form-ficha.component';
 
 @Component({
   selector: 'app-mascotas',
@@ -233,6 +233,44 @@ export class MascotasComponent implements OnInit {
               this.ngOnInit();
             },
             () => this.mascotaError(mascota, `No se ha podido editar la mascota ${mascota.nombre}`)
+          );
+      }
+    });
+  }
+
+  public onEditFicha(mascota: IMascota) {
+    mascota.open = false;
+    const dialogRef = this.dialog.open(FormFichaComponent, {
+      maxWidth: "100%",
+      width: '450px',
+      height: 'auto',
+      data: mascota.ficha
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      let ficha: IFicha = result,
+        usu = this.authService.getUsuario();
+      if (ficha != null && usu != null) {
+        this.loadingDict[mascota.slug] = true;
+        let fichaBody: IFicha = {
+          "slug": ficha.slug,
+          "nombre": ficha.nombre,
+          "especie": ficha.especie,
+          "raza": ficha.raza,
+          "sexo": ficha.sexo,
+          "color": ficha.color,
+          "senias": ficha.senias,
+          "fechaNacimiento": ficha.fechaNacimiento,
+          "imagen": ficha.imagen,
+          "duenio": ficha.duenio,
+          //"mascota": mascota
+        };
+        this.mascService.editarFichaPublica(fichaBody)
+          .subscribe(
+            () => {
+              this.mascotaSuccess(mascota, `Se ha editado correctamente la ficha de ${mascota.nombre}`)
+              this.ngOnInit();
+            },
+            () => this.mascotaError(mascota, `No se ha podido editar la ficha de ${mascota.nombre}`)
           );
       }
     });

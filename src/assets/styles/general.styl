@@ -11,11 +11,11 @@ nav
   width 100%
 app-login, app-signup, app-not-found, app-loading-page, app-home, app-navbar, app-header,
 app-services, app-edit-user, app-edit-perfil, app-create-mascota, app-validate-veterinarios,
-app-mascotas, app-form-mascota
+app-mascotas, app-form-mascota, app-qrcode
   display: flex;
   width: 100%;
   justify-content: center;
-app-services
+app-services, app-qrcode
   flex-direction column
   text-align center
 app-contact, app-mascotas
@@ -28,6 +28,13 @@ app-home
   display flex
   margin 2em auto
   justify-content center
+.cdk-overlay-pane
+  .mat-dialog-container
+    padding 1em
+    h4
+      display flex
+      justify-content center
+      margin 0 0 1em 0
 form
   display flex
   width 100%
@@ -37,7 +44,19 @@ form
   background formBackColor
   box-shadow 1px 1px 25px rgba(0,0,0,0.35)
   border-radius 10px
-  line-height: 1.7em;
+  line-height 1.7em
+  &.estandar
+    box-shadow none
+    line-height 1.3em
+  &.ficha
+    flex-wrap wrap
+  .mat-hint
+    display flex
+    justify-content center
+    &.success-response
+      display flex
+      justify-content center
+      color successColor
   .form-group
     display flex
     width 100%
@@ -50,13 +69,6 @@ form
       display flex
       justify-content center
       margin-bottom 0
-    .mat-hint
-      display flex
-      justify-content center
-      &.success-response
-        display flex
-        justify-content center
-        color successColor
     .mat-error
       display flex
       width 100%
@@ -126,6 +138,12 @@ button
   text-decoration none
   font 1em Arial,Helvetica,sans-serif
   margin 5% auto
+  &.qricon
+    background-color transparent
+    color primaryBack
+    box-shadow none
+    border-radius 50%
+    border-color primaryBack
   &.fab-button
     display flex
     align-items center

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { IMascota, IMascotaBody } from '../interfaces/interfaces.model';
+import { IMascota, IMascotaBody, IFicha, IQRImagen } from '../interfaces/interfaces.model';
 import { environment } from 'src/environments/environment.prod';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -49,6 +49,15 @@ export class MascotaService {
     return this.http.get<Array<IMascota>>(url, options);
   }
 
+  getQRCode(slug: String): Observable<IQRImagen> {
+    let queryStr = `?slg=${slug}`,
+      url = this.endpoints.qr + queryStr,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.get<IQRImagen>(url, options);
+  }
+
   crearMascota(masc: IMascotaBody): Observable<IMascota> {
     let url = this.endpoints.mascota,
       options = {
@@ -81,5 +90,13 @@ export class MascotaService {
         headers: this.headers,
       };
     return this.http.post<IMascota>(url, options);
+  }
+
+  editarFichaPublica(ficha: IFicha): Observable<IFicha> {
+    let url = this.endpoints.ficha,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.put<IFicha>(url, ficha, options);
   }
 }

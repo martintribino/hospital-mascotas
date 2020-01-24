@@ -13,6 +13,8 @@ export const environment = {
     editarUsuario: "http://localhost:8080/hospital-mascotas-java/api/usuario/editar/",
     perfil: "http://localhost:8080/hospital-mascotas-java/api/usuario/profile/",
     mascota: "http://localhost:8080/hospital-mascotas-java/api/mascotas/",
+    ficha: "http://localhost:8080/hospital-mascotas-java/api/ficha/",
+    qr: "http://localhost:8080/hospital-mascotas-java/mascotas/qr/",
     solicitud: "http://localhost:8080/hospital-mascotas-java/api/solicitud/",
     mascotasUsuario: "http://localhost:8080/hospital-mascotas-java/api/mascotas/usuario/",
     veterinariosValidados: "http://localhost:8080/hospital-mascotas-java/api/veterinarios/XValidacion/",

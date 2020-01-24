@@ -54,8 +54,6 @@ export class FormMascotaComponent {
     this.crearMascF.imagen.setValue(this.mascota.imagen);
   }
 
-  log(v) { console.log(v); }
-
   onSubmit() {
     this.dialogRef.close(this.mascotasForm.value);
   }

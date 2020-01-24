@@ -2,7 +2,7 @@
 </div>
 <ng-template #ifBlock>
   <mat-card class="mascota-card" *ngFor="let mascota of (mascotas | async)">
-    <mat-card-header>
+    <mat-card-header *ngIf="mascota.nombre !== null && mascota.nombre.length > 0">
       <mat-card-title>{{mascota.nombre}}</mat-card-title>
     </mat-card-header>
     <img mat-card-image *ngIf="mascota.imagen.length > 0" [src]="mascota.imagen" alt="{{mascota.imagen}}">
@@ -16,11 +16,14 @@
       <p *ngIf="mascota.senias !== null && mascota.senias.length > 0">Señas: {{mascota.senias}}</p>
       <p *ngIf="mascota.fechaNacimiento !==null && mascota.fechaNacimiento.length > 0">Nacimiento:
         {{mascota.fechaNacimiento | date}}</p>
-      <p *ngIf="mascota.duenio !== null && mascota.duenio?.nombre > 0">Dueño: {{mascota.duenio?.nombre}}</p>
-      <p *ngIf="mascota.veterinario !== null && mascota.veterinario?.nombre > 0">Veterinario:
+      <p *ngIf="mascota.duenio !== null">Dueño: {{mascota.duenio?.nombre}}</p>
+      <p *ngIf="mascota.veterinario != null && mascota.veterinario?.length > 0">Veterinario:
         {{mascota.veterinario?.nombre}}</p>
       <mat-card-actions>
-        <button mat-button disabled>Ficha Pública QR</button>
+        <button mat-icon-button matTooltip="Código QR" matTooltipPosition="below" (click)="onQRCode(mascota)"
+          aria-label="Código QR" class="qricon">
+          <mat-icon>code</mat-icon>
+        </button>
       </mat-card-actions>
     </mat-card-content>
   </mat-card>
