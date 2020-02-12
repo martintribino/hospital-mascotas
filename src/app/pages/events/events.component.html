@@ -1,0 +1,70 @@
+<mat-horizontal-stepper labelPosition="bottom" [linear]="isLinear" #stepper>
+  <ng-template matStepperIcon="done">
+    <mat-icon>done_all</mat-icon>
+  </ng-template>
+  <mat-step [stepControl]="firstStepForm">
+    <form [formGroup]="firstStepForm" class="stepper-form">
+      <ng-template matStepLabel>Seleccione fecha</ng-template>
+      <div class="stepper-body">
+        <mat-form-field class="standard">
+          <mat-label>Fecha evento</mat-label>
+          <input matInput type="text" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" formControlName="fecha"
+            autocomplete="off" (dateChange)="changeDate($event)" placeholder="Escoja una fecha" readonly required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker (selectedChanged)="changeDate($event)"></mat-datepicker>
+          <mat-hint>Fecha evento</mat-hint>
+          <mat-error *ngIf="firstStepF.fecha?.errors?.parse">Fecha no válida</mat-error>
+          <mat-error *ngIf="firstStepF.fecha?.errors?.required">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="stepper-actions">
+        <button matStepperNext class="nav-icon" [disabled]="firstStepForm.invalid">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondStepForm">
+    <form [formGroup]="secondStepForm" class="stepper-form">
+      <ng-template matStepLabel>Elija horario</ng-template>
+      <div class="stepper-body">
+        <div *ngIf="(horario | async)?.turnosValidos?.length > 0; then ifBlock else elseBlock">
+        </div>
+        <ng-template #ifBlock>
+          <h5>Seleccione Turno ({{(horario | async)?.turno}} minutos)</h5>
+          <mat-grid-list cols="5" gutterSize="2px" rowHeight="2em">
+            <mat-grid-tile *ngFor="let turno of (horario | async).turnosValidos;">
+              <button class="nav-icon {{turno.estado.toLowerCase()}}" [disabled]="!isEnabled(turno)">
+                {{turno.inicio}}
+              </button>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </ng-template>
+        <ng-template #elseBlock>
+          <div class="no-events">
+            <h4 matLine>No hay eventos.</h4>
+          </div>
+        </ng-template>
+      </div>
+      <div class="stepper-actions">
+        <button matStepperPrevious class="nav-icon">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button matStepperNext class="nav-icon" [disabled]="secondStepForm.invalid">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdStepForm">
+    <form [formGroup]="thirdStepForm">
+      <ng-template matStepLabel>Crear evento:<br />
+        Ingrese datos</ng-template>
+      <div class="stepper-actions">
+        <button matStepperPrevious class="nav-icon">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

@@ -1,4 +1,37 @@
 
+export declare type TimeLocal = {
+  hour: number;
+  minute: number;
+  second: number;
+  nano?: number;
+};
+//enums
+export enum Estado {
+  ESPERA = "ESPERA",
+  APROBADO = "APROBADO",
+  RECHAZADO = "RECHAZADO"
+}
+
+export enum EstadoTurno {
+  CANCELADO = "CANCELADO", //cancelado
+  CONCURRIO = "CONCURRIO", //para consltar historial
+  DISPONIBLE = "DISPONIBLE", //disponible y aun no transcurrio la fecha
+  INACTIVO = "INACTIVO", // ya transcurrio la fecha
+  NOCONCURRIO = "NOCONCURRIO", //para consltar historial
+  NODISPONIBLE = "NODISPONIBLE", //no disponible porque ya transcurrio la fecha
+  RESERVADO = "RESERVADO", //reservado y aun no transcurrio la fecha
+}
+
+export enum IEventoTipo {
+  DESPARASITACION = "Desparasitación",
+  ENFERMEDAD = "Enfermedad",
+  INTERVENCION = "Intervención",
+  REPRODUCCION = "Reproducción",
+  SOLICITUD = "Solicitud",
+  VACUNA = "Vacuna",
+  VISITA = "Visita"
+}
+//interface
 export interface IPaginatorEv {
   length: number;
   pageIndex: number;
@@ -11,12 +44,6 @@ export interface ILoginBody {
   clave: string;
   confirmar_clave?: string;
   nombreUsuarioViejo?: string;
-}
-
-export enum Estado {
-  ESPERA = "ESPERA",
-  APROBADO = "APROBADO",
-  RECHAZADO = "RECHAZADO"
 }
 
 export interface ISolicitud {
@@ -67,6 +94,24 @@ export interface IMascotaBody {
   imagen?: string;
 }
 
+export interface IEvento {
+  slug?: string;
+  tipo: IEventoTipo;
+  fecha: Date;
+  descripcion: string;
+  concurrio: boolean;
+  veterinario: IProfile;
+  mascota: IMascota;
+  droga?: string;
+  resultado?: string;
+  diagnostico?: string;
+  indicaciones?: string;
+  motivo?: string;
+  peso?: string;
+  fechaParto?: Date;
+  nroCachorros?: number;
+}
+
 export interface IFicha {
   slug?: string;
   nombre: boolean;
@@ -93,6 +138,21 @@ export interface IUser {
   role: string;
   token?: string;
   imagen?: string;
+}
+
+export interface ITurno {
+  fecha: Date;
+  inicio: TimeLocal;
+  fin: TimeLocal;
+  estado: EstadoTurno;
+}
+
+export interface IHorario {
+  turno: number;
+  inicio: TimeLocal;
+  fin: TimeLocal;
+  estados: Array<EstadoTurno>;
+  turnosValidos: Array<ITurno>;
 }
 
 export interface IEditarPerfil {

@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   registerUrl: string;
   mascotasUrl: string;
   solicitudesUrl: string;
+  eventosUrl: string;
   createMascotasUrl: string;
   logoutUrl: string;
   editPerfilUrl: string;
@@ -33,6 +34,7 @@ export class NavbarComponent implements OnInit {
     this.createMascotasUrl = "create-mascota";
     this.validatVeterinarioUrl = "validate-veterinarios";
     this.solicitudesUrl = "solicitudes";
+    this.eventosUrl = "eventos";
   }
 
   ngOnInit() {

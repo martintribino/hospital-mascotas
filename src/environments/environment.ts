@@ -5,18 +5,20 @@ export const environment = {
   baseApiUrl: 'http://localhost:8080/hospital-mascotas-java',
   endpoints: {
     //publicos - sin /api/
-    login: "http://localhost:8080/hospital-mascotas-java/login/",
     addUsuario: "http://localhost:8080/hospital-mascotas-java/usuario/profile/",
+    login: "http://localhost:8080/hospital-mascotas-java/login/",
     mascotas: "http://localhost:8080/hospital-mascotas-java/mascotas/",
     //privados - con /api/
     checkToken: "http://localhost:8080/hospital-mascotas-java/api/usuario/check-token/",
     editarUsuario: "http://localhost:8080/hospital-mascotas-java/api/usuario/editar/",
-    perfil: "http://localhost:8080/hospital-mascotas-java/api/usuario/profile/",
-    mascota: "http://localhost:8080/hospital-mascotas-java/api/mascotas/",
+    evento: "http://localhost:8080/hospital-mascotas-java/api/eventos/",
     ficha: "http://localhost:8080/hospital-mascotas-java/api/ficha/",
+    mascota: "http://localhost:8080/hospital-mascotas-java/api/mascotas/",
+    mascotasUsuario: "http://localhost:8080/hospital-mascotas-java/api/mascotas/usuario/",
+    perfil: "http://localhost:8080/hospital-mascotas-java/api/usuario/profile/",
     qr: "http://localhost:8080/hospital-mascotas-java/mascotas/qr/",
     solicitud: "http://localhost:8080/hospital-mascotas-java/api/solicitud/",
-    mascotasUsuario: "http://localhost:8080/hospital-mascotas-java/api/mascotas/usuario/",
+    turno: "http://localhost:8080/hospital-mascotas-java/api/turnos/",
     veterinariosValidados: "http://localhost:8080/hospital-mascotas-java/api/veterinarios/XValidacion/",
   }
 };

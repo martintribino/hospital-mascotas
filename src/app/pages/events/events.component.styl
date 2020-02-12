@@ -1,0 +1,35 @@
+@import "../../../assets/styles/vars"
+
+.mat-stepper-horizontal
+  max-width 100%
+  width auto
+  form
+    display flex
+    flex-direction column
+    max-width none
+    box-shadow none
+    .stepper-actions
+      display flex
+      width 100%
+      justify-content center
+      align-items center
+    .stepper-body
+      display flex
+      flex-direction column
+      width 100%
+      justify-content center
+      align-items center
+      h5
+        margin-block-start 1em
+        margin-block-end 1em
+      .mat-grid-list
+        width 100%
+      button
+        &.nav-icon
+          font-size 0.8em
+          padding 0.2em 0.4em
+        &.nodisponible
+          color disabledColor
+          border-color disabledColor
+          &:hover
+            background-color white

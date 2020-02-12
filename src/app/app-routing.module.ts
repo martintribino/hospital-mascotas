@@ -48,7 +48,14 @@ export const routes: Routes = [
       allowedRoles: [Usuario.vetRole]
     }
   },
-  { path: 'services', loadChildren: () => import("./pages/services/services.module").then(mod => mod.ServicesModule) },
+  {
+    path: 'eventos',
+    loadChildren: () => import("./pages/events/events.module").then(mod => mod.EventsModule),
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: [Usuario.duenioRole, Usuario.vetRole]
+    }
+  },
   { path: 'contact', loadChildren: () => import("./pages/contact/contact.module").then(mod => mod.ContactModule) },
   { path: 'home', loadChildren: () => import("./pages/home/home.module").then(mod => mod.HomeModule) },
   { path: 'signup', loadChildren: () => import("./pages/signup/signup.module").then(mod => mod.SignupModule) },

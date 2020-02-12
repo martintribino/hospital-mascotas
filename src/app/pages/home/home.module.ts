@@ -10,7 +10,6 @@ import { QrcodeModule } from 'src/app/shared/qrcode/qrcode.module';
   imports: [
     HomeRoutingModule,
     CommonModule,
-    MatSnackBarModule,
     MatDialogModule,
     MatIconModule,
     QrcodeModule,

@@ -4,8 +4,6 @@
     <nav class="router-navbar">
       <div class="desktop">
         <button mat-button routerLink="home" routerLinkActive="active-link"> Inicio </button>
-        <button mat-button routerLink="services" routerLinkActive="active-link"> Servicios
-        </button>
         <button mat-button routerLink="contact" routerLinkActive="active-link"> Contacto </button>
         <div *ngIf="(authService.isLoggedIn | async); then ifBlock else elseBlock"></div>
         <ng-template #ifBlock>
@@ -16,11 +14,17 @@
               </button>
             </ng-container>
             <ng-container *ngIf="isDuenio(usu.role)">
+              <button mat-button [routerLink]="eventosUrl" routerLinkActive="active-link">
+                Eventos
+              </button>
               <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
                 Mascotas
               </button>
             </ng-container>
             <ng-container *ngIf="isVeterinario(usu.role)">
+              <button mat-button [routerLink]="eventosUrl" routerLinkActive="active-link">
+                Eventos
+              </button>
               <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
                 Mascotas
               </button>
@@ -54,16 +58,12 @@
       <div class="mobile">
         <mat-menu #menu="matMenu" class="hamburguer-menu">
           <button mat-button routerLink="home" routerLinkActive="active-link">
-            <label>Inicio</label>
             <mat-icon>home</mat-icon>
-          </button>
-          <button mat-button routerLink="services" routerLinkActive="active-link">
-            <label>Servicios</label>
-            <mat-icon>business_center</mat-icon>
+            <label>Inicio</label>
           </button>
           <button mat-button routerLink="contact" routerLinkActive="active-link">
-            <label>Contacto</label>
             <mat-icon>contacts</mat-icon>
+            <label>Contacto</label>
           </button>
           <div *ngIf="(authService.isLoggedIn | async); then ifBlockMob else elseBlockMob">
           </div>
@@ -71,35 +71,50 @@
             <ng-container *ngIf="authService.usuario | async as usu">
               <div *ngIf="isAdministrador(usu.role)">
                 <button mat-button [routerLink]="validatVeterinarioUrl" routerLinkActive="active-link">
-                  Validar Veterinarios
+                  <span class="mat-button-wrapper">
+                    <mat-icon>done_all</mat-icon>
+                    <label>Validar Veterinarios</label>
+                  </span>
                 </button>
               </div>
               <ng-container *ngIf="isDuenio(usu.role)">
-                <button mat-menu-item [routerLink]="mascotasUrl" routerLinkActive="active-link">
+                <button mat-button [routerLink]="eventosUrl" routerLinkActive="active-link">
                   <span class="mat-button-wrapper">
-                    <label>Mascotas</label>
+                    <mat-icon>calendar_today</mat-icon>
+                    <label>Eventos</label>
+                  </span>
+                </button>
+                <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
+                  <span class="mat-button-wrapper">
                     <mat-icon>pets</mat-icon>
+                    <label>Mascotas</label>
                   </span>
                 </button>
               </ng-container>
               <ng-container *ngIf="isVeterinario(usu.role)">
+                <button mat-button [routerLink]="eventosUrl" routerLinkActive="active-link">
+                  <span class="mat-button-wrapper">
+                    <mat-icon>calendar_today</mat-icon>
+                    <label>Eventos</label>
+                  </span>
+                </button>
                 <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
                   <span class="mat-button-wrapper">
-                    <label>Mascotas</label>
                     <mat-icon>pets</mat-icon>
+                    <label>Mascotas</label>
                   </span>
                 </button>
                 <button mat-button [routerLink]="solicitudesUrl" routerLinkActive="active-link">
                   <span class="mat-button-wrapper">
-                    <label>Solicitudes</label>
                     <mat-icon>input</mat-icon>
+                    <label>Solicitudes</label>
                   </span>
                 </button>
               </ng-container>
               <button mat-menu-item [matMenuTriggerFor]="perfilMenu" routerLinkActive="active-link">
                 <span class="mat-button-wrapper">
-                  <label>{{(usuario?.nombreUsuario)}}</label>
                   <mat-icon>face</mat-icon>
+                  <label>{{(usuario?.nombreUsuario)}}</label>
                 </span>
               </button>
               <mat-menu #perfilMenu="matMenu" class="perfil-menu">
@@ -112,18 +127,18 @@
               </mat-menu>
             </ng-container>
             <button mat-button [routerLink]="logoutUrl" routerLinkActive="active-link">
-              <label>Cerrar sesión</label>
               <mat-icon>power_settings_new</mat-icon>
+              <label>Cerrar sesión</label>
             </button>
           </ng-template>
           <ng-template #elseBlockMob>
             <button mat-button [routerLink]="loginUrl" routerLinkActive="active-link">
-              <label>Iniciar sesión</label>
               <mat-icon>group_in</mat-icon>
+              <label>Iniciar sesión</label>
             </button>
             <button mat-button [routerLink]="registerUrl" routerLinkActive="active-link">
-              <label>Registrarse</label>
               <mat-icon>group_add</mat-icon>
+              <label>Registrarse</label>
             </button>
           </ng-template>
         </mat-menu>

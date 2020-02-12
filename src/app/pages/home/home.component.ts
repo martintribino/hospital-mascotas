@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private mascService: MascotaService,
-    private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {
     this.mascSubject.next([]);
@@ -46,7 +45,6 @@ export class HomeComponent implements OnInit {
     mascota.open = false;
     this.mascService.getQRCode(mascota.slug).subscribe(
       (data: IQRImagen) => {
-        console.log(data);
         this.qrImage = data;
         const dialogRef = this.dialog.open(QrcodeComponent, {
           maxWidth: "100%",

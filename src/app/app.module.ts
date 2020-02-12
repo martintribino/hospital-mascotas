@@ -20,7 +20,7 @@ import { getEsPaginatorIntl } from 'src/helpers/es-paginator-intl';
     AppComponent,
     HeaderComponent,
     NotFoundComponent,
-    NotAllowedComponent,
+    NotAllowedComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
