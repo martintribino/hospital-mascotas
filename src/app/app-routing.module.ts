@@ -53,7 +53,7 @@ export const routes: Routes = [
     loadChildren: () => import("./pages/events/events.module").then(mod => mod.EventsModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: [Usuario.duenioRole, Usuario.vetRole]
+      allowedRoles: [Usuario.duenioRole]
     }
   },
   { path: 'contact', loadChildren: () => import("./pages/contact/contact.module").then(mod => mod.ContactModule) },

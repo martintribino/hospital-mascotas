@@ -7,6 +7,7 @@ import { NavbarModule } from './layout/navbar/navbar.module';
   ],
   exports: [
     NavbarModule,
-  ]
+  ],
+  declarations: []
 })
 export class SharedModule { }

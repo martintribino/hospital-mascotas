@@ -26,7 +26,7 @@ export class MascotaService {
   }
 
   getMascotasPorUsuario(username: string): Observable<Array<IMascota>> {
-    let url = this.endpoints.mascotasUsuario + "?username=" + username,
+    let url = `${this.endpoints.mascotasUsuario}?username=${username}`,
       options = {
         headers: this.headers,
       };

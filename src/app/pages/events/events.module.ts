@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { MatInputModule, MatFormFieldModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule, MatIconModule, MatGridListModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule, MatIconModule, MatGridListModule, MatOptionModule, MatSelectModule, MatProgressSpinner, MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { EventsComponent } from './events.component';
 import { EventsRoutingModule } from './events-routing.module';
+import { TurnoDialogModule } from 'src/app/shared/turno-dialog/turno-dialog.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,11 @@ import { EventsRoutingModule } from './events-routing.module';
     MatNativeDateModule,
     MatGridListModule,
     MatIconModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    TurnoDialogModule,
     FormsModule,
     ReactiveFormsModule,
   ],

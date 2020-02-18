@@ -1,35 +1,74 @@
 @import "../../../assets/styles/vars"
 
 .mat-stepper-horizontal
-  max-width 100%
-  width auto
+  width 100%
+  max-width 600px
   form
     display flex
     flex-direction column
     max-width none
     box-shadow none
-    .stepper-actions
+.stepper-actions
+  display flex
+  width 100%
+  justify-content center
+  align-items center
+  &.fcol
+    flex-direction row
+    flex-wrap wrap
+  .mat-form-field
+    width 45%
+    max-width 300px
+    margin 0 auto
+  .full-width
+    width 50%
+    margin 0 25%
+    &.top-margin
       display flex
-      width 100%
       justify-content center
-      align-items center
-    .stepper-body
-      display flex
-      flex-direction column
-      width 100%
-      justify-content center
-      align-items center
-      h5
-        margin-block-start 1em
-        margin-block-end 1em
-      .mat-grid-list
-        width 100%
-      button
-        &.nav-icon
-          font-size 0.8em
-          padding 0.2em 0.4em
-        &.nodisponible
-          color disabledColor
-          border-color disabledColor
-          &:hover
-            background-color white
+      margin-top normalM
+  @media screen and (max-width: sm)
+    .mat-form-field
+      width 90%
+    .full-width
+      margin 0 auto
+.stepper-body
+  display flex
+  flex-direction column
+  width 100%
+  justify-content center
+  align-items center
+  h5
+    margin-block-start 1em
+    margin-block-end 1em
+  .mat-grid-list
+    width 100%
+  button
+    &.nav-icon
+      font-size 1em
+      padding 0.2em 0.4em
+      &.seleccionado
+        background-color primaryBack
+        color white
+    &.reservado
+      color reservadoColor
+      border-color reservadoColor
+      &:hover
+        color white
+        background-color reservadoColor
+    &.concurrio
+      color concurrioColor
+      border-color concurrioColor
+      &:hover
+        color white
+        background-color concurrioColor
+    &.noconcurrio
+      color noConcurrioColor
+      border-color noConcurrioColor
+    &.nodisponible
+      color disabledColor
+      border-color disabledColor
+      &:hover
+        background-color white
+.spinner-content
+  margin 0 0.4em

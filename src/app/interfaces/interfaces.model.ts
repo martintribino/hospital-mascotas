@@ -3,7 +3,6 @@ export declare type TimeLocal = {
   hour: number;
   minute: number;
   second: number;
-  nano?: number;
 };
 //enums
 export enum Estado {
@@ -22,7 +21,7 @@ export enum EstadoTurno {
   RESERVADO = "RESERVADO", //reservado y aun no transcurrio la fecha
 }
 
-export enum IEventoTipo {
+export enum EventoTipo {
   DESPARASITACION = "Desparasitación",
   ENFERMEDAD = "Enfermedad",
   INTERVENCION = "Intervención",
@@ -96,11 +95,9 @@ export interface IMascotaBody {
 
 export interface IEvento {
   slug?: string;
-  tipo: IEventoTipo;
-  fecha: Date;
+  tipo_evento: EventoTipo;
+  turno?: ITurno;
   descripcion: string;
-  concurrio: boolean;
-  veterinario: IProfile;
   mascota: IMascota;
   droga?: string;
   resultado?: string;
@@ -108,8 +105,17 @@ export interface IEvento {
   indicaciones?: string;
   motivo?: string;
   peso?: string;
-  fechaParto?: Date;
-  nroCachorros?: number;
+  fecha_parto?: Date;
+  nro_cachorros?: number;
+}
+
+export interface IEventoReqBody {
+  slug: string;
+  fecha: string;
+  inicio: TimeLocal;
+  fin: TimeLocal;
+  username: string;
+  evento: IEvento;
 }
 
 export interface IFicha {
@@ -145,6 +151,7 @@ export interface ITurno {
   inicio: TimeLocal;
   fin: TimeLocal;
   estado: EstadoTurno;
+  clase?: string;
 }
 
 export interface IHorario {
