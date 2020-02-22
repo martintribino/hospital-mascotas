@@ -25,6 +25,14 @@ export class MascotaService {
     return this.http.get<IMascota>(url, options);
   }
 
+  getMascotasFiltro(filtro: string): Observable<IMascota> {
+    let url = `${this.endpoints.mascotas}?filtro=${filtro}`,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.get<IMascota>(url, options);
+  }
+
   getMascotasPorUsuario(username: string): Observable<Array<IMascota>> {
     let url = `${this.endpoints.mascotasUsuario}?username=${username}`,
       options = {

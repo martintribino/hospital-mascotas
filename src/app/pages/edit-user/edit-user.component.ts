@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { PasswordValidation } from '../signup/password.validator';
+import { PasswordValidation } from '../../../helpers/password.validator';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { ILoginBody, IUser } from 'src/app/interfaces/interfaces.model';
-import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/auth.service';
+import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { isEqual, isEmpty } from 'src/helpers/functions';
 
 @Component({
   selector: 'app-edit-user',
@@ -19,25 +20,23 @@ export class EditUserComponent implements OnInit {
     clave: new FormControl(''),
     confirmarClave: new FormControl(''),
   });
-  errorResponse: string;
-  successResponse: string;
   isSubmiting: boolean;
   usuario: IUser;
+  usuarioActual: IUser;
 
   constructor(
     private authService: AuthenticationService,
     private perfilService: PerfilService,
-    private router: Router
+    private snackBar: MatSnackBar
   ) {
     this.isSubmiting = false;
+    this.usuario = this.authService.getUsuario();
+    this.usuarioActual = this.usuario;
     this.loginForm = new FormGroup({
-      nombreUsuario: new FormControl(''),
+      nombreUsuario: new FormControl(this.usuario.nombreUsuario),
       clave: new FormControl(''),
       confirmarClave: new FormControl(''),
-    }, PasswordValidation.MatchPassword);
-    this.errorResponse = "";
-    this.successResponse = "";
-    this.usuario = this.authService.getUsuario();
+    }, PasswordValidation.MatchPasswordIncEmpty);
   }
 
   ngOnInit() {
@@ -49,7 +48,7 @@ export class EditUserComponent implements OnInit {
       "nombreUsuario": this.loginF.nombreUsuario.value,
       "clave": this.loginF.clave.value,
       "confirmar_clave": this.loginF.confirmarClave.value,
-      "nombreUsuarioViejo": this.usuario.nombreUsuario
+      "nombre_usuario_viejo": this.usuario.nombreUsuario
     };
     this.perfilService.editarUsuario(loginBody)
       .subscribe(
@@ -59,29 +58,41 @@ export class EditUserComponent implements OnInit {
   }
 
   onSuccess(user: IUser) {
-    this.errorResponse = "";
-    this.successResponse = "Actualización correcta.";
+    this.showError("Actualiación exitosa.", "success");
     this.authService.setSession(user);
     this.usuario = user;
-    this.clean();
   }
 
   handleError(error: HttpErrorResponse) {
-    this.errorResponse = "";
-    this.successResponse = "";
+    this.showError("Datos incorrectos. Por favor, intente nuevamente", "error");
     this.isSubmiting = false;
-    this.clean();
-  }
-
-  clean() {
-    this.loginForm.reset();
-    Object.keys(this.loginForm.controls).forEach(key => {
-      this.loginForm.get(key).setErrors(null);
-    });
   }
 
   get loginF() {
     return this.loginForm.controls;
+  }
+
+  private isEmpty(value: FormControl): boolean {
+    return isEmpty(value.value);
+  }
+
+  private isDisabled(): boolean {
+    return this.isSubmiting || (
+      isEqual(this.usuarioActual.nombreUsuario, this.loginF.nombreUsuario.value) &&
+      isEmpty(this.loginF.clave.value)
+    );
+  }
+
+  private showError(strError: string, clase: string = "", time: number = 2000, pos: MatSnackBarVerticalPosition = "top") {
+    this.snackBar.open(
+      strError,
+      "",
+      {
+        duration: time,
+        verticalPosition: pos,
+        panelClass: clase
+      }
+    );
   }
 
 }

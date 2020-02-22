@@ -52,6 +52,10 @@ export class PerfilService {
     return this.perfilSubject.getValue();
   }
 
+  unsetPerfil() {
+    this.perfilSubject.next(null);
+  }
+
   borrarPerfil(username: string) {
     let owner: string = this.getPerfil().usuario.nombreUsuario || "",
       url: string = this.endpoints.perfil + "?username=" + username + "&owner=" + owner,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatSnackBarModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -14,6 +14,7 @@ import { EditUserRoutingModule } from './edit-user-routing.module';
     HttpClientModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
   ],

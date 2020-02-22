@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
   createMascotasUrl: string;
   logoutUrl: string;
   editPerfilUrl: string;
+  editAvatarUrl: string;
   editUserUrl: string;
   validatVeterinarioUrl: string;
 
@@ -30,6 +31,7 @@ export class NavbarComponent implements OnInit {
     this.logoutUrl = "logout";
     this.mascotasUrl = "mascotas";
     this.editPerfilUrl = "edit-perfil";
+    this.editAvatarUrl = "edit-imagen";
     this.editUserUrl = "edit-user";
     this.createMascotasUrl = "create-mascota";
     this.validatVeterinarioUrl = "validate-veterinarios";

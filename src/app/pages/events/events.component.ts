@@ -12,7 +12,7 @@ import { EventoService } from 'src/app/services/evento.service';
 import { MascotaService } from 'src/app/services/mascota.service';
 import { AuthenticationService } from 'src/app/services/auth.service';
 
-import { IHorario, ITurno, EstadoTurno, IEvento, EventoTipo, IMascota, IEventoReqBody } from 'src/app/interfaces/interfaces.model';
+import { IHorario, ITurno, EstadoTurno, IEvento, EventoTipo, IMascota, IEventoReqBody, EventoTipoSinAcento } from 'src/app/interfaces/interfaces.model';
 import { Usuario } from 'src/app/model/usuario';
 import { TurnoDialogComponent } from 'src/app/shared/turno-dialog/turno-dialog.component';
 
@@ -41,6 +41,7 @@ export class EventsComponent implements OnInit {
   tipoEventos: Array<{ "indice": string, "value": string }>;
   estadosHabilitados: Array<EstadoTurno>;
   isSubmiting: boolean;
+  EventoTipo = EventoTipoSinAcento;
 
   constructor(
     private eventoService: EventoService,
@@ -65,7 +66,7 @@ export class EventsComponent implements OnInit {
       fecha: new FormControl(''),
     });
     this.secondStepForm = new FormGroup({
-      tipo: new FormControl(null),
+      tipo: new FormControl(EventoTipo.Visita),
       descripcion: new FormControl(''),
       mascota: new FormControl(null),
       droga: new FormControl(null),
@@ -84,14 +85,16 @@ export class EventsComponent implements OnInit {
     if (usu != null) {
       if (this.isDuenio()) {
         this.estadosHabilitados = [
+          EstadoTurno.CONCURRIO,
           EstadoTurno.DISPONIBLE,
           EstadoTurno.RESERVADO
         ];
       } else {
+        this.minDate = null;
         this.estadosHabilitados = [
           EstadoTurno.CANCELADO,
-          EstadoTurno.DISPONIBLE,
           EstadoTurno.CONCURRIO,
+          EstadoTurno.DISPONIBLE,
           EstadoTurno.NOCONCURRIO,
           EstadoTurno.RESERVADO
         ];
@@ -120,7 +123,7 @@ export class EventsComponent implements OnInit {
     if (usu != null) {
       let msct: IMascota = this.secondStepF.mascota.value,
         evt: IEvento = {
-          "tipo_evento": this.secondStepF.tipo.value,
+          "tipo": this.secondStepF.tipo.value,
           "turno": null,
           "descripcion": this.secondStepF.descripcion.value,
           "mascota": null,
@@ -174,7 +177,10 @@ export class EventsComponent implements OnInit {
           this.showInfo(turno);
         break;
       case EstadoTurno.DISPONIBLE:
-        this.turnoSeleccionado = turno;
+        if (this.turnoSeleccionado == turno)
+          this.turnoSeleccionado = null;
+        else
+          this.turnoSeleccionado = turno;
         break;
       case EstadoTurno.NOCONCURRIO:
         if (this.estadosHabilitados.includes(EstadoTurno.NOCONCURRIO))
@@ -190,12 +196,10 @@ export class EventsComponent implements OnInit {
   }
 
   private showInfo(turno: ITurno) {
-    const dialogRef = this.dialog.open(TurnoDialogComponent, {
-      width: '500px',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialog.open(TurnoDialogComponent, {
+      width: '300px',
+      maxWidth: '400px',
+      data: turno
     });
   }
 
@@ -226,7 +230,7 @@ export class EventsComponent implements OnInit {
     return day !== 0 && day !== 6;
   }
 
-  private compareEvento(tipoSelected, ev) {
+  private compareEvento(tipoSelected, ev): boolean {
     return tipoSelected == ev;
   }
 
@@ -245,7 +249,7 @@ export class EventsComponent implements OnInit {
       fecha: new FormControl(''),
     });
     this.secondStepForm = new FormGroup({
-      tipo: new FormControl(null),
+      tipo: new FormControl(EventoTipo.Visita),
       descripcion: new FormControl(''),
       mascota: new FormControl(null),
       droga: new FormControl(null),

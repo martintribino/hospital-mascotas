@@ -1,0 +1,9 @@
+<h3 *ngIf="usuario != null" mat-dialog-title>{{usuario.role}}</h3>
+<mat-dialog-content>
+  <p>Nombre: {{perfil.nombre}} {{perfil.apellido}}</p>
+  <p>Email: {{perfil.email}}</p>
+  <p>Telefono: {{perfil.telefono}}</p>
+  <h4 *ngIf="isVeterinario()">Clínica</h4>
+  <p *ngIf="isVeterinario()">Nombre: {{perfil.nombreClinica}}</p>
+  <p *ngIf="isVeterinario()">Domicilio: {{perfil.domicilioClinica}}</p>
+</mat-dialog-content>

@@ -13,6 +13,7 @@ import { SubscriptionDialogComponent } from 'src/app/shared/subscription-dialog/
 import { FormMascotaComponent } from 'src/app/shared/form-mascota/form-mascota.component';
 import { Usuario } from 'src/app/model/usuario';
 import { FormFichaComponent } from 'src/app/shared/form-ficha/form-ficha.component';
+import { PerfilDialogComponent } from 'src/app/shared/perfil-dialog/perfil-dialog.component';
 
 @Component({
   selector: 'app-mascotas',
@@ -173,7 +174,7 @@ export class MascotasComponent implements OnInit {
   public onCreate() {
     let mascota: IMascota = {
       "slug": "", "nombre": "", "especie": "", "raza": "", "sexo": "", "color": "", "senias": "",
-      "imagen": "", "duenio": null, "veterinario": null, "open": false
+      "imagen": "", "duenio": null, "veterinario": null, "extraviada": false, "open": false
     };
     const dialogRef = this.dialog.open(FormMascotaComponent, {
       maxWidth: "100%", width: '550px',
@@ -262,6 +263,7 @@ export class MascotasComponent implements OnInit {
           "fechaNacimiento": ficha.fechaNacimiento,
           "imagen": ficha.imagen,
           "duenio": ficha.duenio,
+          "veterinario": ficha.veterinario,
           //"mascota": mascota
         };
         this.mascService.editarFichaPublica(fichaBody)
@@ -286,6 +288,16 @@ export class MascotasComponent implements OnInit {
     this.showError(strError, "error");
     this.loadingDict[mascota.slug] = false;
     console.log(`---${strError}---`);
+  }
+
+  moreInfo(perfil: IProfile): void {
+    this.dialog.open(PerfilDialogComponent, {
+      maxWidth: "100%",
+      width: 'auto',
+      height: 'auto',
+      maxHeight: "100%",
+      data: perfil
+    });
   }
 
   private showError(strError: string, clase: string = "", time: number = 2000, pos: MatSnackBarVerticalPosition = "top") {

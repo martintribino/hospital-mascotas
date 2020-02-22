@@ -4,11 +4,12 @@ import { MascotasComponent } from './mascotas.component';
 import { MascotasRoutingModule } from './mascotas-routing.module';
 import {
   MatCardModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule,
-  MatProgressSpinnerModule, MatIconModule, MatExpansionModule, MatTooltipModule, MatSnackBarModule, MatDialogModule, MatMenuModule,
+  MatProgressSpinnerModule, MatIconModule, MatExpansionModule, MatTooltipModule, MatSnackBarModule, MatDialogModule, MatMenuModule, MatGridListModule,
 } from '@angular/material';
 import { SubscriptionDialogModule } from 'src/app/shared/subscription-dialog/subscription-dialog.module';
 import { FormMascotaModule } from 'src/app/shared/form-mascota/form-mascota.module';
 import { FormFichaModule } from 'src/app/shared/form-ficha/form-ficha.module';
+import { PerfilDialogModule } from 'src/app/shared/perfil-dialog/perfil-dialog.module';
 
 @NgModule({
   imports: [
@@ -25,10 +26,11 @@ import { FormFichaModule } from 'src/app/shared/form-ficha/form-ficha.module';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatSnackBarModule,
     SubscriptionDialogModule,
+    PerfilDialogModule,
     FormMascotaModule,
     FormFichaModule,
-    MatSnackBarModule
   ],
   declarations: [
     MascotasComponent,

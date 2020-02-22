@@ -22,13 +22,21 @@ export enum EstadoTurno {
 }
 
 export enum EventoTipo {
-  DESPARASITACION = "Desparasitación",
-  ENFERMEDAD = "Enfermedad",
-  INTERVENCION = "Intervención",
-  REPRODUCCION = "Reproducción",
-  SOLICITUD = "Solicitud",
-  VACUNA = "Vacuna",
-  VISITA = "Visita"
+  Desparasitacion = "Desparasitación",
+  Enfermedad = "Enfermedad",
+  Intervencion = "Intervención",
+  Reproduccion = "Reproducción",
+  Vacuna = "Vacuna",
+  Visita = "Visita"
+}
+
+export enum EventoTipoSinAcento {
+  Desparasitacion = "Desparasitacion",
+  Enfermedad = "Enfermedad",
+  Intervencion = "Intervencion",
+  Reproduccion = "Reproduccion",
+  Vacuna = "Vacuna",
+  Visita = "Visita"
 }
 //interface
 export interface IPaginatorEv {
@@ -42,7 +50,7 @@ export interface ILoginBody {
   nombreUsuario: string;
   clave: string;
   confirmar_clave?: string;
-  nombreUsuarioViejo?: string;
+  nombre_usuario_viejo?: string;
 }
 
 export interface ISolicitud {
@@ -67,6 +75,7 @@ export interface IMascota {
   especie: string;
   raza: string;
   sexo: string;
+  extraviada: boolean;
   color?: string;
   senias?: string;
   fechaNacimiento?: Date;
@@ -95,7 +104,7 @@ export interface IMascotaBody {
 
 export interface IEvento {
   slug?: string;
-  tipo_evento: EventoTipo;
+  tipo: EventoTipo;
   turno?: ITurno;
   descripcion: string;
   mascota: IMascota;
@@ -129,6 +138,7 @@ export interface IFicha {
   fechaNacimiento: boolean;
   imagen: boolean;
   duenio: boolean;
+  veterinario: boolean;
   mascota?: IMascota;
 }
 
@@ -151,6 +161,7 @@ export interface ITurno {
   inicio: TimeLocal;
   fin: TimeLocal;
   estado: EstadoTurno;
+  evento?: IEvento;
   clase?: string;
 }
 
@@ -170,8 +181,8 @@ export interface IEditarPerfil {
   telefono?: number;
   domicilio?: string;
   imagen?: string;
-  nombreClinica?: string;
-  domicilioClinica?: string;
+  nombre_clinica?: string;
+  domicilio_clinica?: string;
   validado?: boolean;
 }
 
@@ -208,4 +219,9 @@ export interface IProfile {
 
 export interface IDictionary<T> {
   [key: string]: T;
+}
+
+export interface IFiltro {
+  clave: string;
+  valor: string;
 }

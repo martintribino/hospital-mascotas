@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
-import { PasswordValidation } from './password.validator';
+import { PasswordValidation } from '../../../helpers/password.validator';
 import { IProfile, ISignup } from 'src/app/interfaces/interfaces.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthenticationService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { PerfilService } from 'src/app/services/perfil.service';
+import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -30,13 +30,15 @@ export class SignupComponent implements OnInit {
     domicilioClinica: new FormControl(''),
     validado: new FormControl(''),
   });
-  errorResponse: string;
-  successResponse: string;
   redirecting: boolean;
   isSubmiting: boolean;
   roles: Array<{ clave: string, valor: string }>;
 
-  constructor(private perfilService: PerfilService, private router: Router) {
+  constructor(
+    private perfilService: PerfilService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {
     this.isSubmiting = false;
     this.signupForm = new FormGroup({
       nombre: new FormControl(''),
@@ -54,13 +56,11 @@ export class SignupComponent implements OnInit {
       domicilioClinica: new FormControl(''),
       validado: new FormControl(''),
     }, PasswordValidation.MatchPassword);
-    this.errorResponse = "";
-    this.successResponse = "";
     this.redirecting = false;
     this.roles = [
       { clave: 'duenio', valor: 'Dueño' },
       { clave: 'veterinario', valor: 'Veterinario' },
-      { clave: 'administrador', valor: 'Administrador' },
+      //{ clave: 'administrador', valor: 'Administrador' },
     ];
   }
 
@@ -90,15 +90,13 @@ export class SignupComponent implements OnInit {
   }
 
   onSuccess(data: IProfile) {
-    this.errorResponse = "";
-    this.successResponse = "Creacion de usuario correcta. Redirigiendo al login...";
+    this.showError("Creación de usuario exitosa. Redirigiendo al login...", "success");
     this.redirecting = true;
     this.router.navigate(['/login'], { queryParams: {} });
   }
 
   handleError(error: HttpErrorResponse) {
-    this.errorResponse = "No se pudo crear el usuario. Por favor intentelo de nuevo mas tarde.";
-    this.successResponse = "";
+    this.showError("Datos incorrectos. Por favor, intente nuevamente", "error");
     this.redirecting = false;
     this.isSubmiting = false;
   }
@@ -113,6 +111,18 @@ export class SignupComponent implements OnInit {
 
   get signupF() {
     return this.signupForm.controls;
+  }
+
+  private showError(strError: string, clase: string = "", time: number = 2000, pos: MatSnackBarVerticalPosition = "top") {
+    this.snackBar.open(
+      strError,
+      "",
+      {
+        duration: time,
+        verticalPosition: pos,
+        panelClass: clase
+      }
+    );
   }
 
 }

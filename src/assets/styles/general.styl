@@ -1,33 +1,43 @@
+
 body
   margin 0
   word-break break-word
+
 app-header
   background-color primaryBack
+
 app-navbar, .container
   max-width lg
   margin 0 auto
+
 nav
   display flex
   width 100%
+
 app-login, app-signup, app-not-found, app-loading-page, app-home, app-navbar, app-header,
 app-services, app-edit-user, app-edit-perfil, app-create-mascota, app-validate-veterinarios,
 app-mascotas, app-form-mascota, app-qrcode, app-events
   display: flex;
   width: 100%;
   justify-content: center;
+
 app-services, app-qrcode
   flex-direction column
   text-align center
+
 app-contact, app-mascotas
   flex-direction column
+
 app-home
   flex-direction row
   align-items center
   flex-wrap wrap
+
 .spinner-page
   display flex
   margin 2em auto
   justify-content center
+
 .cdk-overlay-pane
   .mat-dialog-container
     padding 1em
@@ -35,6 +45,7 @@ app-home
       display flex
       justify-content center
       margin 0 0 1em 0
+
 form
   display flex
   width 100%
@@ -65,7 +76,7 @@ form
     padding 0
     justify-content center
     margin 0
-    border 3px solid primaryBack
+    border 3px solid transparent
     border-radius 5px
     h4
       display flex
@@ -88,6 +99,7 @@ form
         display flex
         width 100%
         justify-content flex-start
+
 .container
   display: flex;
   width: 100%;
@@ -96,6 +108,7 @@ form
     margin 0 auto
     width 75%
     padding 0 3%
+
 .mat-table
   margin 0 auto
   width 75%
@@ -121,6 +134,7 @@ form
       color primaryBack
       &:hover
         color rgba(primaryBack, 0.75)
+
 .mat-menu-content
   button
     background-color transparent
@@ -131,6 +145,7 @@ form
       margin-right 5px
       &:hover
         color rgba(primaryBack, 0.75)
+
 button 
   box-shadow inset 0 1px 0 0 formBorderColor
   background-color primaryBack
@@ -193,6 +208,7 @@ button
   &:disabled
     background-color disabledColor
     color primaryBack
+
 .mat-focused.mat-form-field
   &.ng-valid
     color successColor
@@ -200,12 +216,14 @@ button
       color successColor
     .mat-form-field-underline
       background-color successColor
+
 .mat-form-field.mat-focused
   &.ng-valid
     .mat-form-field-ripple
       background-color successColor
     .mat-form-field-label
       color successColor
+
 mat-form-field
   &.ng-valid
     &.ng-touched
@@ -216,18 +234,40 @@ mat-form-field
         color successColor
       .mat-form-field-underline
         background-color successColor
+
 .desktop
   display flex
+
 .mobile
   display none
+
 .mat-form-field-wrapper
   width 100%
+
 .no-mascota-card
   min-width 50%
+
+.mat-cell
+  a
+    cursor pointer
+    color primaryBack
+
+a
+  cursor pointer
+  color primaryBack
+  &:hover
+    text-decoration underline
 
 //general single classes
 .top-margin
   margin-top normalM
+
+.native-select
+  color primaryBack
+  border-color primaryBack
+  padding 0.2em 0.4em
+  font-size 1em
+  background-color white
 
 @media screen and (max-width: md)
   .title-navbar
@@ -276,7 +316,7 @@ mat-form-field
     form
       margin 0 auto
       font-size 1em
-      background formBackColor
+      background secondaryBack
       box-shadow 1px 1px 20px rgba(0,0,0,0.35)
       border-radius 8px
       line-height: 1.5em;

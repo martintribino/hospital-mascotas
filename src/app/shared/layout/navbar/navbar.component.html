@@ -22,6 +22,9 @@
               </button>
             </ng-container>
             <ng-container *ngIf="isVeterinario(usu.role)">
+              <button mat-button [routerLink]="eventosUrl" routerLinkActive="active-link">
+                Eventos
+              </button>
               <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
                 Mascotas
               </button>
@@ -38,6 +41,9 @@
               </button>
               <button mat-button [routerLink]="editUserUrl" routerLinkActive="active-link">
                 Editar Usuario
+              </button>
+              <button mat-button [routerLink]="editAvatarUrl" routerLinkActive="active-link">
+                Editar Imagen
               </button>
             </mat-menu>
           </ng-container>
@@ -89,6 +95,12 @@
                 </button>
               </ng-container>
               <ng-container *ngIf="isVeterinario(usu.role)">
+                <button mat-button [routerLink]="eventosUrl" routerLinkActive="active-link">
+                  <span class="mat-button-wrapper">
+                    <mat-icon>calendar_today</mat-icon>
+                    <label>Eventos</label>
+                  </span>
+                </button>
                 <button mat-button [routerLink]="mascotasUrl" routerLinkActive="active-link">
                   <span class="mat-button-wrapper">
                     <mat-icon>pets</mat-icon>
@@ -114,6 +126,9 @@
                 </button>
                 <button mat-button [routerLink]="editUserUrl" routerLinkActive="active-link">
                   Editar Usuario
+                </button>
+                <button mat-button [routerLink]="editAvatarUrl" routerLinkActive="active-link">
+                  Editar Imagen
                 </button>
               </mat-menu>
             </ng-container>

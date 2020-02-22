@@ -6,7 +6,7 @@
     <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
       [length]="(veterinarios | async)?.length" (page)="pageEvent = handlePage($event)">
     </mat-paginator>
-    <div *ngFor="let veterinario of (obs | async)">
+    <div *ngFor="let veterinario of (obs | async)" class="veterinario-card-content">
       <mat-card [@veterinarioFadeAnimation]="'in'" class="veterinario-card">
         <mat-card-header>
           <img mat-card-avatar *ngIf="veterinario.imagen !== null" [src]="veterinario.imagen"

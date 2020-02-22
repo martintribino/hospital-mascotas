@@ -3,10 +3,12 @@
 app-home
   display flex
   flex-direction column
+
 .no-mascota-card
   display flex
   justify-content center
   min-width 50%
+
 .mascota-card
   margin 1em
   text-align center
@@ -18,9 +20,25 @@ app-home
   .mat-card-image
     width 150px
     border-radius 50%
+    @media (max-width: sm)
+      width 100px
+
 .mat-card-actions
   button
-    padding 0.2em 0.4em 0 0.4em
+    padding 0.3em
+
+.native-select
+  margin 0 10px
+
+.filtro-cont
+  display flex
+  flex-direction row
+  justify-content center
+  align-items center
+  width 100%
+  .mat-select
+    width auto
+
 @media (max-width: sm)
   .mascota-card
     min-width auto
@@ -28,7 +46,8 @@ app-home
     margin 0
     padding 2% 0
     box-shadow none
+
     .mat-card-actions
       margin 0
       button
-        margin 0
+        margin 0 auto

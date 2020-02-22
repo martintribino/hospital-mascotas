@@ -47,28 +47,47 @@
     &.nav-icon
       font-size 1em
       padding 0.2em 0.4em
+      @media screen and (max-width: sm)
+        padding 0.4em
+    &.disponible
+      color successColor
+      border-color reservableColor
+      background-color white
+      &:hover
+        background-color successColor
+        color white
       &.seleccionado
-        background-color primaryBack
+        background-color successColor
         color white
     &.reservado
-      color reservadoColor
-      border-color reservadoColor
+      color white
+      background-color primaryBack
+      border-color primaryBack
       &:hover
+        background-color primaryBack
         color white
-        background-color reservadoColor
     &.concurrio
       color concurrioColor
       border-color concurrioColor
       &:hover
-        color white
-        background-color concurrioColor
+        color concurrioColor
+        border-color concurrioColor
+        background-color white
+    &.cancelado
     &.noconcurrio
       color noConcurrioColor
       border-color noConcurrioColor
+      &:hover
+        color noConcurrioColor
+        border-color noConcurrioColor
+        background-color white
+    &.inactivo
     &.nodisponible
       color disabledColor
       border-color disabledColor
       &:hover
+        color disabledColor
+        border-color disabledColor
         background-color white
 .spinner-content
   margin 0 0.4em

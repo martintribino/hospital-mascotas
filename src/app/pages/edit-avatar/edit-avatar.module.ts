@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule, MatSelectModule, MatFormFieldModule, MatSnackBarModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { EditPerfilRoutingModule } from './edit-perfil-routing.module';
-import { EditPerfilComponent } from './edit-perfil.component';
 import { PerfilService } from 'src/app/services/perfil.service';
+import { EditAvatarComponent } from './edit-avatar.component';
+import { EditAvatarRoutingModule } from './edit-avatar-routing.module';
 
 @NgModule({
   imports: [
-    EditPerfilRoutingModule,
+    EditAvatarRoutingModule,
     CommonModule,
     MatInputModule,
     MatSelectModule,
@@ -19,11 +19,11 @@ import { PerfilService } from 'src/app/services/perfil.service';
     ReactiveFormsModule,
   ],
   declarations: [
-    EditPerfilComponent
+    EditAvatarComponent
   ],
   providers: [
     PerfilService
   ]
 })
 
-export class EditPerfilModule { }
+export class EditAvatarModule { }

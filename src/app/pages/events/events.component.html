@@ -105,37 +105,37 @@
           </mat-error>
           <mat-error *ngIf="secondStepF.descripcion?.errors?.required">Campo requerido</mat-error>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, 'DESPARASITACION')">
+        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Desparasitacion)">
           <mat-label>Droga</mat-label>
           <input matInput type="text" formControlName="droga" placeholder="Droga">
           <mat-hint>Droga</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, 'DESPARASITACION')">
+        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Desparasitacion)">
           <mat-label>Resultado</mat-label>
           <input matInput type="text" formControlName="resultado" placeholder="Resultado">
           <mat-hint>Resultado</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, 'VISITA')">
+        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)">
           <mat-label>Indicaciones</mat-label>
           <input matInput type="text" formControlName="indicaciones" placeholder="Indicaciones">
           <mat-hint>Indicaciones</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, 'VISITA')">
+        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)">
           <mat-label>Motivo</mat-label>
           <input matInput type="text" formControlName="motivo" placeholder="Motivo">
           <mat-hint>Motivo</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, 'VISITA')">
+        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)">
           <mat-label>Peso</mat-label>
           <input matInput type="text" formControlName="peso" placeholder="Peso">
           <mat-hint>Peso</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, 'VISITA')">
+        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)">
           <mat-label>Diagnóstico</mat-label>
           <input matInput type="text" formControlName="diagnostico" placeholder="Diagnóstico">
           <mat-hint>Diagnóstico</mat-hint>
         </mat-form-field>
-        <mat-form-field class="standard" *ngIf="compareEvento(tipoSelected, 'REPRODUCCION')">
+        <mat-form-field class="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Reproduccion)">
           <input matInput type="text" [matDatepicker]="parto" formControlName="fechaParto" autocomplete="off"
             [max]="minDate" readonly>
           <mat-datepicker-toggle matSuffix [for]="parto"></mat-datepicker-toggle>
@@ -143,7 +143,7 @@
           <mat-hint>Fecha de Parto</mat-hint>
           <mat-error *ngIf="secondStepF.fechaParto?.errors?.parse">Fecha no válida</mat-error>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, 'REPRODUCCION')">
+        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Reproduccion)">
           <mat-label>Número de cachorros</mat-label>
           <input matInput type="number" formControlName="nroCachorros" placeholder="Número de cachorros">
           <mat-hint>Número de cachorros</mat-hint>
@@ -157,6 +157,11 @@
             </span>
           </button>
         </div>
+      </div>
+      <div class="stepper-actions">
+        <button matStepperPrevious class="nav-icon">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>

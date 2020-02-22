@@ -1,37 +1,56 @@
-<div *ngIf="(mascotas| async)?.length > 0; then ifBlock else elseBlock">
+<div class="filtro-cont">
+  <h3>Filtrar mascotas por: </h3>
+  <select class="native-select" (change)="onSelectionChange($event.target.value)" [(value)]="selectedFilter">
+    <option *ngFor="let fltr of filtros" [value]="fltr.clave">
+      {{fltr.valor}}
+    </option>
+  </select>
 </div>
-<ng-template #ifBlock>
-  <mat-card class="mascota-card" *ngFor="let mascota of (mascotas | async)">
-    <mat-card-header *ngIf="mascota.nombre !== null && mascota.nombre.length > 0">
-      <mat-card-title>{{mascota.nombre}}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image *ngIf="mascota.imagen.length > 0" [src]="mascota.imagen" alt="{{mascota.imagen}}">
-    <img mat-card-image *ngIf="mascota.imagen !== undefined || mascota.imagen.length == 0"
-      src="assets/images/pet_default_image.jpg" alt="{{mascota.imagen}}">
-    <mat-card-content>
-      <p *ngIf="mascota.raza !== null && mascota.raza.length > 0">Raza: {{mascota.raza}}</p>
-      <p *ngIf="mascota.especie !== null && mascota.especie.length > 0">Especie: {{mascota.especie}}</p>
-      <p *ngIf="mascota.sexo !== null && mascota.sexo.length > 0">Sexo: {{mascota.sexo}}</p>
-      <p *ngIf="mascota.color !== null && mascota.color.length > 0">Color: {{mascota.color}}</p>
-      <p *ngIf="mascota.senias !== null && mascota.senias.length > 0">Señas: {{mascota.senias}}</p>
-      <p *ngIf="mascota.fechaNacimiento !==null && mascota.fechaNacimiento.length > 0">Nacimiento:
-        {{mascota.fechaNacimiento | date}}</p>
-      <p *ngIf="mascota.duenio !== null">Dueño: {{mascota.duenio?.nombre}}</p>
-      <p *ngIf="mascota.veterinario != null && mascota.veterinario?.length > 0">Veterinario:
-        {{mascota.veterinario?.nombre}}</p>
-      <mat-card-actions>
-        <button mat-icon-button matTooltip="Código QR" matTooltipPosition="below" (click)="onQRCode(mascota)"
-          aria-label="Código QR" class="qricon">
-          <mat-icon>assignment</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card-content>
-  </mat-card>
+<div *ngIf="isLoading; then ifloadBlock else elseLoadBlock">
+  <div class="full-width">
+    <span class="spinner-content">
+      <mat-progress-spinner class="loading" mode="indeterminate" diameter="25"></mat-progress-spinner>
+    </span>
+  </div>
+</div>
+<ng-template #ifloadBlock>
 </ng-template>
-<ng-template #elseBlock>
-  <mat-card class="no-mascota-card">
-    <mat-card-header>
-      <h3 matLine> No hay mascotas </h3>
-    </mat-card-header>
-  </mat-card>
+<ng-template #elseLoadBlock>
+  <div *ngIf="(mascotas| async)?.length > 0; then ifBlock else elseBlock">
+  </div>
+  <ng-template #ifBlock>
+    <mat-card class="mascota-card" *ngFor="let mascota of (mascotas | async)">
+      <mat-card-header *ngIf="mascota.nombre !== null && mascota.nombre.length > 0">
+        <mat-card-title>{{mascota.nombre}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image *ngIf="mascota.imagen.length > 0" [src]="mascota.imagen" alt="{{mascota.imagen}}">
+      <img mat-card-image *ngIf="mascota.imagen !== undefined || mascota.imagen.length == 0"
+        src="assets/images/pet_default_image.jpg" alt="{{mascota.imagen}}">
+      <mat-card-content>
+        <p *ngIf="mascota.raza !== null && mascota.raza.length > 0">Raza: {{mascota.raza}}</p>
+        <p *ngIf="mascota.especie !== null && mascota.especie.length > 0">Especie: {{mascota.especie}}</p>
+        <p *ngIf="mascota.sexo !== null && mascota.sexo.length > 0">Sexo: {{mascota.sexo}}</p>
+        <p *ngIf="mascota.color !== null && mascota.color.length > 0">Color: {{mascota.color}}</p>
+        <p *ngIf="mascota.senias !== null && mascota.senias.length > 0">Señas: {{mascota.senias}}</p>
+        <p *ngIf="mascota.fechaNacimiento !==null && mascota.fechaNacimiento.length > 0">Nacimiento:
+          {{mascota.fechaNacimiento | date}}</p>
+        <p *ngIf="mascota.duenio !== null">Dueño: {{mascota.duenio?.nombre}}</p>
+        <p *ngIf="mascota.veterinario != null && mascota.veterinario?.length > 0">Veterinario:
+          {{mascota.veterinario?.nombre}}</p>
+        <mat-card-actions>
+          <button mat-icon-button matTooltip="Código QR" matTooltipPosition="below" (click)="onQRCode(mascota)"
+            aria-label="Código QR" class="qricon">
+            <mat-icon>assignment</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+  <ng-template #elseBlock>
+    <mat-card class="no-mascota-card">
+      <mat-card-header>
+        <h3 matLine> No hay mascotas </h3>
+      </mat-card-header>
+    </mat-card>
+  </ng-template>
 </ng-template>

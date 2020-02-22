@@ -5,6 +5,9 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { isEqual, isVeterinario } from 'src/helpers/functions';
+import { BehaviorSubject } from 'rxjs';
+import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-perfil',
@@ -13,6 +16,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class EditPerfilComponent implements OnInit {
 
+  private perfilSubject = new BehaviorSubject<IProfile>(null);
+  perfil = this.perfilSubject.asObservable();
+  perfilInicial: IProfile;
   perfilForm = new FormGroup({
     nombre: new FormControl(''),
     apellido: new FormControl(''),
@@ -29,36 +35,48 @@ export class EditPerfilComponent implements OnInit {
   successResponse: string;
   isSubmiting: boolean;
   usuario: IUser;
-  perfil: IProfile;
 
   constructor(
     private authService: AuthenticationService,
     private perfilService: PerfilService,
-    private router: Router
+    private snackBar: MatSnackBar
   ) {
     this.isSubmiting = false;
-    this.perfilForm = new FormGroup({
-      nombre: new FormControl(''),
-      apellido: new FormControl(''),
-      email: new FormControl(''),
-      documento: new FormControl(''),
-      telefono: new FormControl(''),
-      domicilio: new FormControl(''),
-      imagen: new FormControl(''),
-      nombreClinica: new FormControl(''),
-      domicilioClinica: new FormControl(''),
-      validado: new FormControl(''),
-    });
     this.errorResponse = "";
     this.successResponse = "";
+    this.perfilInicial = null;
+    this.perfilSubject.next(null);
     this.usuario = this.authService.getUsuario();
-    this.perfil = this.perfilService.getPerfil();
+    this.perfilService.obtenerPerfil(this.usuario.nombreUsuario)
+      .subscribe(
+        (data: IProfile) => {
+          this.perfilSubject.next(data);
+          this.perfilInicial = data;
+          this.perfilForm = new FormGroup({
+            nombre: new FormControl(data.nombre),
+            apellido: new FormControl(data.apellido),
+            email: new FormControl(data.email),
+            documento: new FormControl(data.dni),
+            telefono: new FormControl(data.telefono),
+            domicilio: new FormControl(data.domicilio),
+            imagen: new FormControl(data.imagen),
+            nombreClinica: new FormControl(data.nombreClinica),
+            domicilioClinica: new FormControl(data.domicilioClinica),
+            validado: new FormControl(data.validado),
+          });
+        },
+        (error: HttpErrorResponse) => {
+          this.perfilSubject.next(null);
+        }
+      );
   }
 
   ngOnInit() {
   }
 
-  onSubmit() {
+  private onSubmit(event: Event) {
+    event.stopPropagation();
+    event.preventDefault();
     this.isSubmiting = true;
     let loginBody: IEditarPerfil = {
       "nombre": this.editarPerfilF.nombre.value,
@@ -68,8 +86,8 @@ export class EditPerfilComponent implements OnInit {
       "telefono": this.editarPerfilF.telefono.value,
       "domicilio": this.editarPerfilF.domicilio.value,
       "imagen": this.editarPerfilF.imagen.value,
-      "nombreClinica": this.editarPerfilF.nombreClinica.value,
-      "domicilioClinica": this.editarPerfilF.domicilioClinica.value,
+      "nombre_clinica": this.editarPerfilF.nombreClinica.value,
+      "domicilio_clinica": this.editarPerfilF.domicilioClinica.value,
     };
     this.perfilService.editarPerfil(this.usuario.nombreUsuario, loginBody)
       .subscribe(
@@ -78,29 +96,21 @@ export class EditPerfilComponent implements OnInit {
       );
   }
 
-  onSuccess(perfil: IProfile) {
-    this.errorResponse = "";
-    this.successResponse = "Actualización correcta.";
-    this.perfilService.setPerfil(perfil);
-    this.perfil = perfil;
-    this.clean();
-  }
-
-  handleError(error: HttpErrorResponse) {
-    this.errorResponse = "No se ha podido actualizar. Por favor intente nuevamente.";
-    this.successResponse = "";
+  private onSuccess(perfil: IProfile) {
+    this.showError("Actualización exitosa.", "success");
     this.isSubmiting = false;
-    /*if (error.status === 0 ||
-      error.status === 401 ||
-      error.status === 403
-    ) {
-      this.authService.logout();
-      this.router.navigate(['/login'], { queryParams: {} });
-    }*/
-    this.clean();
+    this.perfilSubject.next(perfil);
+    this.perfilInicial = perfil;
   }
 
-  clean() {
+  private handleError(error: HttpErrorResponse) {
+    this.showError("Datos incorrectos. Por favor, intente nuevamente", "error");
+    this.isSubmiting = false;
+    this.perfilSubject.next(null);
+    this.perfilInicial = null;
+  }
+
+  private clean() {
     this.perfilForm.reset();
     Object.keys(this.perfilForm.controls).forEach(key => {
       this.perfilForm.get(key).setErrors(null);
@@ -109,6 +119,35 @@ export class EditPerfilComponent implements OnInit {
 
   get editarPerfilF() {
     return this.perfilForm.controls;
+  }
+
+  private isDisabled(): boolean {
+    return this.isSubmiting || (
+      isEqual(this.perfilInicial.nombre, this.editarPerfilF.nombre.value) &&
+      isEqual(this.perfilInicial.apellido, this.editarPerfilF.apellido.value) &&
+      isEqual(this.perfilInicial.email, this.editarPerfilF.email.value) &&
+      isEqual(this.perfilInicial.dni, this.editarPerfilF.documento.value) &&
+      isEqual(this.perfilInicial.telefono, this.editarPerfilF.telefono.value) &&
+      isEqual(this.perfilInicial.domicilio, this.editarPerfilF.domicilio.value) &&
+      isEqual(this.perfilInicial.nombreClinica, this.editarPerfilF.nombreClinica.value) &&
+      isEqual(this.perfilInicial.domicilioClinica, this.editarPerfilF.domicilioClinica.value)
+    );
+  }
+
+  private isVeterinario(): boolean {
+    return isVeterinario(this.usuario);
+  }
+
+  private showError(strError: string, clase: string = "", time: number = 2000, pos: MatSnackBarVerticalPosition = "top") {
+    this.snackBar.open(
+      strError,
+      "",
+      {
+        duration: time,
+        verticalPosition: pos,
+        panelClass: clase
+      }
+    );
   }
 
 }

@@ -28,6 +28,7 @@ export class FormFichaComponent {
       fechaNacimiento: new FormControl(data.fechaNacimiento),
       imagen: new FormControl(data.imagen),
       duenio: new FormControl(data.duenio),
+      veterinario: new FormControl(data.veterinario),
     });
   }
 

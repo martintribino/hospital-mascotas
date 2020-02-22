@@ -31,12 +31,13 @@
     </ng-container>
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>
-        <button mat-mini-fab *ngIf="isDuenio()" aria-label="Crear mascota" (click)="onCreate()" class="fab-button">
+        <button mat-mini-fab *ngIf="isDuenio()" aria-label="Crear mascota" (click)="onCreate()" class="fab-button"
+          matTooltip="Crear Mascota" matTooltipPosition="below" aria-label="Crear mascota">
           +<mat-icon>pets</mat-icon>
         </button>
       </mat-header-cell>
       <mat-cell class="actions-cell" *matCellDef="let mascota">
-        <button mat-icon-button (click)="$event.stopPropagation()" matTooltip="Acciones" [matMenuTriggerFor]="menu"
+        <button mat-icon-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="menu" matTooltip="Acciones"
           matTooltipPosition="below" aria-label="Acciones mascota">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -52,10 +53,11 @@
             <mat-icon>subscriptions</mat-icon>
           </button>
           <button mat-icon-button *ngIf="isDuenio() || isAdministrador()" [disabled]="loadingDict[mascota.slug]"
-            matTooltip="Editar" matTooltipPosition="below" (click)="onEdit(mascota)" aria-label="editar mascota">
+            matTooltip="Editar mascota" matTooltipPosition="below" (click)="onEdit(mascota)"
+            aria-label="editar mascota">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button [disabled]="loadingDict[mascota.slug]" matTooltip="Eliminar"
+          <button mat-icon-button [disabled]="loadingDict[mascota.slug]" matTooltip="Borrar mascota"
             matTooltipPosition="below" (click)="onDelete(mascota)" aria-label="eliminar mascota">
             <mat-icon>delete</mat-icon>
           </button>
@@ -66,18 +68,26 @@
     </ng-container>
     <ng-container matColumnDef="descripcion">
       <mat-cell class="descripcion-cell" *matCellDef="let mascota" [attr.colspan]="displayedColumns.length">
-        <span><strong>Nombre:</strong> {{mascota.nombre}}</span>
-        <span><strong>Raza:</strong> {{mascota.raza}}</span>
-        <span><strong>Especie:</strong> {{mascota.especie}}</span>
-        <span><strong>Sexo:</strong> {{mascota.sexo}}</span>
-        <span *ngIf="mascota.color?.length > 0"><strong>Color:</strong>
-          {{mascota.color}}</span>
-        <span *ngIf="mascota.senias?.length > 0"><strong>Señas:</strong>
-          {{mascota.senias}}</span>
-        <span *ngIf="mascota.fechaNacimiento?.length > 0"><strong>Fecha de Nacimiento:</strong>
-          {{mascota.fechaNacimiento | date}}</span>
-        <span *ngIf="mascota.veterinario?.nombre?.length > 0"><strong>Veterinario:</strong>
-          {{mascota.veterinario.nombre}} {{mascota.veterinario.apellido}}</span>
+        <span>
+          <label class="mat-header-cell">Especie:</label> <label class="mat-cell">{{mascota.especie}}</label>
+        </span>
+        <span *ngIf="mascota.color?.length > 0"><label class="mat-header-cell">Color:</label>
+          <label class="mat-cell">{{mascota.color}}</label></span>
+        <span *ngIf="mascota.senias?.length > 0"><label class="mat-header-cell">Señas:</label>
+          <label class="mat-cell">{{mascota.senias}}</label></span>
+        <span *ngIf="mascota.fechaNacimiento?.length > 0"><label class="mat-header-cell">Fecha de Nacimiento:</label>
+          <label class="mat-cell">{{mascota.fechaNacimiento | date: 'dd/MM/yyyy'}}</label></span>
+        <span *ngIf="mascota.extraviada"><label class="mat-header-cell">Mascota</label>
+          <label class="mat-cell">Extraviada</label></span>
+        <span *ngIf="isDuenio() && mascota.veterinario?.nombre?.length > 0"><label
+            class="mat-header-cell">Veterinario:</label>
+          <a mat-button class="generic-link mat-cell"
+            (click)="moreInfo(mascota.veterinario)">{{mascota.veterinario.nombre}}
+            {{mascota.veterinario.apellido}}</a></span>
+        <span *ngIf="isVeterinario() && mascota.duenio?.nombre?.length > 0"><label
+            class="mat-header-cell">Dueño:</label>
+          <a mat-button class="generic-link mat-cell" (click)="moreInfo(mascota.duenio)">{{mascota.duenio.nombre}}
+            {{mascota.duenio.apellido}}</a></span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="loading">

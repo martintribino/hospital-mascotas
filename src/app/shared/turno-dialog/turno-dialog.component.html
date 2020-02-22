@@ -1,9 +1,23 @@
-<h3 mat-dialog-title>Turno</h3>
+<h3 mat-dialog-title>{{tiposEventos[evento.tipo] || 'Evento'}}</h3>
 <mat-dialog-content>
-  <p>Fecha: {{turno.fecha | date:'dd/MM/yyyy'}}</p>
-  <p>Inicio: {{turno.inicio | date:'HH:mm:ss'}}</p>
-  <p>Fin: {{turno.fin | date:'HH:mm:ss'}}</p>
+  <p>{{turno.fecha | date:'dd/MM/yyyy'}}</p>
+  <p>{{turno.inicio}} - {{turno.fin}}</p>
+  <div *ngIf="evento != null">
+    <p>{{turno.tipo}}</p>
+    <p>Estado: {{turno.estado}}</p>
+    <p *ngIf="mascota != null">Mascota: {{mascota.nombre}}</p>
+    <p>Descripción: {{evento.descripcion}}</p>
+    <p *ngIf="compareEvento(evento.tipo, EventoTipoSA.Desparasitacion)">Droga: {{evento.droga}}</p>
+    <p *ngIf="compareEvento(evento.tipo, EventoTipoSA.Desparasitacion)">Resultado: {{evento.resultado}}</p>
+    <p *ngIf="compareEvento(evento.tipo, EventoTipoSA.Visita)">Indicaciones: {{evento.indicaciones}}</p>
+    <p *ngIf="compareEvento(evento.tipo, EventoTipoSA.Visita)">Motivo: {{evento.motivo}}</p>
+    <p *ngIf="compareEvento(evento.tipo, EventoTipoSA.Visita)">Peso: {{evento.peso}}</p>
+    <p *ngIf="compareEvento(evento.tipo, EventoTipoSA.Visita)">Diagnóstico: {{evento.diagnostico}}</p>
+    <p *ngIf="compareEvento(evento.tipo, EventoTipoSA.Reproduccion)">Fecha de Parto:
+      {{evento.fecha_parto | date: 'dd/MM/yyyy'}}</p>
+    <p *ngIf="compareEvento(evento.tipo, EventoTipoSA.Reproduccion)">Número de cachorros: {{evento.nro_cachorros}}</p>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button>Cerrar</button>
+  <button mat-button mat-dialog-close>Cerrar</button>
 </mat-dialog-actions>

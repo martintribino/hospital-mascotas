@@ -33,6 +33,14 @@ export const routes: Routes = [
     }
   },
   {
+    path: 'edit-imagen',
+    loadChildren: () => import("./pages/edit-avatar/edit-avatar.module").then(mod => mod.EditAvatarModule),
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: Usuario.allowedUserRoles
+    }
+  },
+  {
     path: 'mascotas',
     loadChildren: () => import("./pages/mascotas/mascotas.module").then(mod => mod.MascotasModule),
     canActivate: [RoleGuard],
@@ -53,7 +61,7 @@ export const routes: Routes = [
     loadChildren: () => import("./pages/events/events.module").then(mod => mod.EventsModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: [Usuario.duenioRole]
+      allowedRoles: [Usuario.duenioRole, Usuario.vetRole]
     }
   },
   { path: 'contact', loadChildren: () => import("./pages/contact/contact.module").then(mod => mod.ContactModule) },

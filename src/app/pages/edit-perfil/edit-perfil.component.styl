@@ -1,0 +1,41 @@
+@import "../../../assets/styles/vars"
+
+.editp-comp
+  display flex
+  flex-direction column
+  justify-content center
+  width 100%
+  h3
+    text-align center
+
+form
+  flex-direction column
+  max-width 750px
+  width 100%
+  .form-group
+    border none
+    padding 0
+    margin 0
+  .row-group
+    display flex
+    flex-direction row
+    width 100%
+    border none
+  .mat-form-field
+    flex-direction row
+    width 45%
+    margin 2%
+
+@media screen and (max-width: sm)
+  form
+    border none
+    box-shadow none
+    .row-group
+      display flex
+      justify-content center
+      align-items center
+      flex-direction column
+      width 100%
+      border none
+    .mat-form-field
+      width auto

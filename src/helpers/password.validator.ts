@@ -12,4 +12,13 @@ export class PasswordValidation {
       }
     }
   }
+  static MatchPasswordIncEmpty(AC: AbstractControl) {
+    let password = AC.get('clave').value;
+    let verifyPassword = AC.get('confirmarClave').value;
+    if (password != verifyPassword) {
+      AC.get('confirmarClave').setErrors({ matchPassword: true })
+    } else {
+      return null
+    }
+  }
 }
