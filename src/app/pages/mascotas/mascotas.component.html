@@ -8,9 +8,7 @@
     <ng-container matColumnDef="imagen">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell class="imagen-cell" *matCellDef="let mascota">
-        <img mat-card-avatar *ngIf=" mascota.imagen?.length > 0" [src]="mascota.imagen" alt="{{mascota.imagen}}">
-        <img mat-card-avatar *ngIf="mascota.imagen?.length == 0" src="assets/images/pet_default_image.jpg"
-          alt="default image">
+        <img mat-card-avatar [(src)]="mascota.path" alt="{{mascota.path}}">
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="nombre">
@@ -56,6 +54,11 @@
             matTooltip="Editar mascota" matTooltipPosition="below" (click)="onEdit(mascota)"
             aria-label="editar mascota">
             <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="isDuenio() || isAdministrador()" [disabled]="loadingDict[mascota.slug]"
+            matTooltip="Subir imagen mascota" matTooltipPosition="below" (click)="onEditImage(mascota)"
+            aria-label="subir imagen">
+            <mat-icon>add_a_photo</mat-icon>
           </button>
           <button mat-icon-button [disabled]="loadingDict[mascota.slug]" matTooltip="Borrar mascota"
             matTooltipPosition="below" (click)="onDelete(mascota)" aria-label="eliminar mascota">

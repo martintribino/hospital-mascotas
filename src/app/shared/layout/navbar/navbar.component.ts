@@ -1,6 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/auth.service';
-import { IUser } from 'src/app/interfaces/interfaces.model';
+import { IUser, AvatarTipo } from 'src/app/interfaces/interfaces.model';
 import { Usuario } from 'src/app/model/usuario';
 
 @Component({
@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit {
   editAvatarUrl: string;
   editUserUrl: string;
   validatVeterinarioUrl: string;
+  avatars: Array<string>;
 
   constructor(private authService: AuthenticationService) {
     this.loginUrl = "login";
@@ -37,6 +38,7 @@ export class NavbarComponent implements OnInit {
     this.validatVeterinarioUrl = "validate-veterinarios";
     this.solicitudesUrl = "solicitudes";
     this.eventosUrl = "eventos";
+    this.avatars = Object.keys(AvatarTipo);
   }
 
   ngOnInit() {
@@ -57,6 +59,11 @@ export class NavbarComponent implements OnInit {
 
   isVeterinario(role: string): boolean {
     return role == Usuario.vetRole;
+  }
+
+  private hasAvatar(): boolean {
+    let usu = this.authService.getUsuario();
+    return usu != null && this.avatars.includes(usu.imagen);
   }
 
 }

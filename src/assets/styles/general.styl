@@ -14,12 +14,28 @@ nav
   display flex
   width 100%
 
+.svg-back
+  width 40px
+  height 40px
+  @media screen and (max-width: sm)
+    width 25px
+    height 25px
+    margin-right 5px
+
+.circle-back
+  fill #8ab5c3
+
 app-login, app-signup, app-not-found, app-loading-page, app-home, app-navbar, app-header,
 app-services, app-edit-user, app-edit-perfil, app-create-mascota, app-validate-veterinarios,
-app-mascotas, app-form-mascota, app-qrcode, app-events
-  display: flex;
-  width: 100%;
-  justify-content: center;
+app-mascotas, app-form-mascota, app-qrcode, app-events, app-file-uploader
+  display flex
+  width 100%
+  justify-content center
+
+app-avatar1, app-avatar2, app-avatar3, app-avatar4, app-avatar5, app-avatar6
+  display flex
+  width 100%
+  justify-content center
 
 app-services, app-qrcode
   flex-direction column
@@ -32,6 +48,59 @@ app-home
   flex-direction row
   align-items center
   flex-wrap wrap
+
+::-webkit-scrollbar
+  width 15px
+
+::-webkit-scrollbar-track
+  box-shadow inset 0 0 5px white
+  border-radius 7px
+
+::-webkit-scrollbar-thumb
+  background rgba(primaryBack, 0.75)
+  border-radius 7px
+
+::-webkit-scrollbar-thumb:hover
+  background rgba(primaryBack, 0.9)
+
+app-file-uploader
+  max-width 250px
+  margin 0 auto
+  flex-direction column
+  .mat-chip-list
+    .mat-chip
+      &.mat-standard-chip
+        height auto
+        label
+          overflow auto
+          height auto
+          max-height 40px
+  .mat-form-field-wrapper
+    padding-bottom 0
+    .mat-form-field-flex
+      display flex
+      padding-top 0
+      .mat-form-field-infix
+        display flex
+        justify-content flex-start
+        align-items center
+        align-content center
+        padding 0.2em
+        border-top none
+        width auto
+        border 2px solid rgba(primaryBack, 0.75)
+      &:hover
+        height auto
+        background none
+    .mat-form-field-underline
+      height 0
+      background none
+      .mat-form-field-ripple
+        height 0
+        background none
+        &:hover
+          height 0
+          background none
 
 .spinner-page
   display flex
@@ -179,6 +248,14 @@ button
       border-color disabledStrong
       color disabledStrong
       cursor default
+  &.attach-icon
+    background-color primaryBack
+    color white
+    box-shadow none
+    border-radius 50%
+    border-color primaryBack
+    padding 0.4em
+    margin 0.2em 0.2em
   &.qricon
     background-color transparent
     color primaryBack

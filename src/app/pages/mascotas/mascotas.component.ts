@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 import { VeterinarioService } from 'src/app/services/veterinario.service';
-import { IDictionary, IMascota, IPaginatorEv, IProfile, IMascotaBody, IFicha } from 'src/app/interfaces/interfaces.model';
+import { IDictionary, IMascota, IPaginatorEv, IProfile, IMascotaBody, IFicha, IImagen } from 'src/app/interfaces/interfaces.model';
 import { MascotaService } from 'src/app/services/mascota.service';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SubscriptionDialogComponent } from 'src/app/shared/subscription-dialog/subscription-dialog.component';
@@ -14,6 +14,10 @@ import { FormMascotaComponent } from 'src/app/shared/form-mascota/form-mascota.c
 import { Usuario } from 'src/app/model/usuario';
 import { FormFichaComponent } from 'src/app/shared/form-ficha/form-ficha.component';
 import { PerfilDialogComponent } from 'src/app/shared/perfil-dialog/perfil-dialog.component';
+import { ImagenMascotaComponent } from 'src/app/shared/imagen-mascota/imagen-mascota.component';
+import { environment } from 'src/environments/environment.prod';
+import { ArchivosService } from 'src/app/services/archivos.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-mascotas',
@@ -38,6 +42,7 @@ export class MascotasComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
+  endpoints = environment.endpoints;
   private veterinariosSubject = new BehaviorSubject<Array<IProfile>>([]);
   veterinarios = this.veterinariosSubject.asObservable();
   private mascTotalSubject = new BehaviorSubject<Array<IMascota>>([]);
@@ -58,6 +63,7 @@ export class MascotasComponent implements OnInit {
     private authService: AuthenticationService,
     private mascService: MascotaService,
     private vetService: VeterinarioService,
+    private archService: ArchivosService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private snackBar: MatSnackBar,
@@ -94,8 +100,20 @@ export class MascotasComponent implements OnInit {
   }
 
   onSuccess(result: Array<IMascota>) {
-    result.map((masc) => { masc.open = false; this.loadingDict[masc.slug] = false; });
+    result.map((masc) => {
+      masc.open = false;
+      masc.path = "assets/images/pet_default_image.jpg";
+      this.loadingDict[masc.slug] = false;
+    });
     this.changeDataSource(result);
+    this.mascotasSubject.value.map((masc) => {
+      if (masc.imagen.length > 0) {
+        this.archService.cargarImagen(masc).subscribe(
+          (data: IImagen) => { masc.path = `data:image/jpeg;base64,${data.b64str}` },
+          (error) => console.log(error)
+        );
+      }
+    });
   }
 
   private changeDataSource(result: Array<IMascota>) {
@@ -278,6 +296,20 @@ export class MascotasComponent implements OnInit {
     });
   }
 
+  public onEditImage(mascota: IMascota) {
+    mascota.open = false;
+    const dialogRef = this.dialog.open(ImagenMascotaComponent, {
+      maxWidth: "100%",
+      width: '550px',
+      height: '80%',
+      data: mascota
+    });
+    dialogRef.afterClosed().subscribe((m: IMascota) => {
+      mascota = m;
+      this.ngOnInit();
+    });
+  }
+
   private mascotaSuccess(mascota: IMascota, strSuccess: string) {
     this.showError(strSuccess, "success");
     this.loadingDict[mascota.slug] = false;
@@ -314,17 +346,17 @@ export class MascotasComponent implements OnInit {
 
   isAdministrador(): boolean {
     let usu = this.authService.getUsuario();
-    return usu.role == Usuario.adminRole;
+    return usu != null && usu.role == Usuario.adminRole;
   }
 
   isDuenio(): boolean {
     let usu = this.authService.getUsuario();
-    return usu.role == Usuario.duenioRole;
+    return usu != null && usu.role == Usuario.duenioRole;
   }
 
   isVeterinario(): boolean {
     let usu = this.authService.getUsuario();
-    return usu.role == Usuario.vetRole;
+    return usu != null && usu.role == Usuario.vetRole;
   }
 
 }

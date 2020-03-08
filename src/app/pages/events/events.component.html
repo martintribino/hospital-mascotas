@@ -36,7 +36,8 @@
         <mat-grid-list cols="4" gutterSize="1px" rowHeight="2.4em">
           <mat-grid-tile *ngFor="let turno of (horario | async).turnosValidos;">
             <button class="nav-icon {{turno.estado.toLowerCase()}}" [class.seleccionado]="turnoSeleccionado === turno"
-              (click)="clickTurno(turno)" [disabled]="!isEnabled(turno)">
+              (click)="clickTurno(turno, stepper)" [disabled]="!isEnabled(turno)" [matBadge]="hasBadge(turno)"
+              matBadgePosition="above after" matBadgeColor="accent" matBadgeSize="medium">
               {{turno.inicio}}
             </button>
           </mat-grid-tile>

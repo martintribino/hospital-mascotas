@@ -9,6 +9,8 @@ export const environment = {
     login: "http://localhost:8080/hospital-mascotas-java/login/",
     mascotas: "http://localhost:8080/hospital-mascotas-java/mascotas/",
     //privados - con /api/
+    archivos: "http://localhost:8080/hospital-mascotas-java/api/archivos/",
+    avatar: "http://localhost:8080/hospital-mascotas-java/api/usuario/imagen/editar/",
     checkToken: "http://localhost:8080/hospital-mascotas-java/api/usuario/check-token/",
     editarUsuario: "http://localhost:8080/hospital-mascotas-java/api/usuario/editar/",
     evento: "http://localhost:8080/hospital-mascotas-java/api/eventos/",

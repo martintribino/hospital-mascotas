@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { AvatarsModule } from 'src/assets/svg/avatars.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     MatDividerModule,
     MatFormFieldModule,
+    AvatarsModule,
     RouterModule,
     CommonModule,
     HttpClientModule,

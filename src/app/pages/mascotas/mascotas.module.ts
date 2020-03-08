@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MascotasComponent } from './mascotas.component';
-import { MascotasRoutingModule } from './mascotas-routing.module';
 import {
   MatCardModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule,
   MatProgressSpinnerModule, MatIconModule, MatExpansionModule, MatTooltipModule, MatSnackBarModule, MatDialogModule, MatMenuModule, MatGridListModule,
 } from '@angular/material';
+
 import { SubscriptionDialogModule } from 'src/app/shared/subscription-dialog/subscription-dialog.module';
 import { FormMascotaModule } from 'src/app/shared/form-mascota/form-mascota.module';
 import { FormFichaModule } from 'src/app/shared/form-ficha/form-ficha.module';
 import { PerfilDialogModule } from 'src/app/shared/perfil-dialog/perfil-dialog.module';
+import { ImagenMascotaModule } from 'src/app/shared/imagen-mascota/imagen-mascota.module';
+
+import { MascotasComponent } from './mascotas.component';
+import { MascotasRoutingModule } from './mascotas-routing.module';
 
 @NgModule({
   imports: [
@@ -31,6 +34,7 @@ import { PerfilDialogModule } from 'src/app/shared/perfil-dialog/perfil-dialog.m
     PerfilDialogModule,
     FormMascotaModule,
     FormFichaModule,
+    ImagenMascotaModule
   ],
   declarations: [
     MascotasComponent,

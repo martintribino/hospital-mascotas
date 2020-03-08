@@ -1,0 +1,13 @@
+<h3>Adjunte una imagen</h3>
+<div class="upload-image">
+  <span *ngFor="let file of uploader?.files">
+    <img [src]="file.objectURL" alt="Imagen seleccionada" />
+  </span>
+</div>
+<app-file-uploader #uploader enabledFileTypes="'image/jpg', 'image/gif', 'image/svg', 'image/png', 'image/jpeg'">
+</app-file-uploader>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="mascota">Cerrar</button>
+  <button type="submit" (click)="onSubmit($event)"
+    [disabled]="uploader?.files?.length == 0 || isSubmitting">Enviar</button>
+</mat-dialog-actions>

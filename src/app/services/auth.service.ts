@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { ILoginBody, IUser } from '../interfaces/interfaces.model';
+import { ILoginBody, IUser, IAvatarBody } from '../interfaces/interfaces.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
@@ -42,14 +42,6 @@ export class AuthenticationService {
     }
   }
 
-  checkToken() {
-    let url: string = this.endpoints.checkToken,
-      options = {
-        headers: this.headers,
-      };
-    return this.http.get<Response>(url, options);
-  }
-
   setUsuario(usu: IUser) {
     this.usuarioSubject.next(usu);
   }
@@ -60,14 +52,6 @@ export class AuthenticationService {
 
   unsetUsuario() {
     this.usuarioSubject.next(null);
-  }
-
-  login(body: ILoginBody): Observable<IUser> {
-    let url: string = this.endpoints.login,
-      options = {
-        headers: this.headers
-      };
-    return this.http.post<IUser>(url, body, options);
   }
 
   setSession(authResult: IUser) {
@@ -95,6 +79,30 @@ export class AuthenticationService {
 
   public isAuthenticated(): Observable<boolean> {
     return this.isLoggedIn;
+  }
+
+  checkToken() {
+    let url: string = this.endpoints.checkToken,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.get<Response>(url, options);
+  }
+
+  login(body: ILoginBody): Observable<IUser> {
+    let url: string = this.endpoints.login,
+      options = {
+        headers: this.headers
+      };
+    return this.http.post<IUser>(url, body, options);
+  }
+
+  guardarAvatar(body: IAvatarBody): Observable<IAvatarBody> {
+    let url: string = this.endpoints.avatar,
+      options = {
+        headers: this.headers
+      };
+    return this.http.post<IAvatarBody>(url, body, options);
   }
 
 }

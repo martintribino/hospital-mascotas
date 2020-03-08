@@ -1,1 +1,24 @@
-<p>edit-avatar works!</p>
+<div class="edita-comp">
+  <h3>Elija su imagen</h3>
+  <mat-radio-group aria-labelledby="avatars" class="avatar-rg" [(ngModel)]="imagenSeleccionada">
+    <mat-radio-button labelPosition="before" value="avatar1">
+      <app-avatar1></app-avatar1>
+    </mat-radio-button>
+    <mat-radio-button labelPosition="before" value="avatar2">
+      <app-avatar2></app-avatar2>
+    </mat-radio-button>
+    <mat-radio-button labelPosition="before" value="avatar3">
+      <app-avatar3></app-avatar3>
+    </mat-radio-button>
+    <mat-radio-button labelPosition="before" value="avatar4">
+      <app-avatar4></app-avatar4>
+    </mat-radio-button>
+    <mat-radio-button labelPosition="before" value="avatar5">
+      <app-avatar5></app-avatar5>
+    </mat-radio-button>
+    <mat-radio-button labelPosition="before" value="avatar6">
+      <app-avatar6></app-avatar6>
+    </mat-radio-button>
+  </mat-radio-group>
+  <button type="submit" [disabled]="isDisabled()" (click)="onClick()">Submit</button>
+</div>

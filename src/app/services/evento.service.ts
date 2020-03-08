@@ -26,6 +26,14 @@ export class EventoService {
     return this.http.post<IEvento>(url, evento, options);
   }
 
+  cancelarEvento(username: string, evSlug: string): Observable<IEvento> {
+    let url = `${this.endpoints.evento}?username=${username}&slg=${evSlug}`,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.delete<IEvento>(url, options);
+  }
+
   horarios(fecha: Date): Observable<IHorario> {
     let url = `${this.endpoints.evento}?fecha=${fecha.toISOString().substring(0, 10)}`,
       options = {

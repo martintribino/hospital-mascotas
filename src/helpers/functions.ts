@@ -1,5 +1,5 @@
 import { Usuario } from 'src/app/model/usuario';
-import { IUser } from 'src/app/interfaces/interfaces.model';
+import { IUser, FileUploadModel } from 'src/app/interfaces/interfaces.model';
 
 export function isEmpty(str: string) {
   return (!str || 0 === str.length);

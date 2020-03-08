@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MascotaService } from 'src/app/services/mascota.service';
-import { IMascota, IMascotaBody, IFicha, IQRImagen, IDictionary, IFiltro } from 'src/app/interfaces/interfaces.model';
+import { IMascota, IFiltro, IImagen } from 'src/app/interfaces/interfaces.model';
 import { BehaviorSubject } from 'rxjs';
-import { MatDialog, MatSnackBar, MatSnackBarVerticalPosition, MatSelectChange } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { QrcodeComponent } from 'src/app/shared/qrcode/qrcode.component';
-import { FormControl, FormGroup } from '@angular/forms';
-import { SelectionChange } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   private mascSubject = new BehaviorSubject<Array<IMascota>>([]);
   public mascotas = this.mascSubject.asObservable();
-  private qrImage: IQRImagen;
+  private qrImage: IImagen;
   filtros: Array<IFiltro>;
   isLoading: boolean;
   selectedFilter: string;
@@ -57,7 +55,7 @@ export class HomeComponent implements OnInit {
   onQRCode(mascota: IMascota) {
     mascota.open = false;
     this.mascService.getQRCode(mascota.slug).subscribe(
-      (data: IQRImagen) => {
+      (data: IImagen) => {
         this.qrImage = data;
         this.dialog.open(QrcodeComponent, {
           maxWidth: "100%",

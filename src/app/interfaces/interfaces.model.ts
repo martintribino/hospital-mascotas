@@ -1,9 +1,25 @@
+import { SafeUrl } from '@angular/platform-browser';
+
+//estructuras
+export interface FileExt extends File {
+  objectURL: SafeUrl;
+}
 
 export declare type TimeLocal = {
   hour: number;
   minute: number;
   second: number;
 };
+
+export interface IDictionary<T> {
+  [key: string]: T;
+}
+
+export interface IFiltro {
+  clave: string;
+  valor: string;
+}
+
 //enums
 export enum Estado {
   ESPERA = "ESPERA",
@@ -25,6 +41,7 @@ export enum EventoTipo {
   Desparasitacion = "Desparasitación",
   Enfermedad = "Enfermedad",
   Intervencion = "Intervención",
+  Recordatorio = "Recordatorio",
   Reproduccion = "Reproducción",
   Vacuna = "Vacuna",
   Visita = "Visita"
@@ -34,10 +51,21 @@ export enum EventoTipoSinAcento {
   Desparasitacion = "Desparasitacion",
   Enfermedad = "Enfermedad",
   Intervencion = "Intervencion",
+  Recordatorio = "Recordatorio",
   Reproduccion = "Reproduccion",
   Vacuna = "Vacuna",
   Visita = "Visita"
 }
+
+export enum AvatarTipo {
+  avatar1 = "avatar1",
+  avatar2 = "avatar2",
+  avatar3 = "avatar3",
+  avatar4 = "avatar4",
+  avatar5 = "avatar5",
+  avatar6 = "avatar6"
+}
+
 //interface
 export interface IPaginatorEv {
   length: number;
@@ -51,6 +79,11 @@ export interface ILoginBody {
   clave: string;
   confirmar_clave?: string;
   nombre_usuario_viejo?: string;
+}
+
+export interface IAvatarBody {
+  nombreUsuario: string;
+  imagen: string;
 }
 
 export interface ISolicitud {
@@ -83,7 +116,9 @@ export interface IMascota {
   duenio?: IProfile;
   veterinario?: IProfile;
   ficha?: IFicha;
+  //front-end props
   open?: boolean;
+  path?: string;
 }
 
 export interface IMascotaBody {
@@ -142,8 +177,8 @@ export interface IFicha {
   mascota?: IMascota;
 }
 
-export interface IQRImagen {
-  qrcode: string;
+export interface IImagen {
+  b64str: string;
   extension: string;
   width: number;
   height: number;
@@ -211,17 +246,18 @@ export interface IProfile {
   email: string;
   domicilio?: string;
   telefono?: number;
-  imagen?: string;
   nombreClinica?: string;
   domicilioClinica?: string;
   validado?: boolean;
 }
 
-export interface IDictionary<T> {
-  [key: string]: T;
+export interface FileUploadModel {
+  nombre: string;
+  tipo: string;
+  base64: string;
 }
 
-export interface IFiltro {
-  clave: string;
-  valor: string;
+export interface IMascotaImagenBody {
+  imagenes: Array<FileUploadModel>;
+  mascota: string;
 }

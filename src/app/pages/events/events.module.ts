@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { MatInputModule, MatFormFieldModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule, MatIconModule, MatGridListModule, MatOptionModule, MatSelectModule, MatProgressSpinner, MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule, MatIconModule, MatGridListModule, MatOptionModule, MatSelectModule, MatProgressSpinner, MatProgressSpinnerModule, MatSnackBarModule, MatBadgeModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -24,6 +24,7 @@ import { TurnoDialogModule } from 'src/app/shared/turno-dialog/turno-dialog.modu
     MatSelectModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatBadgeModule,
     TurnoDialogModule,
     FormsModule,
     ReactiveFormsModule,

@@ -59,7 +59,6 @@ export class EditPerfilComponent implements OnInit {
             documento: new FormControl(data.dni),
             telefono: new FormControl(data.telefono),
             domicilio: new FormControl(data.domicilio),
-            imagen: new FormControl(data.imagen),
             nombreClinica: new FormControl(data.nombreClinica),
             domicilioClinica: new FormControl(data.domicilioClinica),
             validado: new FormControl(data.validado),
@@ -85,7 +84,6 @@ export class EditPerfilComponent implements OnInit {
       "dni": this.editarPerfilF.documento.value,
       "telefono": this.editarPerfilF.telefono.value,
       "domicilio": this.editarPerfilF.domicilio.value,
-      "imagen": this.editarPerfilF.imagen.value,
       "nombre_clinica": this.editarPerfilF.nombreClinica.value,
       "domicilio_clinica": this.editarPerfilF.domicilioClinica.value,
     };

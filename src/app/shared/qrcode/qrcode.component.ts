@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { IQRImagen } from 'src/app/interfaces/interfaces.model';
+import { IImagen } from 'src/app/interfaces/interfaces.model';
 
 @Component({
   selector: 'app-qrcode',
@@ -9,11 +9,11 @@ import { IQRImagen } from 'src/app/interfaces/interfaces.model';
 })
 export class QrcodeComponent {
 
-  public qrImage: IQRImagen;
+  public qrImage: IImagen;
 
   constructor(
     public dialogRef: MatDialogRef<QrcodeComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IQRImagen
+    @Inject(MAT_DIALOG_DATA) public data: IImagen
   ) {
     this.qrImage = data;
   }

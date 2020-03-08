@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { IMascota, IMascotaBody, IFicha, IQRImagen } from '../interfaces/interfaces.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IMascota, IMascotaBody, IFicha, IImagen } from '../interfaces/interfaces.model';
 import { environment } from 'src/environments/environment.prod';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -57,13 +57,13 @@ export class MascotaService {
     return this.http.get<Array<IMascota>>(url, options);
   }
 
-  getQRCode(slug: String): Observable<IQRImagen> {
+  getQRCode(slug: String): Observable<IImagen> {
     let queryStr = `?slg=${slug}`,
       url = this.endpoints.qr + queryStr,
       options = {
         headers: this.headers,
       };
-    return this.http.get<IQRImagen>(url, options);
+    return this.http.get<IImagen>(url, options);
   }
 
   crearMascota(masc: IMascotaBody): Observable<IMascota> {

@@ -32,8 +32,17 @@
                 Solicitudes
               </button>
             </ng-container>
-            <button mat-button [matMenuTriggerFor]="perfilMenu" routerLinkActive="active-link">
-              {{(usu.nombreUsuario)}}
+            <button mat-button class="avatar-button" [matMenuTriggerFor]="perfilMenu" routerLinkActive="active-link"
+              *ngIf="hasAvatar()">
+              <app-avatar1 *ngIf="usu.imagen == 'avatar1'"></app-avatar1>
+              <app-avatar2 *ngIf="usu.imagen == 'avatar2'"></app-avatar2>
+              <app-avatar3 *ngIf="usu.imagen == 'avatar3'"></app-avatar3>
+              <app-avatar4 *ngIf="usu.imagen == 'avatar4'"></app-avatar4>
+              <app-avatar5 *ngIf="usu.imagen == 'avatar5'"></app-avatar5>
+              <app-avatar6 *ngIf="usu.imagen == 'avatar6'"></app-avatar6>
+            </button>
+            <button mat-button [matMenuTriggerFor]="perfilMenu" *ngIf="!hasAvatar()" routerLinkActive="active-link">
+              <span>{{(usu.nombreUsuario)}}</span>
             </button>
             <mat-menu #perfilMenu="matMenu" class="perfil-menu">
               <button mat-button [routerLink]="editPerfilUrl" routerLinkActive="active-link">
@@ -115,8 +124,19 @@
                 </button>
               </ng-container>
               <button mat-menu-item [matMenuTriggerFor]="perfilMenu" routerLinkActive="active-link">
-                <span class="mat-button-wrapper">
+                <span class="mat-button-wrapper" *ngIf="!hasAvatar()">
                   <mat-icon>face</mat-icon>
+                  <label>{{(usuario?.nombreUsuario)}}</label>
+                </span>
+                <span class="mat-button-wrapper">
+                  <span class="avatar-button" *ngIf="hasAvatar()">
+                    <app-avatar1 *ngIf="usuario.imagen == 'avatar1'"></app-avatar1>
+                    <app-avatar2 *ngIf="usuario.imagen == 'avatar2'"></app-avatar2>
+                    <app-avatar3 *ngIf="usuario.imagen == 'avatar3'"></app-avatar3>
+                    <app-avatar4 *ngIf="usuario.imagen == 'avatar4'"></app-avatar4>
+                    <app-avatar5 *ngIf="usuario.imagen == 'avatar5'"></app-avatar5>
+                    <app-avatar6 *ngIf="usuario.imagen == 'avatar6'"></app-avatar6>
+                  </span>
                   <label>{{(usuario?.nombreUsuario)}}</label>
                 </span>
               </button>

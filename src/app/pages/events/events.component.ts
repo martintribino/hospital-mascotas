@@ -166,15 +166,15 @@ export class EventsComponent implements OnInit {
     this.showError("El evento no ha podido ser creado", "error");
   }
 
-  private clickTurno(turno: ITurno) {
+  private clickTurno(turno: ITurno, stepper: MatStepper) {
     switch (turno.estado) {
       case EstadoTurno.CANCELADO:
         if (this.estadosHabilitados.includes(EstadoTurno.CONCURRIO))
-          this.showInfo(turno);
+          this.showInfo(turno, stepper);
         break;
       case EstadoTurno.CONCURRIO:
         if (this.estadosHabilitados.includes(EstadoTurno.CONCURRIO))
-          this.showInfo(turno);
+          this.showInfo(turno, stepper);
         break;
       case EstadoTurno.DISPONIBLE:
         if (this.turnoSeleccionado == turno)
@@ -184,22 +184,26 @@ export class EventsComponent implements OnInit {
         break;
       case EstadoTurno.NOCONCURRIO:
         if (this.estadosHabilitados.includes(EstadoTurno.NOCONCURRIO))
-          this.showInfo(turno);
+          this.showInfo(turno, stepper);
         break;
       case EstadoTurno.RESERVADO:
         if (this.estadosHabilitados.includes(EstadoTurno.RESERVADO))
-          this.showInfo(turno);
+          this.showInfo(turno, stepper);
         break;
       default:
         break;
     }
   }
 
-  private showInfo(turno: ITurno) {
-    this.dialog.open(TurnoDialogComponent, {
-      width: '300px',
-      maxWidth: '400px',
+  private showInfo(turno: ITurno, stepper: MatStepper) {
+    const dialogRef = this.dialog.open(TurnoDialogComponent, {
+      width: '350px',
+      maxWidth: '450px',
       data: turno
+    });
+    dialogRef.afterClosed().subscribe((ok: string) => {
+      if (ok == "success")
+        stepper.reset();
     });
   }
 
@@ -228,6 +232,14 @@ export class EventsComponent implements OnInit {
     const day = (d || new Date()).getDay();
     // Previene de ser seleccionados al Sabado y Domingo.
     return day !== 0 && day !== 6;
+  }
+
+  private hasBadge(turno: ITurno): string {
+    let strBadge: string = "";
+    if (turno.evento != null && turno.evento.tipo == EventoTipo.Recordatorio) {
+      strBadge = "R";
+    }
+    return strBadge;
   }
 
   private compareEvento(tipoSelected, ev): boolean {
