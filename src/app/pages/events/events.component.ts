@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
@@ -33,6 +33,7 @@ export class EventsComponent implements OnInit {
   eventos = this.eventosSubject.asObservable();
   isLinear: boolean = true;
   firstStepForm: FormGroup;
+  horarioForm: FormGroup;
   secondStepForm: FormGroup;
   minDate: Date;
   currentDate: Date;
@@ -64,6 +65,9 @@ export class EventsComponent implements OnInit {
     this.isSubmiting = false;
     this.firstStepForm = new FormGroup({
       fecha: new FormControl(''),
+    });
+    this.horarioForm = new FormGroup({
+      turno: new FormControl(null, Validators.required),
     });
     this.secondStepForm = new FormGroup({
       tipo: new FormControl(EventoTipo.Visita),
@@ -177,10 +181,13 @@ export class EventsComponent implements OnInit {
           this.showInfo(turno, stepper);
         break;
       case EstadoTurno.DISPONIBLE:
-        if (this.turnoSeleccionado == turno)
+        this.horarioStepF.turno.setValue(null);
+        if (this.turnoSeleccionado == turno) {
           this.turnoSeleccionado = null;
-        else
+        } else {
           this.turnoSeleccionado = turno;
+          this.horarioStepF.turno.setValue(turno.estado);
+        }
         break;
       case EstadoTurno.NOCONCURRIO:
         if (this.estadosHabilitados.includes(EstadoTurno.NOCONCURRIO))
@@ -248,6 +255,10 @@ export class EventsComponent implements OnInit {
 
   get firstStepF() {
     return this.firstStepForm.controls;
+  }
+
+  get horarioStepF() {
+    return this.horarioForm.controls;
   }
 
   get secondStepF() {

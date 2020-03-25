@@ -56,18 +56,16 @@ export class PerfilService {
     this.perfilSubject.next(null);
   }
 
-  borrarPerfil(username: string) {
-    let owner: string = this.getPerfil().usuario.nombreUsuario || "",
-      url: string = this.endpoints.perfil + "?username=" + username + "&owner=" + owner,
+  borrarPerfil(username: string, adminUsrNm: string) {
+    let url: string = `${this.endpoints.perfil}?username=${username}&owner=${adminUsrNm}`,
       options = {
         headers: this.headers,
       };
     return this.http.delete(url, options);
   }
 
-  validarPerfil(username: string) {
-    let owner: string = this.getPerfil().usuario.nombreUsuario || "",
-      url: string = this.endpoints.perfil + "/validar?username=" + username + "&owner=" + owner,
+  validarPerfil(username: string, adminUsrNm: string) {
+    let url: string = `${this.endpoints.perfil}validar?username=${username}&owner=${adminUsrNm}`,
       options = {
         headers: this.headers,
       };

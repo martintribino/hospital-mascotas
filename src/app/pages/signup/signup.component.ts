@@ -7,6 +7,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { isAdministrador } from 'src/helpers/functions';
+import { Usuario } from 'src/app/model/usuario';
 
 @Component({
   selector: 'app-signup',
@@ -35,6 +38,7 @@ export class SignupComponent implements OnInit {
   roles: Array<{ clave: string, valor: string }>;
 
   constructor(
+    private authService: AuthenticationService,
     private perfilService: PerfilService,
     private snackBar: MatSnackBar,
     private router: Router
@@ -60,8 +64,10 @@ export class SignupComponent implements OnInit {
     this.roles = [
       { clave: 'duenio', valor: 'Dueño' },
       { clave: 'veterinario', valor: 'Veterinario' },
-      //{ clave: 'administrador', valor: 'Administrador' },
     ];
+    if (this.isAdministrador()) {
+      this.roles.push({ clave: 'administrador', valor: 'Administrador' });
+    }
   }
 
   ngOnInit() {
@@ -111,6 +117,11 @@ export class SignupComponent implements OnInit {
 
   get signupF() {
     return this.signupForm.controls;
+  }
+
+  isAdministrador(): boolean {
+    let usu = this.authService.getUsuario();
+    return usu != null && usu.role == Usuario.adminRole;
   }
 
   private showError(strError: string, clase: string = "", time: number = 2000, pos: MatSnackBarVerticalPosition = "top") {

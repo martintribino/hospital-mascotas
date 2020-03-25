@@ -1,4 +1,4 @@
-<mat-toolbar color="transparent">
+<mat-toolbar color="transparent" class="masc-toolbar">
   <mat-toolbar-row>
     <h2 class="title-navbar">Hospital</h2>
     <nav class="router-navbar">
@@ -63,9 +63,8 @@
         <ng-template #elseBlock>
           <button mat-button [routerLink]="loginUrl" routerLinkActive="active-link"> Iniciar
             sesión</button>
-          <button mat-button [routerLink]="registerUrl" routerLinkActive="active-link">
-            Registrarse</button>
         </ng-template>
+        <button mat-button [routerLink]="registerUrl" routerLinkActive="active-link">Registro</button>
       </div>
       <div class="mobile">
         <mat-menu #menu="matMenu" class="hamburguer-menu">
@@ -162,11 +161,11 @@
               <mat-icon>group_in</mat-icon>
               <label>Iniciar sesión</label>
             </button>
-            <button mat-button [routerLink]="registerUrl" routerLinkActive="active-link">
-              <mat-icon>group_add</mat-icon>
-              <label>Registrarse</label>
-            </button>
           </ng-template>
+          <button mat-button [routerLink]="registerUrl" routerLinkActive="active-link">
+            <mat-icon>group_add</mat-icon>
+            <label>Registro</label>
+          </button>
         </mat-menu>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="hamburguer menu">
           <mat-icon>menu</mat-icon>

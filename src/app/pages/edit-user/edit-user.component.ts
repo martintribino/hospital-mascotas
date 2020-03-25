@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -14,7 +14,7 @@ import { isEqual, isEmpty } from 'src/helpers/functions';
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.styl']
 })
-export class EditUserComponent implements OnInit {
+export class EditUserComponent implements AfterViewInit {
   loginForm = new FormGroup({
     nombreUsuario: new FormControl(''),
     clave: new FormControl(''),
@@ -23,6 +23,7 @@ export class EditUserComponent implements OnInit {
   isSubmiting: boolean;
   usuario: IUser;
   usuarioActual: IUser;
+  @ViewChild('username', { static: false }) username: ElementRef;
 
   constructor(
     private authService: AuthenticationService,
@@ -37,9 +38,11 @@ export class EditUserComponent implements OnInit {
       clave: new FormControl(''),
       confirmarClave: new FormControl(''),
     }, PasswordValidation.MatchPasswordIncEmpty);
+    this.username.nativeElement.focus();
   }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    this.username.nativeElement.focus();
   }
 
   onSubmit() {
@@ -65,6 +68,7 @@ export class EditUserComponent implements OnInit {
 
   handleError(error: HttpErrorResponse) {
     this.showError("Datos incorrectos. Por favor, intente nuevamente", "error");
+    this.username.nativeElement.focus();
     this.isSubmiting = false;
   }
 

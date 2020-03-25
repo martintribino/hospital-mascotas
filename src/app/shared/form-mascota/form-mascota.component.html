@@ -39,7 +39,7 @@
       <input matInput type="text" [max]="maxDate" [matDatepicker]="picker" formControlName="fechaNacimiento"
         autocomplete="off" placeholder="Escoja una fecha" required>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker touchUi #picker></mat-datepicker>
       <mat-hint>Fecha de nacimiento</mat-hint>
       <mat-error *ngIf="crearMascF.fechaNacimiento?.errors?.parse">Fecha no válida</mat-error>
       <mat-error *ngIf="crearMascF.fechaNacimiento?.errors?.required">Campo requerido</mat-error>
@@ -54,11 +54,11 @@
       <input matInput type="text" formControlName="senias" autocomplete="off" placeholder="Señas">
       <mat-hint>Señas</mat-hint>
     </mat-form-field>
-    <mat-form-field appearance="standard">
-      <mat-label>Imagen</mat-label>
-      <input matInput type="text" formControlName="imagen" autocomplete="off" placeholder="Imagen">
-      <mat-hint>Imagen</mat-hint>
-    </mat-form-field>
+    <div appearance="standard">
+      <mat-checkbox matInput formControlName="extraviada">
+        <mat-label>Extraviada</mat-label>
+      </mat-checkbox>
+    </div>
     <button type="submit" [mat-dialog-close]="mascota" (click)="onSubmit()"
       [disabled]="mascotasForm.invalid">Enviar</button>
   </fieldset>

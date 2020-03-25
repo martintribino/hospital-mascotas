@@ -27,7 +27,7 @@ nav
 
 app-login, app-signup, app-not-found, app-loading-page, app-home, app-navbar, app-header,
 app-services, app-edit-user, app-edit-perfil, app-create-mascota, app-validate-veterinarios,
-app-mascotas, app-form-mascota, app-qrcode, app-events, app-file-uploader
+app-mascotas, app-form-mascota, app-qrcode, app-events, app-file-uploader, app-pet-search
   display flex
   width 100%
   justify-content center
@@ -125,6 +125,16 @@ form
   box-shadow 1px 1px 25px rgba(0,0,0,0.35)
   border-radius 10px
   line-height 1.7em
+  &.search-form
+    background white
+    box-shadow none
+    line-height 1.3em
+    font-size 1em
+    max-width none
+    width 75%
+    padding 0 3%
+    justify-content flex-end
+    align-items center
   &.stepper-form
     background white
   &.estandar
@@ -156,6 +166,7 @@ form
       width 100%
       justify-content center
       margin 0.4em auto
+    .mat-checkbox
     .mat-form-field
       display flex
       justify-content center
@@ -346,7 +357,7 @@ a
   font-size 1em
   background-color white
 
-@media screen and (max-width: md)
+@media screen and (max-width: lm)
   .title-navbar
     display none
   .mat-table

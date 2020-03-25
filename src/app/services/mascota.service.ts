@@ -41,6 +41,14 @@ export class MascotaService {
     return this.http.get<Array<IMascota>>(url, options);
   }
 
+  getMascotasPorUsuarioCrit(username: string, criteria: string, search: string): Observable<Array<IMascota>> {
+    let url = `${this.endpoints.mascotasUsuario}?user=${username}&crit=${criteria}&srch=${search}`,
+      options = {
+        headers: this.headers,
+      };
+    return this.http.get<Array<IMascota>>(url, options);
+  }
+
   getMascotasPorUsuarioFiltro(
     username: string,
     filter: string,

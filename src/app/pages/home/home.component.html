@@ -34,6 +34,7 @@
         <p *ngIf="mascota.senias !== null && mascota.senias.length > 0">Señas: {{mascota.senias}}</p>
         <p *ngIf="mascota.fechaNacimiento !==null && mascota.fechaNacimiento.length > 0">Nacimiento:
           {{mascota.fechaNacimiento | date}}</p>
+        <p *ngIf="mascota.extraviada !== null && mascota.extraviada">Extraviada</p>
         <p *ngIf="mascota.duenio !== null">Dueño: {{mascota.duenio?.nombre}}</p>
         <p *ngIf="mascota.veterinario != null && mascota.veterinario?.length > 0">Veterinario:
           {{mascota.veterinario?.nombre}}</p>

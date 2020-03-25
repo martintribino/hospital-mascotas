@@ -2,9 +2,10 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild, OnDestroy } from '@ang
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IProfile, IDictionary, IPaginatorEv } from 'src/app/interfaces/interfaces.model';
 import { VeterinarioService } from 'src/app/services/veterinario.service';
-import { MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatSnackBar, MatCheckboxChange } from '@angular/material';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-validate-veterinarios',
@@ -33,8 +34,10 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
   currentPage: number = 0;
   pageSizeOptions: number[] = [5, 10, 20, 25, 50];
   loadingDict: Array<IDictionary<boolean>>;
+  checked: boolean;
 
   constructor(
+    private auth: AuthenticationService,
     private vetService: VeterinarioService,
     private perfilService: PerfilService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -43,10 +46,11 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
     this.vetSubject.next([]);
     this.loadingDict = [];
     this.dataSource = new MatTableDataSource<IProfile>([]);
+    this.checked = false;
   }
 
   ngOnInit() {
-    this.vetService.getVeterinariosXValidacion(false).subscribe(
+    this.vetService.getVeterinariosXValidacion(this.checked).subscribe(
       (data) => this.onSuccess(data),
       (error) => this.handleError(error)
     );
@@ -83,22 +87,30 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
   }
 
   borrarPerfil(profile: IProfile) {
-    let nombreUsuario: string = profile.usuario.nombreUsuario || "";
-    if (nombreUsuario == "")
+    let nombreUsuario: string = profile.usuario.nombreUsuario || "",
+      usu = this.auth.getUsuario();
+    if (nombreUsuario == "" ||
+      !this.auth.isLoggedIn ||
+      usu == null
+    )
       return;
     this.loadingDict[nombreUsuario] = true;
-    this.perfilService.borrarPerfil(nombreUsuario).subscribe(
+    this.perfilService.borrarPerfil(nombreUsuario, usu.nombreUsuario).subscribe(
       () => this.handleSuccessVet(nombreUsuario, "--- veterinario eliminado ---", "Se eliminó el veterinario "),
       () => this.handleErrorVet(nombreUsuario, "--- veterinario no eliminado ---", "No se pudo eliminar el veterinario ")
     );
   }
 
   validarPerfil(profile: IProfile) {
-    let nombreUsuario: string = profile.usuario.nombreUsuario || "";
-    if (nombreUsuario == "")
+    let nombreUsuario: string = profile.usuario.nombreUsuario || "",
+      usu = this.auth.getUsuario();
+    if (nombreUsuario == "" ||
+      !this.auth.isLoggedIn ||
+      usu == null
+    )
       return;
     this.loadingDict[nombreUsuario] = true;
-    this.perfilService.validarPerfil(nombreUsuario).subscribe(
+    this.perfilService.validarPerfil(nombreUsuario, usu.nombreUsuario).subscribe(
       () => this.handleSuccessVet(nombreUsuario, "--- veterinario validado ---", "Se validó el veterinario "),
       () => this.handleErrorVet(nombreUsuario, "--- veterinario no validado ---", "No se pudo validar el veterinario ")
     );
@@ -132,7 +144,7 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
         panelClass: 'success'
       }
     );
-    console.log(logMessage);
+    this.loadingDict[nombreUsuario] = false;
   }
 
   handleErrorVet(nombreUsuario: string, logMessage: string, snackMessage: string) {
@@ -146,7 +158,10 @@ export class ValidateVeterinariosComponent implements OnInit, OnDestroy {
       }
     );
     this.loadingDict[nombreUsuario] = false;
-    console.log(logMessage);
+  }
+
+  onChange(event: MatCheckboxChange) {
+    this.ngOnInit();
   }
 
 }

@@ -27,6 +27,7 @@ export class FormFichaComponent {
       senias: new FormControl(data.senias),
       fechaNacimiento: new FormControl(data.fechaNacimiento),
       imagen: new FormControl(data.imagen),
+      extraviada: new FormControl(data.extraviada),
       duenio: new FormControl(data.duenio),
       veterinario: new FormControl(data.veterinario),
     });

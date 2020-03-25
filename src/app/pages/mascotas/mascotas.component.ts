@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator, MatTableDataSource, MatSnackBar, MatDialog, MatSnackBarVerticalPosition } from '@angular/material';
 import { trigger, state, transition, style, animate } from '@angular/animations';
@@ -17,7 +17,7 @@ import { PerfilDialogComponent } from 'src/app/shared/perfil-dialog/perfil-dialo
 import { ImagenMascotaComponent } from 'src/app/shared/imagen-mascota/imagen-mascota.component';
 import { environment } from 'src/environments/environment.prod';
 import { ArchivosService } from 'src/app/services/archivos.service';
-import { ThrowStmt } from '@angular/compiler';
+import { PetSearchComponent } from 'src/app/shared/pet-search/pet-search.component';
 
 @Component({
   selector: 'app-mascotas',
@@ -38,9 +38,10 @@ import { ThrowStmt } from '@angular/compiler';
     ])
   ]
 })
-export class MascotasComponent implements OnInit {
+export class MascotasComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(PetSearchComponent, { static: false }) searchForm: PetSearchComponent;
 
   endpoints = environment.endpoints;
   private veterinariosSubject = new BehaviorSubject<Array<IProfile>>([]);
@@ -52,7 +53,7 @@ export class MascotasComponent implements OnInit {
   private dataSource: MatTableDataSource<IMascota>;
   pageSize: number = 5;
   currentPage: number = 0;
-  pageSizeOptions: number[] = [2, 5, 10, 20, 25, 50];
+  pageSizeOptions: number[] = [5, 10, 20, 25, 50];
   public loadingDict: Array<IDictionary<boolean>>;
   public displayedColumns: Array<string> =
     ["imagen", "nombre", "raza", "sexo", "actions"];
@@ -76,7 +77,7 @@ export class MascotasComponent implements OnInit {
     this.dataSource = new MatTableDataSource<IMascota>([]);
   }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
     let usu = this.authService.getUsuario();
     if (usu != null) {
       this.mascService.getMascotasPorUsuario(usu.nombreUsuario).subscribe(
@@ -86,7 +87,7 @@ export class MascotasComponent implements OnInit {
       this.vetService.getVeterinariosXValidacion(true).subscribe(
         (result) => { this.veterinariosSubject.next(result); },
         (error) => { this.veterinariosSubject.next([]); }
-      )
+      );
     } else {
       this.authService.logout();
       this.router.navigate(['/login'], { queryParams: {} });
@@ -107,7 +108,7 @@ export class MascotasComponent implements OnInit {
     });
     this.changeDataSource(result);
     this.mascotasSubject.value.map((masc) => {
-      if (masc.imagen.length > 0) {
+      if (masc.imagen != null && masc.imagen.length > 0) {
         this.archService.cargarImagen(masc).subscribe(
           (data: IImagen) => { masc.path = `data:image/jpeg;base64,${data.b64str}` },
           (error) => console.log(error)
@@ -178,7 +179,7 @@ export class MascotasComponent implements OnInit {
         .subscribe(
           () => {
             this.mascotaSuccess(mascota, `Se ha borrado la mascota ${mascota.nombre}`);
-            this.ngOnInit();
+            this.ngAfterViewInit();
           },
           () => this.mascotaError(mascota, `No se ha podido borrar la mascota  ${mascota.nombre}`)
         );
@@ -204,7 +205,7 @@ export class MascotasComponent implements OnInit {
       if (masc != null && usu != null) {
         let mascBody: IMascotaBody = {
           "slug": masc.slug, "nombre": masc.nombre, "especie": masc.especie, "raza": masc.raza,
-          "sexo": masc.sexo, "color": masc.color, "senias": masc.senias,
+          "sexo": masc.sexo, "color": masc.color, "senias": masc.senias, "extraviada": masc.extraviada,
           "fechaNacimiento": masc.fechaNacimiento, "imagen": masc.imagen, "duenio": null,
           "username": usu.nombreUsuario
         };
@@ -212,7 +213,7 @@ export class MascotasComponent implements OnInit {
           .subscribe(
             () => {
               this.mascotaSuccess(mascota, `Se ha editado correctamente la mascota ${mascota.nombre}`)
-              this.ngOnInit();
+              this.ngAfterViewInit();
             },
             () => this.mascotaError(mascota, `No se ha podido editar la mascota ${mascota.nombre}`)
           );
@@ -243,13 +244,14 @@ export class MascotasComponent implements OnInit {
           "senias": masc.senias,
           "fechaNacimiento": masc.fechaNacimiento,
           "imagen": masc.imagen,
+          "extraviada": masc.extraviada,
           "username": usu.nombreUsuario
         };
         this.mascService.editarMascota(mascBody)
           .subscribe(
             () => {
               this.mascotaSuccess(mascota, `Se ha editado correctamente la mascota ${mascota.nombre}`)
-              this.ngOnInit();
+              this.ngAfterViewInit();
             },
             () => this.mascotaError(mascota, `No se ha podido editar la mascota ${mascota.nombre}`)
           );
@@ -280,15 +282,15 @@ export class MascotasComponent implements OnInit {
           "senias": ficha.senias,
           "fechaNacimiento": ficha.fechaNacimiento,
           "imagen": ficha.imagen,
+          "extraviada": ficha.extraviada,
           "duenio": ficha.duenio,
-          "veterinario": ficha.veterinario,
-          //"mascota": mascota
+          "veterinario": ficha.veterinario
         };
         this.mascService.editarFichaPublica(fichaBody)
           .subscribe(
             () => {
               this.mascotaSuccess(mascota, `Se ha editado correctamente la ficha de ${mascota.nombre}`)
-              this.ngOnInit();
+              this.ngAfterViewInit();
             },
             () => this.mascotaError(mascota, `No se ha podido editar la ficha de ${mascota.nombre}`)
           );
@@ -306,9 +308,35 @@ export class MascotasComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((m: IMascota) => {
       mascota = m;
-      this.ngOnInit();
+      this.ngAfterViewInit();
     });
   }
+
+  private onPetSearchSubmit() {
+    let usu = this.authService.getUsuario();
+    if (usu != null) {
+      this.mascService.getMascotasPorUsuarioCrit(
+        usu.nombreUsuario,
+        this.searchForm.searchPetF.criteria.value,
+        this.searchForm.searchPetF.search.value
+      ).subscribe(
+        (data: IMascota[]) => {
+          if (data.length > 0) {
+            this.showError("Busqueda exitosa.", "success");
+          } else {
+            this.showError("Busqueda sin resultados.", "info");
+          }
+          this.onSuccess(data);
+        },
+        (error) => { this.onPetSearchError(); this.showError("Busqueda no válida.", "error"); }
+      );
+    } else {
+      this.authService.logout();
+      this.router.navigate(['/login'], { queryParams: {} });
+    }
+  }
+
+  private onPetSearchError() { }
 
   private mascotaSuccess(mascota: IMascota, strSuccess: string) {
     this.showError(strSuccess, "success");
@@ -332,7 +360,7 @@ export class MascotasComponent implements OnInit {
     });
   }
 
-  private showError(strError: string, clase: string = "", time: number = 2000, pos: MatSnackBarVerticalPosition = "top") {
+  private showError(strError: string, clase: string = "", time: number = 20000, pos: MatSnackBarVerticalPosition = "top") {
     this.snackBar.open(
       strError,
       "",

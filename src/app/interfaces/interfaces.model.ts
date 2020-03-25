@@ -135,6 +135,7 @@ export interface IMascotaBody {
   veterinario?: IProfile;
   fechaNacimiento?: Date;
   imagen?: string;
+  extraviada: boolean;
 }
 
 export interface IEvento {
@@ -172,6 +173,7 @@ export interface IFicha {
   senias: boolean;
   fechaNacimiento: boolean;
   imagen: boolean;
+  extraviada: boolean;
   duenio: boolean;
   veterinario: boolean;
   mascota?: IMascota;

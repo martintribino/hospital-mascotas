@@ -10,6 +10,7 @@ import { FormMascotaModule } from 'src/app/shared/form-mascota/form-mascota.modu
 import { FormFichaModule } from 'src/app/shared/form-ficha/form-ficha.module';
 import { PerfilDialogModule } from 'src/app/shared/perfil-dialog/perfil-dialog.module';
 import { ImagenMascotaModule } from 'src/app/shared/imagen-mascota/imagen-mascota.module';
+import { PetSearchModule } from 'src/app/shared/pet-search/pet-search.module';
 
 import { MascotasComponent } from './mascotas.component';
 import { MascotasRoutingModule } from './mascotas-routing.module';
@@ -34,6 +35,7 @@ import { MascotasRoutingModule } from './mascotas-routing.module';
     PerfilDialogModule,
     FormMascotaModule,
     FormFichaModule,
+    PetSearchModule,
     ImagenMascotaModule
   ],
   declarations: [

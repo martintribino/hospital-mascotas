@@ -21,7 +21,7 @@ export class FormMascotaComponent {
     color: new FormControl(''),
     senias: new FormControl(''),
     fecha: new FormControl(''),
-    imagen: new FormControl(''),
+    extraviada: new FormControl(false)
   });
   maxDate: Date;
   mascota: IMascota;
@@ -39,7 +39,7 @@ export class FormMascotaComponent {
       color: new FormControl(''),
       senias: new FormControl(''),
       fechaNacimiento: new FormControl(''),
-      imagen: new FormControl(''),
+      extraviada: new FormControl(false)
     });
     this.maxDate = new Date();
     this.mascota = data;
@@ -51,7 +51,7 @@ export class FormMascotaComponent {
     this.crearMascF.color.setValue(this.mascota.color);
     this.crearMascF.senias.setValue(this.mascota.senias);
     this.crearMascF.fechaNacimiento.setValue(this.mascota.fechaNacimiento);
-    this.crearMascF.imagen.setValue(this.mascota.imagen);
+    this.crearMascF.extraviada.setValue(this.mascota.extraviada);
   }
 
   onSubmit() {

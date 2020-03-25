@@ -25,38 +25,40 @@
       </div>
     </form>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Elija horario</ng-template>
-    <div class="stepper-body">
-      <div *ngIf="(horario | async)?.turnosValidos?.length > 0; then ifBlock else elseBlock">
-      </div>
-      <ng-template #ifBlock>
-        <h5>Seleccione Turno ({{(horario | async)?.turno}} minutos)</h5>
-        <p>{{firstStepF.fecha.value | date: 'dd/MM/yyyy'}}</p>
-        <mat-grid-list cols="4" gutterSize="1px" rowHeight="2.4em">
-          <mat-grid-tile *ngFor="let turno of (horario | async).turnosValidos;">
-            <button class="nav-icon {{turno.estado.toLowerCase()}}" [class.seleccionado]="turnoSeleccionado === turno"
-              (click)="clickTurno(turno, stepper)" [disabled]="!isEnabled(turno)" [matBadge]="hasBadge(turno)"
-              matBadgePosition="above after" matBadgeColor="accent" matBadgeSize="medium">
-              {{turno.inicio}}
-            </button>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </ng-template>
-      <ng-template #elseBlock>
-        <div class="no-events">
-          <h4 matLine>No hay eventos.</h4>
+  <mat-step [stepControl]="horarioForm">
+    <form [formGroup]="horarioForm" class="stepper-form">
+      <ng-template matStepLabel>Elija horario</ng-template>
+      <div class="stepper-body">
+        <div *ngIf="(horario | async)?.turnosValidos?.length > 0; then ifBlock else elseBlock">
         </div>
-      </ng-template>
-    </div>
-    <div class="stepper-actions">
-      <button matStepperPrevious class="nav-icon">
-        <mat-icon>navigate_before</mat-icon>
-      </button>
-      <button matStepperNext class="nav-icon" [disabled]="turnoSeleccionado == null">
-        <mat-icon>navigate_next</mat-icon>
-      </button>
-    </div>
+        <ng-template #ifBlock>
+          <h5>Seleccione Turno ({{(horario | async)?.turno}} minutos)</h5>
+          <p>{{firstStepF.fecha.value | date: 'dd/MM/yyyy'}}</p>
+          <mat-grid-list cols="4" gutterSize="1px" rowHeight="2.4em">
+            <mat-grid-tile *ngFor="let turno of (horario | async).turnosValidos;">
+              <button class="nav-icon {{turno.estado.toLowerCase()}}" [class.seleccionado]="turnoSeleccionado === turno"
+                (click)="clickTurno(turno, stepper)" [disabled]="!isEnabled(turno)" [matBadge]="hasBadge(turno)"
+                matBadgePosition="above after" matBadgeColor="accent" matBadgeSize="medium">
+                {{turno.inicio}}
+              </button>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </ng-template>
+        <ng-template #elseBlock>
+          <div class="no-events">
+            <h4 matLine>No hay eventos.</h4>
+          </div>
+        </ng-template>
+      </div>
+      <div class="stepper-actions">
+        <button matStepperPrevious class="nav-icon">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button matStepperNext class="nav-icon" [disabled]="turnoSeleccionado == null">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+    </form>
   </mat-step>
   <mat-step [stepControl]="secondStepForm">
     <form [formGroup]="secondStepForm" class="stepper-form" (ngSubmit)="onSubmit(stepper)" novalidate>
