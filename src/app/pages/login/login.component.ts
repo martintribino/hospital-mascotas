@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   });
   redirecting: boolean;
   isSubmiting: boolean;
+  hide: boolean;
 
   constructor(
     private authService: AuthenticationService,
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.isSubmiting = false;
+    this.hide = true;
     this.loginForm = new FormGroup({
       nombreUsuario: new FormControl(""),
       clave: new FormControl(""),
@@ -86,6 +88,12 @@ export class LoginComponent implements OnInit {
 
   get loginF() {
     return this.loginForm.controls;
+  }
+
+  private visibilityClick(event: Event): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.hide = !this.hide;
   }
 
   private showError(

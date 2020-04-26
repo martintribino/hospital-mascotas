@@ -4,6 +4,7 @@ import {
   MatInputModule,
   MatFormFieldModule,
   MatSnackBarModule,
+  MatIconModule,
 } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
@@ -17,6 +18,7 @@ import { EditUserRoutingModule } from "./edit-user-routing.module";
     CommonModule,
     HttpClientModule,
     MatInputModule,
+    MatIconModule,
     MatFormFieldModule,
     MatSnackBarModule,
     FormsModule,

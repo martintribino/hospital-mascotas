@@ -7,7 +7,6 @@
         <input
           matInput
           type="text"
-          #username
           [value]="usuario.nombreUsuario"
           formControlName="nombreUsuario"
           autocomplete="off"
@@ -31,12 +30,22 @@
         <mat-label>Clave</mat-label>
         <input
           matInput
-          type="password"
+          [type]="hide ? 'password' : 'text'"
           formControlName="clave"
           placeholder=""
           maxlength="50"
           minlength="4"
         />
+        <button
+          mat-icon-button
+          matSuffix
+          class="visibility-button"
+          (click)="visibilityClickPass($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
         <mat-hint>Clave</mat-hint>
         <mat-error *ngIf="loginF.clave?.errors?.minlength"
           >El campo debe tener al menos 4 caracteres</mat-error
@@ -55,12 +64,22 @@
         <mat-label>Confirmar Clave</mat-label>
         <input
           matInput
-          type="password"
+          [type]="hidec ? 'password' : 'text'"
           formControlName="confirmarClave"
           placeholder=""
           maxlength="50"
           minlength="4"
         />
+        <button
+          mat-icon-button
+          matSuffix
+          class="visibility-button"
+          (click)="visibilityClickConfirm($event)"
+          [attr.aria-label]="'Hide confirm'"
+          [attr.aria-pressed]="hidec"
+        >
+          <mat-icon>{{ hidec ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
         <mat-hint>Confirmar Clave</mat-hint>
         <mat-error *ngIf="loginF.confirmarClave?.errors?.matchPassword"
           >Las claves no coinciden

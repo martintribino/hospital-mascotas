@@ -65,8 +65,8 @@ export class PetSearchComponent implements OnInit {
   disabled() {
     return (
       this.enabledKeys.indexOf(this.searchPetF.criteria.value) == -1 ||
-      this.searchPetF.criteria.value == "todas" ||
-      (this.searchPetF.criteria.value != "extraviada" &&
+      ((this.searchPetF.criteria.value == "todas" ||
+        this.searchPetF.criteria.value != "extraviada") &&
         this.searchPetF.search.invalid)
     );
   }

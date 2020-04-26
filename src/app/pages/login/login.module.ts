@@ -3,6 +3,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSnackBarModule,
+  MatIconModule,
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
@@ -17,6 +18,7 @@ import { LoginRoutingModule } from "./login-routing.module";
     CommonModule,
     HttpClientModule,
     MatInputModule,
+    MatIconModule,
     MatFormFieldModule,
     MatSnackBarModule,
     FormsModule,

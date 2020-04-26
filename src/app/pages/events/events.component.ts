@@ -57,7 +57,8 @@ export class EventsComponent implements OnInit {
   tipoEventos: Array<{ indice: string; value: string }>;
   estadosHabilitados: Array<EstadoTurno>;
   isSubmiting: boolean;
-  EventoTipo = EventoTipoSinAcento;
+  EventoTipoSinAcento = EventoTipoSinAcento;
+  tipoSelected;
 
   constructor(
     private eventoService: EventoService,

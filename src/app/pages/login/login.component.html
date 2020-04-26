@@ -30,13 +30,23 @@
         <mat-label>Clave</mat-label>
         <input
           matInput
-          type="password"
+          [type]="hide ? 'password' : 'text'"
           formControlName="clave"
           placeholder=""
           maxlength="50"
           minlength="4"
           required
         />
+        <button
+          mat-icon-button
+          matSuffix
+          class="visibility-button"
+          (click)="visibilityClick($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
         <mat-hint>Clave</mat-hint>
         <mat-error *ngIf="loginF.clave?.errors?.minlength"
           >El campo debe tener al menos 4 caracteres</mat-error

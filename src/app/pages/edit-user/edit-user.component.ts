@@ -23,16 +23,17 @@ import { isEqual, isEmpty } from "src/helpers/functions";
   templateUrl: "./edit-user.component.html",
   styleUrls: ["./edit-user.component.styl"],
 })
-export class EditUserComponent implements AfterViewInit {
+export class EditUserComponent {
   loginForm = new FormGroup({
     nombreUsuario: new FormControl(""),
     clave: new FormControl(""),
     confirmarClave: new FormControl(""),
   });
   isSubmiting: boolean;
+  hide: boolean;
+  hidec: boolean;
   usuario: IUser;
   usuarioActual: IUser;
-  @ViewChild("username", { static: false }) username: ElementRef;
 
   constructor(
     private authService: AuthenticationService,
@@ -40,6 +41,8 @@ export class EditUserComponent implements AfterViewInit {
     private snackBar: MatSnackBar
   ) {
     this.isSubmiting = false;
+    this.hide = true;
+    this.hidec = true;
     this.usuario = this.authService.getUsuario();
     this.usuarioActual = this.usuario;
     this.loginForm = new FormGroup(
@@ -50,11 +53,6 @@ export class EditUserComponent implements AfterViewInit {
       },
       PasswordValidation.MatchPasswordIncEmpty
     );
-    this.username.nativeElement.focus();
-  }
-
-  ngAfterViewInit(): void {
-    this.username.nativeElement.focus();
   }
 
   onSubmit() {
@@ -79,7 +77,6 @@ export class EditUserComponent implements AfterViewInit {
 
   handleError(error: HttpErrorResponse) {
     this.showError("Datos incorrectos. Por favor, intente nuevamente", "error");
-    this.username.nativeElement.focus();
     this.isSubmiting = false;
   }
 
@@ -89,6 +86,18 @@ export class EditUserComponent implements AfterViewInit {
 
   private isEmpty(value: FormControl): boolean {
     return isEmpty(value.value);
+  }
+
+  private visibilityClickPass(event: Event): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.hide = !this.hide;
+  }
+
+  private visibilityClickConfirm(event: Event): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.hidec = !this.hidec;
   }
 
   private isDisabled(): boolean {

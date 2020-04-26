@@ -189,7 +189,9 @@
         </mat-form-field>
         <mat-form-field
           appearance="standard"
-          *ngIf="compareEvento(tipoSelected, EventoTipo.Desparasitacion)"
+          *ngIf="
+            compareEvento(tipoSelected, EventoTipoSinAcento.Desparasitacion)
+          "
         >
           <mat-label>Droga</mat-label>
           <input
@@ -202,7 +204,9 @@
         </mat-form-field>
         <mat-form-field
           appearance="standard"
-          *ngIf="compareEvento(tipoSelected, EventoTipo.Desparasitacion)"
+          *ngIf="
+            compareEvento(tipoSelected, EventoTipoSinAcento.Desparasitacion)
+          "
         >
           <mat-label>Resultado</mat-label>
           <input
@@ -215,7 +219,7 @@
         </mat-form-field>
         <mat-form-field
           appearance="standard"
-          *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)"
+          *ngIf="compareEvento(tipoSelected, EventoTipoSinAcento.Visita)"
         >
           <mat-label>Indicaciones</mat-label>
           <input
@@ -228,7 +232,7 @@
         </mat-form-field>
         <mat-form-field
           appearance="standard"
-          *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)"
+          *ngIf="compareEvento(tipoSelected, EventoTipoSinAcento.Visita)"
         >
           <mat-label>Motivo</mat-label>
           <input
@@ -241,7 +245,7 @@
         </mat-form-field>
         <mat-form-field
           appearance="standard"
-          *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)"
+          *ngIf="compareEvento(tipoSelected, EventoTipoSinAcento.Visita)"
         >
           <mat-label>Peso</mat-label>
           <input
@@ -254,7 +258,7 @@
         </mat-form-field>
         <mat-form-field
           appearance="standard"
-          *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)"
+          *ngIf="compareEvento(tipoSelected, EventoTipoSinAcento.Visita)"
         >
           <mat-label>Diagnóstico</mat-label>
           <input
@@ -267,7 +271,7 @@
         </mat-form-field>
         <mat-form-field
           class="standard"
-          *ngIf="compareEvento(tipoSelected, EventoTipo.Reproduccion)"
+          *ngIf="compareEvento(tipoSelected, EventoTipoSinAcento.reproduccion)"
         >
           <input
             matInput
@@ -290,7 +294,7 @@
         </mat-form-field>
         <mat-form-field
           appearance="standard"
-          *ngIf="compareEvento(tipoSelected, EventoTipo.Reproduccion)"
+          *ngIf="compareEvento(tipoSelected, EventoTipoSinAcento.Reproduccion)"
         >
           <mat-label>Número de cachorros</mat-label>
           <input
@@ -298,8 +302,13 @@
             type="number"
             formControlName="nroCachorros"
             placeholder="Número de cachorros"
+            min="0"
+            step="1"
           />
           <mat-hint>Número de cachorros</mat-hint>
+          <mat-error *ngIf="secondStepF.nroCachorros?.errors"
+            >La cantidad de cachorros debes ser 0 o más</mat-error
+          >
         </mat-form-field>
         <div class="full-width top-margin">
           <button

@@ -293,6 +293,26 @@ button
     &.top-right
       top 10%
       right 5%
+  &.visibility-button
+    display flex
+    align-items center
+    box-shadow none
+    border none
+    background-color transparent
+    color primaryBack
+    padding 0
+    font-size 1.2em
+    .mat-icon
+      border none
+      box-shadow none
+      font-size 1.2em
+      height 100%
+      width 100%
+    &:hover
+      color rgba(primaryBack, 0.75)
+    &.top-right
+      top 10%
+      right 5%
   &:disabled
     background-color disabledColor
     color primaryBack
