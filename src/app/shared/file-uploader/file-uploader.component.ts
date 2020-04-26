@@ -1,14 +1,20 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, Output } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { FileExt } from 'src/app/interfaces/interfaces.model';
+import {
+  Component,
+  OnInit,
+  Input,
+  ElementRef,
+  ViewChild,
+  Output,
+} from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { FileExt } from "src/app/interfaces/interfaces.model";
 
 @Component({
-  selector: 'app-file-uploader',
-  templateUrl: './file-uploader.component.html',
-  styleUrls: ['./file-uploader.component.styl']
+  selector: "app-file-uploader",
+  templateUrl: "./file-uploader.component.html",
+  styleUrls: ["./file-uploader.component.styl"],
 })
 export class FileUploaderComponent {
-
   @Input()
   multiple: boolean = false;
   @Input()
@@ -19,9 +25,16 @@ export class FileUploaderComponent {
   maxFileSize: number = 2097152;
   @Input()
   enabledFileTypes: Array<string> = [
-    "image/jpg", "image/gif", "image/svg", "image/png", "image/jpeg",
-    "image/vnd.microsoft.icon", "text/plain", "application/pdf", "application/msword",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    "image/jpg",
+    "image/gif",
+    "image/svg",
+    "image/png",
+    "image/jpeg",
+    "image/vnd.microsoft.icon",
+    "text/plain",
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   ];
   @Input()
   invalidFileSizeMessage: string = "Tamaño máximo excedido.";
@@ -32,11 +45,11 @@ export class FileUploaderComponent {
   @Input()
   invalidFileType: boolean = false;
   @Input()
-  chooseLabel = 'Elegir';
+  chooseLabel = "Elegir";
   @Input()
-  deleteButtonIcon = 'cancel';
+  deleteButtonIcon = "cancel";
   @Input()
-  attachButtonIcon = 'attach_file';
+  attachButtonIcon = "attach_file";
   @Input()
   files: File[] = [];
   @Input()
@@ -47,24 +60,28 @@ export class FileUploaderComponent {
   inputFileName: string;
 
   constructor(private sanitizer: DomSanitizer) {
-    if (this.maxQFiles < 1 || this.maxQFiles > 8) //limites
+    if (this.maxQFiles < 1 || this.maxQFiles > 8)
+      //limites
       this.maxQFiles = 4;
   }
 
   onClick(event) {
-    if (this.fileUpload)
-      this.fileUpload.nativeElement.click();
+    if (this.fileUpload) this.fileUpload.nativeElement.click();
   }
 
-  onInput(event) { }
+  onInput(event) {}
 
   onFileSelected(event) {
-    let files = event.dataTransfer ? event.dataTransfer.files : event.target.files,
+    let files = event.dataTransfer
+        ? event.dataTransfer.files
+        : event.target.files,
       reader = new FileReader();
     for (let i = 0; i < files.length; i++) {
       let file = files[i];
       if (this.validate(file)) {
-        file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+        file.objectURL = this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(files[i])
+        );
         if (!this.isMultiple()) {
           this.files = [];
         }
@@ -94,10 +111,11 @@ export class FileUploaderComponent {
       return false;
     }
     for (const f of this.files) {
-      if (f.name === file.name
-        && f.lastModified === file.lastModified
-        && f.size === f.size
-        && f.type === f.type
+      if (
+        f.name === file.name &&
+        f.lastModified === file.lastModified &&
+        f.size === f.size &&
+        f.type === f.type
       ) {
         return false;
       }
@@ -108,11 +126,10 @@ export class FileUploaderComponent {
   private clearInputElement() {
     this.invalidFileSize = false;
     this.invalidFileType = false;
-    this.fileUpload.nativeElement.value = '';
+    this.fileUpload.nativeElement.value = "";
   }
 
   private isMultiple(): boolean {
     return this.multiple;
   }
-
 }

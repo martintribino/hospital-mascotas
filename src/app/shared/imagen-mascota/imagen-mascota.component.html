@@ -4,10 +4,18 @@
     <img [src]="file.objectURL" alt="Imagen seleccionada" />
   </span>
 </div>
-<app-file-uploader #uploader enabledFileTypes="'image/jpg', 'image/gif', 'image/svg', 'image/png', 'image/jpeg'">
+<app-file-uploader
+  #uploader
+  enabledFileTypes="'image/jpg', 'image/gif', 'image/svg', 'image/png', 'image/jpeg'"
+>
 </app-file-uploader>
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]="mascota">Cerrar</button>
-  <button type="submit" (click)="onSubmit($event)"
-    [disabled]="uploader?.files?.length == 0 || isSubmitting">Enviar</button>
+  <button
+    type="submit"
+    (click)="onSubmit($event)"
+    [disabled]="uploader?.files?.length == 0 || isSubmitting"
+  >
+    Enviar
+  </button>
 </mat-dialog-actions>

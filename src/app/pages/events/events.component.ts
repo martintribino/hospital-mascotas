@@ -1,28 +1,43 @@
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { Router } from '@angular/router';
-import { MatStepper } from '@angular/material/stepper';
-import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material';
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
+import { MatDatepickerInputEvent } from "@angular/material/datepicker";
+import { Router } from "@angular/router";
+import { MatStepper } from "@angular/material/stepper";
+import {
+  MatSnackBar,
+  MatSnackBarVerticalPosition,
+} from "@angular/material/snack-bar";
+import { MatDialog } from "@angular/material";
 
-import { EventoService } from 'src/app/services/evento.service';
-import { MascotaService } from 'src/app/services/mascota.service';
-import { AuthenticationService } from 'src/app/services/auth.service';
+import { EventoService } from "src/app/services/evento.service";
+import { MascotaService } from "src/app/services/mascota.service";
+import { AuthenticationService } from "src/app/services/auth.service";
 
-import { IHorario, ITurno, EstadoTurno, IEvento, EventoTipo, IMascota, IEventoReqBody, EventoTipoSinAcento } from 'src/app/interfaces/interfaces.model';
-import { Usuario } from 'src/app/model/usuario';
-import { TurnoDialogComponent } from 'src/app/shared/turno-dialog/turno-dialog.component';
+import {
+  IHorario,
+  ITurno,
+  EstadoTurno,
+  IEvento,
+  EventoTipo,
+  IMascota,
+  IEventoReqBody,
+  EventoTipoSinAcento,
+} from "src/app/interfaces/interfaces.model";
+import { Usuario } from "src/app/model/usuario";
+import { TurnoDialogComponent } from "src/app/shared/turno-dialog/turno-dialog.component";
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.styl'],
-  providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-  }]
+  selector: "app-events",
+  templateUrl: "./events.component.html",
+  styleUrls: ["./events.component.styl"],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false },
+    },
+  ],
 })
 export class EventsComponent implements OnInit {
   private horarioSubject = new BehaviorSubject<IHorario>(null);
@@ -39,7 +54,7 @@ export class EventsComponent implements OnInit {
   currentDate: Date;
   turnoSeleccionado: ITurno;
   estados: Array<EstadoTurno>;
-  tipoEventos: Array<{ "indice": string, "value": string }>;
+  tipoEventos: Array<{ indice: string; value: string }>;
   estadosHabilitados: Array<EstadoTurno>;
   isSubmiting: boolean;
   EventoTipo = EventoTipoSinAcento;
@@ -61,17 +76,19 @@ export class EventsComponent implements OnInit {
     this.estados = Object.values(EstadoTurno);
     this.tipoEventos = [];
     this.estadosHabilitados = [];
-    Object.keys(EventoTipo).map(ind => this.tipoEventos.push({ "indice": ind, "value": EventoTipo[ind] as string }));
+    Object.keys(EventoTipo).map((ind) =>
+      this.tipoEventos.push({ indice: ind, value: EventoTipo[ind] as string })
+    );
     this.isSubmiting = false;
     this.firstStepForm = new FormGroup({
-      fecha: new FormControl(''),
+      fecha: new FormControl(""),
     });
     this.horarioForm = new FormGroup({
       turno: new FormControl(null, Validators.required),
     });
     this.secondStepForm = new FormGroup({
       tipo: new FormControl(EventoTipo.Visita),
-      descripcion: new FormControl(''),
+      descripcion: new FormControl(""),
       mascota: new FormControl(null),
       droga: new FormControl(null),
       resultado: new FormControl(null),
@@ -91,7 +108,7 @@ export class EventsComponent implements OnInit {
         this.estadosHabilitados = [
           EstadoTurno.CONCURRIO,
           EstadoTurno.DISPONIBLE,
-          EstadoTurno.RESERVADO
+          EstadoTurno.RESERVADO,
         ];
       } else {
         this.minDate = null;
@@ -100,7 +117,7 @@ export class EventsComponent implements OnInit {
           EstadoTurno.CONCURRIO,
           EstadoTurno.DISPONIBLE,
           EstadoTurno.NOCONCURRIO,
-          EstadoTurno.RESERVADO
+          EstadoTurno.RESERVADO,
         ];
       }
       this.mascService.getMascotasPorUsuario(usu.nombreUsuario).subscribe(
@@ -109,12 +126,16 @@ export class EventsComponent implements OnInit {
       );
     } else {
       this.authService.logout();
-      this.router.navigate(['/login'], { queryParams: {} });
+      this.router.navigate(["/login"], { queryParams: {} });
     }
   }
 
   private onSuccess(mascotas: Array<IMascota>) {
-    this.mascTotalSubject.next(mascotas.filter((m: IMascota) => { return m.veterinario != null }));
+    this.mascTotalSubject.next(
+      mascotas.filter((m: IMascota) => {
+        return m.veterinario != null;
+      })
+    );
   }
 
   private handleError(error) {
@@ -127,18 +148,18 @@ export class EventsComponent implements OnInit {
     if (usu != null) {
       let msct: IMascota = this.secondStepF.mascota.value,
         evt: IEvento = {
-          "tipo": this.secondStepF.tipo.value,
-          "turno": null,
-          "descripcion": this.secondStepF.descripcion.value,
-          "mascota": null,
-          "droga": this.secondStepF.droga.value,
-          "resultado": this.secondStepF.resultado.value,
-          "diagnostico": this.secondStepF.diagnostico.value,
-          "indicaciones": this.secondStepF.indicaciones.value,
-          "motivo": this.secondStepF.motivo.value,
-          "peso": this.secondStepF.peso.value,
-          "fecha_parto": this.secondStepF.fechaParto.value,
-          "nro_cachorros": this.secondStepF.nroCachorros.value
+          tipo: this.secondStepF.tipo.value,
+          turno: null,
+          descripcion: this.secondStepF.descripcion.value,
+          mascota: null,
+          droga: this.secondStepF.droga.value,
+          resultado: this.secondStepF.resultado.value,
+          diagnostico: this.secondStepF.diagnostico.value,
+          indicaciones: this.secondStepF.indicaciones.value,
+          motivo: this.secondStepF.motivo.value,
+          peso: this.secondStepF.peso.value,
+          fecha_parto: this.secondStepF.fechaParto.value,
+          nro_cachorros: this.secondStepF.nroCachorros.value,
         },
         evtBody: IEventoReqBody = {
           slug: msct.slug,
@@ -146,7 +167,7 @@ export class EventsComponent implements OnInit {
           inicio: this.turnoSeleccionado.inicio,
           fin: this.turnoSeleccionado.fin,
           username: usu.nombreUsuario,
-          evento: evt
+          evento: evt,
         };
       this.eventoService.crearEvento(evtBody).subscribe(
         (data: IEvento) => this.guardarEvSuccess(data, stepper),
@@ -154,7 +175,7 @@ export class EventsComponent implements OnInit {
       );
     } else {
       this.authService.logout();
-      this.router.navigate(['/login'], { queryParams: {} });
+      this.router.navigate(["/login"], { queryParams: {} });
     }
   }
 
@@ -204,13 +225,12 @@ export class EventsComponent implements OnInit {
 
   private showInfo(turno: ITurno, stepper: MatStepper) {
     const dialogRef = this.dialog.open(TurnoDialogComponent, {
-      width: '350px',
-      maxWidth: '450px',
-      data: turno
+      width: "350px",
+      maxWidth: "450px",
+      data: turno,
     });
     dialogRef.afterClosed().subscribe((ok: string) => {
-      if (ok == "success")
-        stepper.reset();
+      if (ok == "success") stepper.reset();
     });
   }
 
@@ -233,13 +253,13 @@ export class EventsComponent implements OnInit {
 
   private isEnabled = (t: ITurno): boolean => {
     return this.estadosHabilitados.includes(t.estado);
-  }
+  };
 
   private myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     // Previene de ser seleccionados al Sabado y Domingo.
     return day !== 0 && day !== 6;
-  }
+  };
 
   private hasBadge(turno: ITurno): string {
     let strBadge: string = "";
@@ -269,11 +289,11 @@ export class EventsComponent implements OnInit {
     this.firstStepForm.reset();
     this.secondStepForm.reset();
     this.firstStepForm = new FormGroup({
-      fecha: new FormControl(''),
+      fecha: new FormControl(""),
     });
     this.secondStepForm = new FormGroup({
       tipo: new FormControl(EventoTipo.Visita),
-      descripcion: new FormControl(''),
+      descripcion: new FormControl(""),
       mascota: new FormControl(null),
       droga: new FormControl(null),
       resultado: new FormControl(null),
@@ -286,16 +306,17 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  private showError(strError: string, clase: string = "", time: number = 2000, pos: MatSnackBarVerticalPosition = "top") {
-    this.snackBar.open(
-      strError,
-      "",
-      {
-        duration: time,
-        verticalPosition: pos,
-        panelClass: clase
-      }
-    );
+  private showError(
+    strError: string,
+    clase: string = "",
+    time: number = 2000,
+    pos: MatSnackBarVerticalPosition = "top"
+  ) {
+    this.snackBar.open(strError, "", {
+      duration: time,
+      verticalPosition: pos,
+      panelClass: clase,
+    });
   }
 
   isAdministrador(): boolean {
@@ -312,5 +333,4 @@ export class EventsComponent implements OnInit {
     let usu = this.authService.getUsuario();
     return usu.role == Usuario.vetRole;
   }
-
 }

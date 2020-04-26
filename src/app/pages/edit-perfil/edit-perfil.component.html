@@ -4,85 +4,168 @@
     <div class="row-group">
       <mat-form-field appearance="standard" *ngIf="(perfil | async)?.nombre">
         <mat-label>Nombre</mat-label>
-        <input matInput type="text" [value]="(perfil | async).nombre" formControlName="nombre" autocomplete="off"
-          placeholder="Ingrese nombre" maxlength="40" minlength="2" required>
+        <input
+          matInput
+          type="text"
+          [value]="(perfil | async).nombre"
+          formControlName="nombre"
+          autocomplete="off"
+          placeholder="Ingrese nombre"
+          maxlength="40"
+          minlength="2"
+          required
+        />
         <mat-hint>Nombre</mat-hint>
-        <mat-error *ngIf="editarPerfilF.nombre?.errors?.minlength">El campo debe
-          tener al menos 2 caracteres
+        <mat-error *ngIf="editarPerfilF.nombre?.errors?.minlength"
+          >El campo debe tener al menos 2 caracteres
         </mat-error>
-        <mat-error *ngIf="editarPerfilF.nombre?.errors?.maxlength">El campo debe
-          tener como máximo 40 caracteres
+        <mat-error *ngIf="editarPerfilF.nombre?.errors?.maxlength"
+          >El campo debe tener como máximo 40 caracteres
         </mat-error>
-        <mat-error *ngIf="editarPerfilF.nombre?.errors?.required">Campo requerido</mat-error>
+        <mat-error *ngIf="editarPerfilF.nombre?.errors?.required"
+          >Campo requerido</mat-error
+        >
       </mat-form-field>
       <mat-form-field appearance="standard" *ngIf="(perfil | async)?.apellido">
         <mat-label>Apellido</mat-label>
-        <input matInput type="text" [value]="(perfil | async).apellido" formControlName="apellido" autocomplete="off"
-          placeholder="Ingrese apellido" maxlength="40" minlength="2" required>
+        <input
+          matInput
+          type="text"
+          [value]="(perfil | async).apellido"
+          formControlName="apellido"
+          autocomplete="off"
+          placeholder="Ingrese apellido"
+          maxlength="40"
+          minlength="2"
+          required
+        />
         <mat-hint>Apellido</mat-hint>
-        <mat-error *ngIf="editarPerfilF.apellido?.errors?.minlength">El campo debe
-          tener al menos 2 caracteres
+        <mat-error *ngIf="editarPerfilF.apellido?.errors?.minlength"
+          >El campo debe tener al menos 2 caracteres
         </mat-error>
-        <mat-error *ngIf="editarPerfilF.apellido?.errors?.maxlength">El campo debe
-          tener como máximo 40 caracteres
+        <mat-error *ngIf="editarPerfilF.apellido?.errors?.maxlength"
+          >El campo debe tener como máximo 40 caracteres
         </mat-error>
-        <mat-error *ngIf="editarPerfilF.apellido?.errors?.required">Campo requerido</mat-error>
+        <mat-error *ngIf="editarPerfilF.apellido?.errors?.required"
+          >Campo requerido</mat-error
+        >
       </mat-form-field>
     </div>
     <div class="row-group">
       <mat-form-field appearance="standard" *ngIf="(perfil | async)?.email">
         <mat-label>Email</mat-label>
-        <input matInput type="email" [value]="(perfil | async).email" formControlName="email" autocomplete="off"
-          placeholder="Ingrese email" email required>
+        <input
+          matInput
+          type="email"
+          [value]="(perfil | async).email"
+          formControlName="email"
+          autocomplete="off"
+          placeholder="Ingrese email"
+          email
+          required
+        />
         <mat-hint>Email</mat-hint>
-        <mat-error *ngIf="editarPerfilF.email?.errors?.email">Campo no válido</mat-error>
-        <mat-error *ngIf="editarPerfilF.email?.errors?.required">Campo requerido</mat-error>
+        <mat-error *ngIf="editarPerfilF.email?.errors?.email"
+          >Campo no válido</mat-error
+        >
+        <mat-error *ngIf="editarPerfilF.email?.errors?.required"
+          >Campo requerido</mat-error
+        >
       </mat-form-field>
       <mat-form-field appearance="standard" *ngIf="(perfil | async)?.dni">
         <mat-label>Documento</mat-label>
-        <input matInput type="number" [value]="(perfil | async).dni" formControlName="documento" autocomplete="off"
-          placeholder="Ingrese documento" max="99999999" min="1" required>
+        <input
+          matInput
+          type="number"
+          [value]="(perfil | async).dni"
+          formControlName="documento"
+          autocomplete="off"
+          placeholder="Ingrese documento"
+          max="99999999"
+          min="1"
+          required
+        />
         <mat-hint>Documento</mat-hint>
-        <mat-error *ngIf="editarPerfilF.documento?.errors?.min">El campo debe
-          ser mayor a 1
+        <mat-error *ngIf="editarPerfilF.documento?.errors?.min"
+          >El campo debe ser mayor a 1
         </mat-error>
-        <mat-error *ngIf="editarPerfilF.documento?.errors?.max">El campo debe
-          ser menor a 99999999
+        <mat-error *ngIf="editarPerfilF.documento?.errors?.max"
+          >El campo debe ser menor a 99999999
         </mat-error>
-        <mat-error *ngIf="editarPerfilF.documento?.errors?.required">Campo requerido</mat-error>
+        <mat-error *ngIf="editarPerfilF.documento?.errors?.required"
+          >Campo requerido</mat-error
+        >
       </mat-form-field>
     </div>
     <div class="row-group">
       <mat-form-field appearance="standard" *ngIf="(perfil | async)?.telefono">
         <mat-label>Telefono</mat-label>
-        <input matInput type="number" [value]="(perfil | async).telefono" formControlName="telefono" autocomplete="off"
-          placeholder="Ingrese telefono">
+        <input
+          matInput
+          type="number"
+          [value]="(perfil | async).telefono"
+          formControlName="telefono"
+          autocomplete="off"
+          placeholder="Ingrese telefono"
+        />
         <mat-hint>Telefono</mat-hint>
       </mat-form-field>
-      <mat-form-field appearance="standard" *ngIf="isVeterinario() && (perfil | async)?.domicilio">
+      <mat-form-field
+        appearance="standard"
+        *ngIf="isVeterinario() && (perfil | async)?.domicilio"
+      >
         <mat-label>Domicilio</mat-label>
-        <input matInput type="string" [value]="(perfil | async).domicilio" formControlName="domicilio"
-          autocomplete="off" placeholder="Ingrese domicilio">
+        <input
+          matInput
+          type="string"
+          [value]="(perfil | async).domicilio"
+          formControlName="domicilio"
+          autocomplete="off"
+          placeholder="Ingrese domicilio"
+        />
         <mat-hint>Domicilio</mat-hint>
       </mat-form-field>
     </div>
     <div class="row-group">
-      <mat-form-field appearance="standard" *ngIf="isVeterinario() && (perfil | async)?.nombreClinica">
+      <mat-form-field
+        appearance="standard"
+        *ngIf="isVeterinario() && (perfil | async)?.nombreClinica"
+      >
         <mat-label>Nombre Clinica</mat-label>
-        <input matInput type="string" [value]="(perfil | async).nombreClinica" formControlName="nombreClinica"
-          autocomplete="off" placeholder="Ingrese nombre clínica">
+        <input
+          matInput
+          type="string"
+          [value]="(perfil | async).nombreClinica"
+          formControlName="nombreClinica"
+          autocomplete="off"
+          placeholder="Ingrese nombre clínica"
+        />
         <mat-hint>Nombre Clinica</mat-hint>
       </mat-form-field>
-      <mat-form-field appearance="standard" *ngIf="isVeterinario() && (perfil | async)?.domicilioClinica">
+      <mat-form-field
+        appearance="standard"
+        *ngIf="isVeterinario() && (perfil | async)?.domicilioClinica"
+      >
         <mat-label>Domicilio Clinica</mat-label>
-        <input matInput type="string" [value]="(perfil | async).domicilioClinica" formControlName="domicilioClinica"
-          autocomplete="off" placeholder="Ingrese domicilio clínica">
+        <input
+          matInput
+          type="string"
+          [value]="(perfil | async).domicilioClinica"
+          formControlName="domicilioClinica"
+          autocomplete="off"
+          placeholder="Ingrese domicilio clínica"
+        />
         <mat-hint>Domicilio Clinica</mat-hint>
       </mat-form-field>
     </div>
     <div class="row-group">
-      <button type="submit" *ngIf="(perfil | async) != null"
-        [disabled]="isDisabled() || perfilForm.invalid">Editar</button>
+      <button
+        type="submit"
+        *ngIf="(perfil | async) != null"
+        [disabled]="isDisabled() || perfilForm.invalid"
+      >
+        Editar
+      </button>
     </div>
   </form>
 </div>

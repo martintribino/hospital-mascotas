@@ -1,14 +1,13 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/auth.service';
-import { IUser, AvatarTipo } from 'src/app/interfaces/interfaces.model';
-import { Usuario } from 'src/app/model/usuario';
+import { Component, OnInit, Injectable } from "@angular/core";
+import { AuthenticationService } from "src/app/services/auth.service";
+import { IUser, AvatarTipo } from "src/app/interfaces/interfaces.model";
+import { Usuario } from "src/app/model/usuario";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.styl']
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.styl"],
 })
-
 @Injectable()
 export class NavbarComponent implements OnInit {
   loginUrl: string;
@@ -42,11 +41,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.usuario.subscribe(
-      (usu: IUser) => {
-        this.usuario = usu;
-      }
-    );
+    this.authService.usuario.subscribe((usu: IUser) => {
+      this.usuario = usu;
+    });
   }
 
   isAdministrador(role: string): boolean {
@@ -65,5 +62,4 @@ export class NavbarComponent implements OnInit {
     let usu = this.authService.getUsuario();
     return usu != null && this.avatars.includes(usu.imagen);
   }
-
 }

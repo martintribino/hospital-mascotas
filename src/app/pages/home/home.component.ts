@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { MascotaService } from 'src/app/services/mascota.service';
-import { IMascota, IFiltro, IImagen } from 'src/app/interfaces/interfaces.model';
-import { BehaviorSubject } from 'rxjs';
-import { MatDialog } from '@angular/material';
-import { QrcodeComponent } from 'src/app/shared/qrcode/qrcode.component';
+import { MascotaService } from "src/app/services/mascota.service";
+import {
+  IMascota,
+  IFiltro,
+  IImagen,
+} from "src/app/interfaces/interfaces.model";
+import { BehaviorSubject } from "rxjs";
+import { MatDialog } from "@angular/material";
+import { QrcodeComponent } from "src/app/shared/qrcode/qrcode.component";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.styl']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.styl"],
 })
-
 export class HomeComponent implements OnInit {
-
   private mascSubject = new BehaviorSubject<Array<IMascota>>([]);
   public mascotas = this.mascSubject.asObservable();
   private qrImage: IImagen;
@@ -21,15 +23,12 @@ export class HomeComponent implements OnInit {
   isLoading: boolean;
   selectedFilter: string;
 
-  constructor(
-    private mascService: MascotaService,
-    public dialog: MatDialog
-  ) {
+  constructor(private mascService: MascotaService, public dialog: MatDialog) {
     this.mascSubject.next([]);
     this.qrImage = null;
     this.filtros = [
       { clave: "extraviadas", valor: "Extraviadas" },
-      { clave: "todas", valor: "Todas" }
+      { clave: "todas", valor: "Todas" },
     ];
     this.isLoading = false;
     this.selectedFilter = "todas";
@@ -61,7 +60,7 @@ export class HomeComponent implements OnInit {
           maxWidth: "100%",
           width: `450px`,
           height: `400px`,
-          data: data
+          data: data,
         });
       },
       (error) => error
@@ -76,5 +75,4 @@ export class HomeComponent implements OnInit {
       (error) => this.handleError(error)
     );
   }
-
 }

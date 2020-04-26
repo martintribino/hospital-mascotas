@@ -1,18 +1,17 @@
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from "@angular/core";
 
-import { EditAvatarComponent } from './edit-avatar.component';
+import { EditAvatarComponent } from "./edit-avatar.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: EditAvatarComponent
-  }
+    path: "",
+    component: EditAvatarComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class EditAvatarRoutingModule { }
+export class EditAvatarRoutingModule {}

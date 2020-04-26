@@ -1,25 +1,51 @@
-<form class="search-form" [formGroup]="searchForm" (submit)="onSubmit()" novalidate>
+<form
+  class="search-form"
+  [formGroup]="searchForm"
+  (submit)="onSubmit()"
+  novalidate
+>
   <mat-form-field appearance="standard" *ngIf="enableSearchInput()">
     <mat-label>Search</mat-label>
-    <input matInput type="text" formControlName="search" autocomplete="off" placeholder="Search" maxlength="40"
-      minlength="2" required>
+    <input
+      matInput
+      type="text"
+      formControlName="search"
+      autocomplete="off"
+      placeholder="Search"
+      maxlength="40"
+      minlength="2"
+      required
+    />
     <mat-hint>Search</mat-hint>
-    <mat-error *ngIf="searchPetF.search?.errors?.minlength">El campo debe
-      tener al menos 2 caracteres
+    <mat-error *ngIf="searchPetF.search?.errors?.minlength"
+      >El campo debe tener al menos 2 caracteres
     </mat-error>
-    <mat-error *ngIf="searchPetF.search?.errors?.maxlength">El campo debe
-      tener como máximo 40 caracteres
+    <mat-error *ngIf="searchPetF.search?.errors?.maxlength"
+      >El campo debe tener como máximo 40 caracteres
     </mat-error>
-    <mat-error *ngIf="searchPetF.search?.errors?.required">Campo requerido</mat-error>
+    <mat-error *ngIf="searchPetF.search?.errors?.required"
+      >Campo requerido</mat-error
+    >
   </mat-form-field>
   <mat-form-field appearance="standard">
-    <mat-select class="native-select" formControlName="criteria" (selectionChange)="onChange()" required>
+    <mat-select
+      class="native-select"
+      formControlName="criteria"
+      (selectionChange)="onChange()"
+      required
+    >
       <mat-option *ngFor="let fltr of filtros" [value]="fltr.clave">
-        {{fltr.valor}}
+        {{ fltr.valor }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-mini-fab aria-label="Pet Search" class="search-button" type="submit" [disabled]="disabled()">
+  <button
+    mat-mini-fab
+    aria-label="Pet Search"
+    class="search-button"
+    type="submit"
+    [disabled]="disabled()"
+  >
     <mat-icon>search</mat-icon>
   </button>
 </form>

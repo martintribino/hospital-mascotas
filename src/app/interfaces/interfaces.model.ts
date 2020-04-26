@@ -1,4 +1,4 @@
-import { SafeUrl } from '@angular/platform-browser';
+import { SafeUrl } from "@angular/platform-browser";
 
 //estructuras
 export interface FileExt extends File {
@@ -24,7 +24,7 @@ export interface IFiltro {
 export enum Estado {
   ESPERA = "ESPERA",
   APROBADO = "APROBADO",
-  RECHAZADO = "RECHAZADO"
+  RECHAZADO = "RECHAZADO",
 }
 
 export enum EstadoTurno {
@@ -44,7 +44,7 @@ export enum EventoTipo {
   Recordatorio = "Recordatorio",
   Reproduccion = "Reproducción",
   Vacuna = "Vacuna",
-  Visita = "Visita"
+  Visita = "Visita",
 }
 
 export enum EventoTipoSinAcento {
@@ -54,7 +54,7 @@ export enum EventoTipoSinAcento {
   Recordatorio = "Recordatorio",
   Reproduccion = "Reproduccion",
   Vacuna = "Vacuna",
-  Visita = "Visita"
+  Visita = "Visita",
 }
 
 export enum AvatarTipo {
@@ -63,7 +63,7 @@ export enum AvatarTipo {
   avatar3 = "avatar3",
   avatar4 = "avatar4",
   avatar5 = "avatar5",
-  avatar6 = "avatar6"
+  avatar6 = "avatar6",
 }
 
 //interface

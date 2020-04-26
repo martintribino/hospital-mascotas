@@ -1,86 +1,127 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { RoleGuard } from './auth/role.guard';
-import { Usuario } from './model/usuario';
-import { NotAllowedComponent } from './pages/not-allowed/not-allowed.component';
-
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { RoleGuard } from "./auth/role.guard";
+import { Usuario } from "./model/usuario";
+import { NotAllowedComponent } from "./pages/not-allowed/not-allowed.component";
 
 export const routes: Routes = [
   {
-    path: 'validate-veterinarios',
-    loadChildren: () => import("./pages/validate-veterinarios/validate-veterinarios.module").then(mod => mod.ValidateVeterinariosModule),
+    path: "validate-veterinarios",
+    loadChildren: () =>
+      import("./pages/validate-veterinarios/validate-veterinarios.module").then(
+        (mod) => mod.ValidateVeterinariosModule
+      ),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: [Usuario.adminRole]
-    }
+      allowedRoles: [Usuario.adminRole],
+    },
   },
   {
-    path: 'edit-perfil',
-    loadChildren: () => import("./pages/edit-perfil/edit-perfil.module").then(mod => mod.EditPerfilModule),
+    path: "edit-perfil",
+    loadChildren: () =>
+      import("./pages/edit-perfil/edit-perfil.module").then(
+        (mod) => mod.EditPerfilModule
+      ),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: Usuario.allowedUserRoles
-    }
+      allowedRoles: Usuario.allowedUserRoles,
+    },
   },
   {
-    path: 'edit-user',
-    loadChildren: () => import("./pages/edit-user/edit-user.module").then(mod => mod.EditUserModule),
+    path: "edit-user",
+    loadChildren: () =>
+      import("./pages/edit-user/edit-user.module").then(
+        (mod) => mod.EditUserModule
+      ),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: Usuario.allowedUserRoles
-    }
+      allowedRoles: Usuario.allowedUserRoles,
+    },
   },
   {
-    path: 'edit-imagen',
-    loadChildren: () => import("./pages/edit-avatar/edit-avatar.module").then(mod => mod.EditAvatarModule),
+    path: "edit-imagen",
+    loadChildren: () =>
+      import("./pages/edit-avatar/edit-avatar.module").then(
+        (mod) => mod.EditAvatarModule
+      ),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: Usuario.allowedUserRoles
-    }
+      allowedRoles: Usuario.allowedUserRoles,
+    },
   },
   {
-    path: 'mascotas',
-    loadChildren: () => import("./pages/mascotas/mascotas.module").then(mod => mod.MascotasModule),
+    path: "mascotas",
+    loadChildren: () =>
+      import("./pages/mascotas/mascotas.module").then(
+        (mod) => mod.MascotasModule
+      ),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: [Usuario.duenioRole, Usuario.vetRole]
-    }
+      allowedRoles: [Usuario.duenioRole, Usuario.vetRole],
+    },
   },
   {
-    path: 'solicitudes',
-    loadChildren: () => import("./pages/solicitudes/solicitudes.module").then(mod => mod.SolicitudesModule),
+    path: "solicitudes",
+    loadChildren: () =>
+      import("./pages/solicitudes/solicitudes.module").then(
+        (mod) => mod.SolicitudesModule
+      ),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: [Usuario.vetRole]
-    }
+      allowedRoles: [Usuario.vetRole],
+    },
   },
   {
-    path: 'eventos',
-    loadChildren: () => import("./pages/events/events.module").then(mod => mod.EventsModule),
+    path: "eventos",
+    loadChildren: () =>
+      import("./pages/events/events.module").then((mod) => mod.EventsModule),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: [Usuario.duenioRole, Usuario.vetRole]
-    }
+      allowedRoles: [Usuario.duenioRole, Usuario.vetRole],
+    },
   },
-  { path: 'contact', loadChildren: () => import("./pages/contact/contact.module").then(mod => mod.ContactModule) },
-  { path: 'home', loadChildren: () => import("./pages/home/home.module").then(mod => mod.HomeModule) },
-  { path: 'signup', loadChildren: () => import("./pages/signup/signup.module").then(mod => mod.SignupModule) },
-  { path: 'login', loadChildren: () => import("./pages/login/login.module").then(mod => mod.LoginModule) },
-  { path: 'logout', loadChildren: () => import("./pages/logout/logout.module").then(mod => mod.LogoutModule) },
-  { path: 'loading-page', loadChildren: () => import("./pages/loading-page/loading-page.module").then(mod => mod.LoadingPageModule) },
-  { path: 'not-found', component: NotFoundComponent },
-  { path: 'not-allowed', component: NotAllowedComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'not-found' }
+  {
+    path: "contact",
+    loadChildren: () =>
+      import("./pages/contact/contact.module").then((mod) => mod.ContactModule),
+  },
+  {
+    path: "home",
+    loadChildren: () =>
+      import("./pages/home/home.module").then((mod) => mod.HomeModule),
+  },
+  {
+    path: "signup",
+    loadChildren: () =>
+      import("./pages/signup/signup.module").then((mod) => mod.SignupModule),
+  },
+  {
+    path: "login",
+    loadChildren: () =>
+      import("./pages/login/login.module").then((mod) => mod.LoginModule),
+  },
+  {
+    path: "logout",
+    loadChildren: () =>
+      import("./pages/logout/logout.module").then((mod) => mod.LogoutModule),
+  },
+  {
+    path: "loading-page",
+    loadChildren: () =>
+      import("./pages/loading-page/loading-page.module").then(
+        (mod) => mod.LoadingPageModule
+      ),
+  },
+  { path: "not-found", component: NotFoundComponent },
+  { path: "not-allowed", component: NotAllowedComponent },
+  { path: "", redirectTo: "home", pathMatch: "full" },
+  { path: "**", redirectTo: "not-found" },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(routes)
-  ],
-  exports: [RouterModule]
+  imports: [CommonModule, RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

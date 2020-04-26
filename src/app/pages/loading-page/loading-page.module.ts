@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
-import { LoadingPageComponent } from './loading-page.component';
-import { LoadingPageRoutingModule } from './loading-page-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { LoadingPageComponent } from "./loading-page.component";
+import { LoadingPageRoutingModule } from "./loading-page-routing.module";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 @NgModule({
   imports: [
@@ -14,10 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     HttpClientModule,
     MatProgressSpinnerModule,
   ],
-  declarations: [
-    LoadingPageComponent,
-  ],
-  providers: []
+  declarations: [LoadingPageComponent],
+  providers: [],
 })
-
-export class LoadingPageModule { }
+export class LoadingPageModule {}

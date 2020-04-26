@@ -4,36 +4,71 @@
     <fieldset class="form-group">
       <mat-form-field appearance="standard">
         <mat-label>Nombre de usuario</mat-label>
-        <input matInput type="text" #username [value]="usuario.nombreUsuario" formControlName="nombreUsuario"
-          autocomplete="off" placeholder="Edite nombre de usuario" maxlength="50" minlength="2" required>
+        <input
+          matInput
+          type="text"
+          #username
+          [value]="usuario.nombreUsuario"
+          formControlName="nombreUsuario"
+          autocomplete="off"
+          placeholder="Edite nombre de usuario"
+          maxlength="50"
+          minlength="2"
+          required
+        />
         <mat-hint>Nombre de usuario</mat-hint>
-        <mat-error *ngIf="loginF.nombreUsuario?.errors?.minlength">El campo debe
-          tener al menos 2 caracteres
+        <mat-error *ngIf="loginF.nombreUsuario?.errors?.minlength"
+          >El campo debe tener al menos 2 caracteres
         </mat-error>
-        <mat-error *ngIf="loginF.nombreUsuario?.errors?.maxlength">El campo debe
-          tener como máximo 50 caracteres
+        <mat-error *ngIf="loginF.nombreUsuario?.errors?.maxlength"
+          >El campo debe tener como máximo 50 caracteres
         </mat-error>
-        <mat-error *ngIf="loginF.nombreUsuario?.errors?.required">Campo requerido</mat-error>
+        <mat-error *ngIf="loginF.nombreUsuario?.errors?.required"
+          >Campo requerido</mat-error
+        >
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>Clave</mat-label>
-        <input matInput type="password" formControlName="clave" placeholder="" maxlength="50" minlength="4">
+        <input
+          matInput
+          type="password"
+          formControlName="clave"
+          placeholder=""
+          maxlength="50"
+          minlength="4"
+        />
         <mat-hint>Clave</mat-hint>
-        <mat-error *ngIf="loginF.clave?.errors?.minlength">El campo debe tener al menos 4
-          caracteres</mat-error>
-        <mat-error *ngIf="loginF.clave?.errors?.maxlength">El campo debe tener como máximo 50
+        <mat-error *ngIf="loginF.clave?.errors?.minlength"
+          >El campo debe tener al menos 4 caracteres</mat-error
+        >
+        <mat-error *ngIf="loginF.clave?.errors?.maxlength"
+          >El campo debe tener como máximo 50
         </mat-error>
-        <mat-error *ngIf="loginF.clave?.errors?.required">Campo requerido</mat-error>
+        <mat-error *ngIf="loginF.clave?.errors?.required"
+          >Campo requerido</mat-error
+        >
       </mat-form-field>
-      <mat-form-field appearance="standard" *ngIf="loginF.clave?.valid && !isEmpty(loginF.clave)">
+      <mat-form-field
+        appearance="standard"
+        *ngIf="loginF.clave?.valid && !isEmpty(loginF.clave)"
+      >
         <mat-label>Confirmar Clave</mat-label>
-        <input matInput type="password" formControlName="confirmarClave" placeholder="" maxlength="50" minlength="4">
+        <input
+          matInput
+          type="password"
+          formControlName="confirmarClave"
+          placeholder=""
+          maxlength="50"
+          minlength="4"
+        />
         <mat-hint>Confirmar Clave</mat-hint>
-        <mat-error *ngIf="loginF.confirmarClave?.errors?.matchPassword">Las claves no
-          coinciden
+        <mat-error *ngIf="loginF.confirmarClave?.errors?.matchPassword"
+          >Las claves no coinciden
         </mat-error>
       </mat-form-field>
-      <button type="submit" [disabled]="isDisabled() || loginForm.invalid">Submit</button>
+      <button type="submit" [disabled]="isDisabled() || loginForm.invalid">
+        Submit
+      </button>
     </fieldset>
   </form>
 </div>

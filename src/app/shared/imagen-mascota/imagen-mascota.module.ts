@@ -1,9 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatInputModule, MatFormFieldModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatDialogModule } from '@angular/material';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {
+  MatInputModule,
+  MatFormFieldModule,
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,
+  MatDialogModule,
+} from "@angular/material";
 
-import { ImagenMascotaComponent } from './imagen-mascota.component';
-import { FileUploaderModule } from '../file-uploader/file-uploader.module';
+import { ImagenMascotaComponent } from "./imagen-mascota.component";
+import { FileUploaderModule } from "../file-uploader/file-uploader.module";
 
 @NgModule({
   imports: [
@@ -11,18 +17,13 @@ import { FileUploaderModule } from '../file-uploader/file-uploader.module';
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule,
-    FileUploaderModule
+    FileUploaderModule,
   ],
-  declarations: [
-    ImagenMascotaComponent
-  ],
-  exports: [
-    ImagenMascotaComponent
-  ],
+  declarations: [ImagenMascotaComponent],
+  exports: [ImagenMascotaComponent],
   entryComponents: [ImagenMascotaComponent],
   providers: [
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
-  ]
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+  ],
 })
-
-export class ImagenMascotaModule { }
+export class ImagenMascotaModule {}

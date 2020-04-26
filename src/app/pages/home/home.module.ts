@@ -1,11 +1,19 @@
-import { NgModule } from '@angular/core';
-import { MatCardModule, MatIconModule, MatDialogModule, MatSelectModule, MatProgressSpinnerModule, MatOptionModule, MatFormFieldModule } from '@angular/material';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import {
+  MatCardModule,
+  MatIconModule,
+  MatDialogModule,
+  MatSelectModule,
+  MatProgressSpinnerModule,
+  MatOptionModule,
+  MatFormFieldModule,
+} from "@angular/material";
+import { CommonModule } from "@angular/common";
 
-import { HomeComponent } from './home.component';
-import { HomeRoutingModule } from './home-routing.module';
-import { QrcodeModule } from 'src/app/shared/qrcode/qrcode.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from "./home.component";
+import { HomeRoutingModule } from "./home-routing.module";
+import { QrcodeModule } from "src/app/shared/qrcode/qrcode.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -18,11 +26,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatProgressSpinnerModule,
     QrcodeModule,
-    MatCardModule
+    MatCardModule,
   ],
-  declarations: [
-    HomeComponent
-  ],
-  providers: []
+  declarations: [HomeComponent],
+  providers: [],
 })
-export class HomeModule { }
+export class HomeModule {}

@@ -1,21 +1,28 @@
 @import "../../../assets/styles/vars"
 
-.form-group
-  display flex
-  flex-wrap: wrap;
-  mat-hint
-    width 100%
-  mat-error
-    width 100%
-  mat-form-field
-    width 50%
-
 form
   margin-top 5%
   background white
+  &.form-group
+    display flex
+    flex-flow row wrap
+    width 100%
+    justify-content space-around
+    mat-hint
+      width 100%
+    mat-error
+      width 100%
+    .form-button
+      width 100%
+    mat-form-field
+      width 40%
+      margin 1% 5%
 @media screen and (max-width: sm)
   form
     margin-top 4%
     box-shadow none
-    .form-group
+    &.form-group
       border none
+      mat-form-field
+        width 80%
+        margin 1% 10%

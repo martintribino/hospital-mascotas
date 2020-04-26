@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PerfilDialogComponent } from './perfil-dialog.component';
+import { PerfilDialogComponent } from "./perfil-dialog.component";
 
-describe('PerfilDialogComponent', () => {
+describe("PerfilDialogComponent", () => {
   let component: PerfilDialogComponent;
   let fixture: ComponentFixture<PerfilDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PerfilDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [PerfilDialogComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('PerfilDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

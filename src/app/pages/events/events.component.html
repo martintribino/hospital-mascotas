@@ -8,18 +8,42 @@
       <div class="stepper-body">
         <mat-form-field class="standard">
           <mat-label>Fecha evento</mat-label>
-          <input matInput type="text" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" formControlName="fecha"
-            autocomplete="off" [min]="minDate" (dateChange)="changeDate($event)" placeholder="Escoja una fecha" readonly
-            required>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker (selectedChanged)="changeDate($event)"></mat-datepicker>
+          <input
+            matInput
+            type="text"
+            [matDatepickerFilter]="myFilter"
+            [matDatepicker]="picker"
+            formControlName="fecha"
+            autocomplete="off"
+            [min]="minDate"
+            (dateChange)="changeDate($event)"
+            placeholder="Escoja una fecha"
+            readonly
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            #picker
+            (selectedChanged)="changeDate($event)"
+          ></mat-datepicker>
           <mat-hint>Fecha evento</mat-hint>
-          <mat-error *ngIf="firstStepF.fecha?.errors?.parse">Fecha no válida</mat-error>
-          <mat-error *ngIf="firstStepF.fecha?.errors?.required">Campo requerido</mat-error>
+          <mat-error *ngIf="firstStepF.fecha?.errors?.parse"
+            >Fecha no válida</mat-error
+          >
+          <mat-error *ngIf="firstStepF.fecha?.errors?.required"
+            >Campo requerido</mat-error
+          >
         </mat-form-field>
       </div>
       <div class="stepper-actions">
-        <button matStepperNext class="nav-icon" [disabled]="firstStepForm.invalid">
+        <button
+          matStepperNext
+          class="nav-icon"
+          [disabled]="firstStepForm.invalid"
+        >
           <mat-icon>navigate_next</mat-icon>
         </button>
       </div>
@@ -29,17 +53,31 @@
     <form [formGroup]="horarioForm" class="stepper-form">
       <ng-template matStepLabel>Elija horario</ng-template>
       <div class="stepper-body">
-        <div *ngIf="(horario | async)?.turnosValidos?.length > 0; then ifBlock else elseBlock">
-        </div>
+        <div
+          *ngIf="
+            (horario | async)?.turnosValidos?.length > 0;
+            then ifBlock;
+            else elseBlock
+          "
+        ></div>
         <ng-template #ifBlock>
-          <h5>Seleccione Turno ({{(horario | async)?.turno}} minutos)</h5>
-          <p>{{firstStepF.fecha.value | date: 'dd/MM/yyyy'}}</p>
+          <h5>Seleccione Turno ({{ (horario | async)?.turno }} minutos)</h5>
+          <p>{{ firstStepF.fecha.value | date: "dd/MM/yyyy" }}</p>
           <mat-grid-list cols="4" gutterSize="1px" rowHeight="2.4em">
-            <mat-grid-tile *ngFor="let turno of (horario | async).turnosValidos;">
-              <button class="nav-icon {{turno.estado.toLowerCase()}}" [class.seleccionado]="turnoSeleccionado === turno"
-                (click)="clickTurno(turno, stepper)" [disabled]="!isEnabled(turno)" [matBadge]="hasBadge(turno)"
-                matBadgePosition="above after" matBadgeColor="accent" matBadgeSize="medium">
-                {{turno.inicio}}
+            <mat-grid-tile
+              *ngFor="let turno of (horario | async).turnosValidos"
+            >
+              <button
+                class="nav-icon {{ turno.estado.toLowerCase() }}"
+                [class.seleccionado]="turnoSeleccionado === turno"
+                (click)="clickTurno(turno, stepper)"
+                [disabled]="!isEnabled(turno)"
+                [matBadge]="hasBadge(turno)"
+                matBadgePosition="above after"
+                matBadgeColor="accent"
+                matBadgeSize="medium"
+              >
+                {{ turno.inicio }}
               </button>
             </mat-grid-tile>
           </mat-grid-list>
@@ -54,38 +92,70 @@
         <button matStepperPrevious class="nav-icon">
           <mat-icon>navigate_before</mat-icon>
         </button>
-        <button matStepperNext class="nav-icon" [disabled]="turnoSeleccionado == null">
+        <button
+          matStepperNext
+          class="nav-icon"
+          [disabled]="turnoSeleccionado == null"
+        >
           <mat-icon>navigate_next</mat-icon>
         </button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="secondStepForm">
-    <form [formGroup]="secondStepForm" class="stepper-form" (ngSubmit)="onSubmit(stepper)" novalidate>
+    <form
+      [formGroup]="secondStepForm"
+      class="stepper-form"
+      (ngSubmit)="onSubmit(stepper)"
+      novalidate
+    >
       <ng-template matStepLabel>Crear evento</ng-template>
       <div class="stepper-actions fcol">
         <mat-form-field appearance="standard" class="full-width">
           <mat-label>Evento</mat-label>
-          <mat-select placeholder="Evento" formControlName="tipo" [(value)]="tipoSelected" cdkFocusInitial required>
-            <mat-option *ngFor="let evento of tipoEventos" [value]="evento.indice">
-              {{evento.value}}
+          <mat-select
+            placeholder="Evento"
+            formControlName="tipo"
+            [(value)]="tipoSelected"
+            cdkFocusInitial
+            required
+          >
+            <mat-option
+              *ngFor="let evento of tipoEventos"
+              [value]="evento.indice"
+            >
+              {{ evento.value }}
             </mat-option>
           </mat-select>
           <mat-hint>Evento</mat-hint>
-          <mat-error *ngIf="secondStepF.evento?.errors?.required">Campo requerido</mat-error>
+          <mat-error *ngIf="secondStepF.evento?.errors?.required"
+            >Campo requerido</mat-error
+          >
         </mat-form-field>
-        <div *ngIf="(mascotas | async)?.length > 0; then ifMAScBlock else elseMascBlock">
-        </div>
+        <div
+          *ngIf="
+            (mascotas | async)?.length > 0;
+            then ifMAScBlock;
+            else elseMascBlock
+          "
+        ></div>
         <ng-template #ifMAScBlock>
           <mat-form-field appearance="standard">
             <mat-label>Mascota</mat-label>
-            <mat-select placeholder="Mascota" formControlName="mascota" cdkFocusInitial required>
-              <mat-option *ngFor="let mas of (mascotas | async)" [value]="mas">
-                {{mas.nombre}}
+            <mat-select
+              placeholder="Mascota"
+              formControlName="mascota"
+              cdkFocusInitial
+              required
+            >
+              <mat-option *ngFor="let mas of mascotas | async" [value]="mas">
+                {{ mas.nombre }}
               </mat-option>
             </mat-select>
             <mat-hint>Mascota</mat-hint>
-            <mat-error *ngIf="secondStepF.mascota?.errors?.required">Campo requerido</mat-error>
+            <mat-error *ngIf="secondStepF.mascota?.errors?.required"
+              >Campo requerido</mat-error
+            >
           </mat-form-field>
         </ng-template>
         <ng-template #elseMascBlock>
@@ -100,63 +170,154 @@
         </ng-template>
         <mat-form-field appearance="standard">
           <mat-label>Descripción</mat-label>
-          <input matInput type="text" formControlName="descripcion" autocomplete="off" placeholder="Descripción"
-            minlength="10" required>
+          <input
+            matInput
+            type="text"
+            formControlName="descripcion"
+            autocomplete="off"
+            placeholder="Descripción"
+            minlength="10"
+            required
+          />
           <mat-hint>Descripción</mat-hint>
-          <mat-error *ngIf="secondStepF.descripcion?.errors?.minlength">El campo debe
-            tener al menos 10 caracteres
+          <mat-error *ngIf="secondStepF.descripcion?.errors?.minlength"
+            >El campo debe tener al menos 10 caracteres
           </mat-error>
-          <mat-error *ngIf="secondStepF.descripcion?.errors?.required">Campo requerido</mat-error>
+          <mat-error *ngIf="secondStepF.descripcion?.errors?.required"
+            >Campo requerido</mat-error
+          >
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Desparasitacion)">
+        <mat-form-field
+          appearance="standard"
+          *ngIf="compareEvento(tipoSelected, EventoTipo.Desparasitacion)"
+        >
           <mat-label>Droga</mat-label>
-          <input matInput type="text" formControlName="droga" placeholder="Droga">
+          <input
+            matInput
+            type="text"
+            formControlName="droga"
+            placeholder="Droga"
+          />
           <mat-hint>Droga</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Desparasitacion)">
+        <mat-form-field
+          appearance="standard"
+          *ngIf="compareEvento(tipoSelected, EventoTipo.Desparasitacion)"
+        >
           <mat-label>Resultado</mat-label>
-          <input matInput type="text" formControlName="resultado" placeholder="Resultado">
+          <input
+            matInput
+            type="text"
+            formControlName="resultado"
+            placeholder="Resultado"
+          />
           <mat-hint>Resultado</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)">
+        <mat-form-field
+          appearance="standard"
+          *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)"
+        >
           <mat-label>Indicaciones</mat-label>
-          <input matInput type="text" formControlName="indicaciones" placeholder="Indicaciones">
+          <input
+            matInput
+            type="text"
+            formControlName="indicaciones"
+            placeholder="Indicaciones"
+          />
           <mat-hint>Indicaciones</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)">
+        <mat-form-field
+          appearance="standard"
+          *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)"
+        >
           <mat-label>Motivo</mat-label>
-          <input matInput type="text" formControlName="motivo" placeholder="Motivo">
+          <input
+            matInput
+            type="text"
+            formControlName="motivo"
+            placeholder="Motivo"
+          />
           <mat-hint>Motivo</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)">
+        <mat-form-field
+          appearance="standard"
+          *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)"
+        >
           <mat-label>Peso</mat-label>
-          <input matInput type="text" formControlName="peso" placeholder="Peso">
+          <input
+            matInput
+            type="text"
+            formControlName="peso"
+            placeholder="Peso"
+          />
           <mat-hint>Peso</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)">
+        <mat-form-field
+          appearance="standard"
+          *ngIf="compareEvento(tipoSelected, EventoTipo.Visita)"
+        >
           <mat-label>Diagnóstico</mat-label>
-          <input matInput type="text" formControlName="diagnostico" placeholder="Diagnóstico">
+          <input
+            matInput
+            type="text"
+            formControlName="diagnostico"
+            placeholder="Diagnóstico"
+          />
           <mat-hint>Diagnóstico</mat-hint>
         </mat-form-field>
-        <mat-form-field class="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Reproduccion)">
-          <input matInput type="text" [matDatepicker]="parto" formControlName="fechaParto" autocomplete="off"
-            [max]="minDate" readonly>
-          <mat-datepicker-toggle matSuffix [for]="parto"></mat-datepicker-toggle>
+        <mat-form-field
+          class="standard"
+          *ngIf="compareEvento(tipoSelected, EventoTipo.Reproduccion)"
+        >
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="parto"
+            formControlName="fechaParto"
+            autocomplete="off"
+            [max]="minDate"
+            readonly
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="parto"
+          ></mat-datepicker-toggle>
           <mat-datepicker #parto></mat-datepicker>
           <mat-hint>Fecha de Parto</mat-hint>
-          <mat-error *ngIf="secondStepF.fechaParto?.errors?.parse">Fecha no válida</mat-error>
+          <mat-error *ngIf="secondStepF.fechaParto?.errors?.parse"
+            >Fecha no válida</mat-error
+          >
         </mat-form-field>
-        <mat-form-field appearance="standard" *ngIf="compareEvento(tipoSelected, EventoTipo.Reproduccion)">
+        <mat-form-field
+          appearance="standard"
+          *ngIf="compareEvento(tipoSelected, EventoTipo.Reproduccion)"
+        >
           <mat-label>Número de cachorros</mat-label>
-          <input matInput type="number" formControlName="nroCachorros" placeholder="Número de cachorros">
+          <input
+            matInput
+            type="number"
+            formControlName="nroCachorros"
+            placeholder="Número de cachorros"
+          />
           <mat-hint>Número de cachorros</mat-hint>
         </mat-form-field>
         <div class="full-width top-margin">
-          <button type="submit" [disabled]="secondStepForm.invalid || isSubmiting">
-            <span *ngIf="!isSubmiting">Crear {{secondStepF.tipo.value | lowercase}}</span>
-            <span *ngIf="isSubmiting">Creando {{secondStepF.tipo.value | lowercase}}</span>
+          <button
+            type="submit"
+            [disabled]="secondStepForm.invalid || isSubmiting"
+          >
+            <span *ngIf="!isSubmiting"
+              >Crear {{ secondStepF.tipo.value | lowercase }}</span
+            >
+            <span *ngIf="isSubmiting"
+              >Creando {{ secondStepF.tipo.value | lowercase }}</span
+            >
             <span class="spinner-content" *ngIf="isSubmiting">
-              <mat-progress-spinner class="loading" mode="indeterminate" diameter="25"></mat-progress-spinner>
+              <mat-progress-spinner
+                class="loading"
+                mode="indeterminate"
+                diameter="25"
+              ></mat-progress-spinner>
             </span>
           </button>
         </div>

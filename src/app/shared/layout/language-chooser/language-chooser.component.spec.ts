@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { LanguageChooserComponent } from './language-chooser.component';
+import { LanguageChooserComponent } from "./language-chooser.component";
 
-describe('LanguageChooserComponent', () => {
+describe("LanguageChooserComponent", () => {
   let component: LanguageChooserComponent;
   let fixture: ComponentFixture<LanguageChooserComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LanguageChooserComponent ]
-    })
-    .compileComponents();
+      declarations: [LanguageChooserComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('LanguageChooserComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

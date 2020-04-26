@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NotAllowedComponent } from './not-allowed.component';
+import { NotAllowedComponent } from "./not-allowed.component";
 
-describe('NotAllowedComponent', () => {
+describe("NotAllowedComponent", () => {
   let component: NotAllowedComponent;
   let fixture: ComponentFixture<NotAllowedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotAllowedComponent ]
-    })
-    .compileComponents();
+      declarations: [NotAllowedComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('NotAllowedComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

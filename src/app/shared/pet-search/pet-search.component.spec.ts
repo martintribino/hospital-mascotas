@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PetSearchComponent } from './pet-search.component';
+import { PetSearchComponent } from "./pet-search.component";
 
-describe('PetSearchComponent', () => {
+describe("PetSearchComponent", () => {
   let component: PetSearchComponent;
   let fixture: ComponentFixture<PetSearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PetSearchComponent ]
-    })
-    .compileComponents();
+      declarations: [PetSearchComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('PetSearchComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

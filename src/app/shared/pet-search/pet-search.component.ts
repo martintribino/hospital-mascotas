@@ -1,19 +1,18 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
 
-import { IFiltro } from 'src/app/interfaces/interfaces.model';
+import { IFiltro } from "src/app/interfaces/interfaces.model";
 
 @Component({
-  selector: 'app-pet-search',
-  templateUrl: './pet-search.component.html',
-  styleUrls: ['./pet-search.component.styl']
+  selector: "app-pet-search",
+  templateUrl: "./pet-search.component.html",
+  styleUrls: ["./pet-search.component.styl"],
 })
 export class PetSearchComponent implements OnInit {
-
   @Output() petSearchSubmit = new EventEmitter<any>();
   searchForm = new FormGroup({
     criteria: new FormControl(""),
-    search: new FormControl("")
+    search: new FormControl(""),
   });
   filtros: Array<IFiltro>;
   filtrosKeys: Array<string>;
@@ -22,7 +21,7 @@ export class PetSearchComponent implements OnInit {
   constructor() {
     this.searchForm = new FormGroup({
       criteria: new FormControl(""),
-      search: new FormControl("")
+      search: new FormControl(""),
     });
     this.filtros = [
       { clave: "color", valor: "Color" },
@@ -32,10 +31,19 @@ export class PetSearchComponent implements OnInit {
       { clave: "raza", valor: "Raza" },
       { clave: "senias", valor: "Señas" },
       { clave: "sexo", valor: "Sexo" },
-      { clave: "todas", valor: "Todas" }
+      { clave: "todas", valor: "Todas" },
     ];
     this.filtrosKeys = ["color", "especie", "nombre", "raza", "senias", "sexo"];
-    this.enabledKeys = ["color", "especie", "extraviada", "nombre", "raza", "senias", "sexo", "todas"];
+    this.enabledKeys = [
+      "color",
+      "especie",
+      "extraviada",
+      "nombre",
+      "raza",
+      "senias",
+      "sexo",
+      "todas",
+    ];
   }
 
   ngOnInit() {
@@ -57,8 +65,10 @@ export class PetSearchComponent implements OnInit {
   disabled() {
     return (
       this.enabledKeys.indexOf(this.searchPetF.criteria.value) == -1 ||
-      ((this.searchPetF.criteria.value != "extraviada" || this.searchPetF.criteria.value != "todas") &&
-        (this.searchPetF.search.invalid)));
+      this.searchPetF.criteria.value == "todas" ||
+      (this.searchPetF.criteria.value != "extraviada" &&
+        this.searchPetF.search.invalid)
+    );
   }
 
   clean() {
@@ -68,5 +78,4 @@ export class PetSearchComponent implements OnInit {
   get searchPetF() {
     return this.searchForm.controls;
   }
-
 }

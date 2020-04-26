@@ -1,16 +1,15 @@
-import { Component, Inject } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { SubscriptionDialogComponent } from '../subscription-dialog/subscription-dialog.component';
-import { IFicha } from 'src/app/interfaces/interfaces.model';
+import { Component, Inject } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { SubscriptionDialogComponent } from "../subscription-dialog/subscription-dialog.component";
+import { IFicha } from "src/app/interfaces/interfaces.model";
 
 @Component({
-  selector: 'app-form-ficha',
-  templateUrl: './form-ficha.component.html',
-  styleUrls: ['./form-ficha.component.styl']
+  selector: "app-form-ficha",
+  templateUrl: "./form-ficha.component.html",
+  styleUrls: ["./form-ficha.component.styl"],
 })
 export class FormFichaComponent {
-
   private fichaForm: FormGroup;
 
   constructor(
@@ -44,5 +43,4 @@ export class FormFichaComponent {
   get getFichaForm() {
     return this.fichaForm.controls;
   }
-
 }

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SubscriptionDialogComponent } from './subscription-dialog.component';
+import { SubscriptionDialogComponent } from "./subscription-dialog.component";
 
-describe('SubscriptionDialogComponent', () => {
+describe("SubscriptionDialogComponent", () => {
   let component: SubscriptionDialogComponent;
   let fixture: ComponentFixture<SubscriptionDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubscriptionDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [SubscriptionDialogComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('SubscriptionDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

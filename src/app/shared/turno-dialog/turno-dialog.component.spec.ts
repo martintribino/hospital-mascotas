@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TurnoDialogComponent } from './turno-dialog.component';
+import { TurnoDialogComponent } from "./turno-dialog.component";
 
-describe('TurnoDialogComponent', () => {
+describe("TurnoDialogComponent", () => {
   let component: TurnoDialogComponent;
   let fixture: ComponentFixture<TurnoDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TurnoDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [TurnoDialogComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('TurnoDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

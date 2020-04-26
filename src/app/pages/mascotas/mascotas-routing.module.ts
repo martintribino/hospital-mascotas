@@ -1,18 +1,17 @@
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from "@angular/core";
 
-import { MascotasComponent } from './mascotas.component';
+import { MascotasComponent } from "./mascotas.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: MascotasComponent
-  }
+    path: "",
+    component: MascotasComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class MascotasRoutingModule { }
+export class MascotasRoutingModule {}

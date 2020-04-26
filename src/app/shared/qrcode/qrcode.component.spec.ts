@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { QrcodeComponent } from './qrcode.component';
+import { QrcodeComponent } from "./qrcode.component";
 
-describe('QrcodeComponent', () => {
+describe("QrcodeComponent", () => {
   let component: QrcodeComponent;
   let fixture: ComponentFixture<QrcodeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QrcodeComponent ]
-    })
-    .compileComponents();
+      declarations: [QrcodeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('QrcodeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

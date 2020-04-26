@@ -1,14 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { IImagen } from 'src/app/interfaces/interfaces.model';
+import { Component, OnInit, Inject } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { IImagen } from "src/app/interfaces/interfaces.model";
 
 @Component({
-  selector: 'app-qrcode',
-  templateUrl: './qrcode.component.html',
-  styleUrls: ['./qrcode.component.styl']
+  selector: "app-qrcode",
+  templateUrl: "./qrcode.component.html",
+  styleUrls: ["./qrcode.component.styl"],
 })
 export class QrcodeComponent {
-
   public qrImage: IImagen;
 
   constructor(
@@ -17,5 +16,4 @@ export class QrcodeComponent {
   ) {
     this.qrImage = data;
   }
-
 }

@@ -1,12 +1,19 @@
-import { NgModule } from '@angular/core';
-import { MatInputModule, MatFormFieldModule, MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, MatDividerModule } from '@angular/material';
+import { NgModule } from "@angular/core";
+import {
+  MatInputModule,
+  MatFormFieldModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatButtonModule,
+  MatMenuModule,
+  MatDividerModule,
+} from "@angular/material";
 
-import { NavbarComponent } from './navbar.component';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { AvatarsModule } from 'src/assets/svg/avatars.module';
-
+import { NavbarComponent } from "./navbar.component";
+import { RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
+import { AvatarsModule } from "src/assets/svg/avatars.module";
 
 @NgModule({
   imports: [
@@ -22,13 +29,8 @@ import { AvatarsModule } from 'src/assets/svg/avatars.module';
     CommonModule,
     HttpClientModule,
   ],
-  declarations: [
-    NavbarComponent
-  ],
-  exports: [
-    NavbarComponent
-  ],
-  providers: []
+  declarations: [NavbarComponent],
+  exports: [NavbarComponent],
+  providers: [],
 })
-
-export class NavbarModule { }
+export class NavbarModule {}

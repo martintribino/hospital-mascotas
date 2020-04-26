@@ -1,11 +1,15 @@
-import { NgModule } from '@angular/core';
-import { MatFormFieldModule, MatInputModule, MatSnackBarModule } from '@angular/material';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from "@angular/core";
+import {
+  MatFormFieldModule,
+  MatInputModule,
+  MatSnackBarModule,
+} from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 
-import { LoginComponent } from './login.component';
-import { LoginRoutingModule } from './login-routing.module';
+import { LoginComponent } from "./login.component";
+import { LoginRoutingModule } from "./login-routing.module";
 
 @NgModule({
   imports: [
@@ -18,10 +22,7 @@ import { LoginRoutingModule } from './login-routing.module';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [
-    LoginComponent,
-  ],
-  providers: []
+  declarations: [LoginComponent],
+  providers: [],
 })
-
-export class LoginModule { }
+export class LoginModule {}

@@ -1,9 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatDialogModule, MatCheckboxModule } from '@angular/material';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {
+  MatInputModule,
+  MatFormFieldModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,
+  MatDialogModule,
+  MatCheckboxModule,
+} from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { FormMascotaComponent } from './form-mascota.component';
+import { FormMascotaComponent } from "./form-mascota.component";
 
 @NgModule({
   imports: [
@@ -17,16 +26,11 @@ import { FormMascotaComponent } from './form-mascota.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [
-    FormMascotaComponent
-  ],
-  exports: [
-    FormMascotaComponent
-  ],
+  declarations: [FormMascotaComponent],
+  exports: [FormMascotaComponent],
   entryComponents: [FormMascotaComponent],
   providers: [
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
-  ]
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+  ],
 })
-
-export class FormMascotaModule { }
+export class FormMascotaModule {}

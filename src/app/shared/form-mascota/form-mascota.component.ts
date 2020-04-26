@@ -1,27 +1,26 @@
-import { Component, Inject } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
-import { SubscriptionDialogComponent } from '../subscription-dialog/subscription-dialog.component';
-import { IMascota } from 'src/app/interfaces/interfaces.model';
+import { SubscriptionDialogComponent } from "../subscription-dialog/subscription-dialog.component";
+import { IMascota } from "src/app/interfaces/interfaces.model";
 
 @Component({
-  selector: 'app-form-mascota',
-  templateUrl: './form-mascota.component.html',
-  styleUrls: ['./form-mascota.component.styl']
+  selector: "app-form-mascota",
+  templateUrl: "./form-mascota.component.html",
+  styleUrls: ["./form-mascota.component.styl"],
 })
 export class FormMascotaComponent {
-
   mascotasForm = new FormGroup({
-    slug: new FormControl(''),
-    nombre: new FormControl(''),
-    especie: new FormControl(''),
-    raza: new FormControl(''),
-    sexo: new FormControl(''),
-    color: new FormControl(''),
-    senias: new FormControl(''),
-    fecha: new FormControl(''),
-    extraviada: new FormControl(false)
+    slug: new FormControl(""),
+    nombre: new FormControl(""),
+    especie: new FormControl(""),
+    raza: new FormControl(""),
+    sexo: new FormControl(""),
+    color: new FormControl(""),
+    senias: new FormControl(""),
+    fecha: new FormControl(""),
+    extraviada: new FormControl(false),
   });
   maxDate: Date;
   mascota: IMascota;
@@ -31,15 +30,15 @@ export class FormMascotaComponent {
     @Inject(MAT_DIALOG_DATA) public data: IMascota
   ) {
     this.mascotasForm = new FormGroup({
-      slug: new FormControl(''),
-      nombre: new FormControl(''),
-      especie: new FormControl(''),
-      raza: new FormControl(''),
-      sexo: new FormControl(''),
-      color: new FormControl(''),
-      senias: new FormControl(''),
-      fechaNacimiento: new FormControl(''),
-      extraviada: new FormControl(false)
+      slug: new FormControl(""),
+      nombre: new FormControl(""),
+      especie: new FormControl(""),
+      raza: new FormControl(""),
+      sexo: new FormControl(""),
+      color: new FormControl(""),
+      senias: new FormControl(""),
+      fechaNacimiento: new FormControl(""),
+      extraviada: new FormControl(false),
     });
     this.maxDate = new Date();
     this.mascota = data;
@@ -65,5 +64,4 @@ export class FormMascotaComponent {
   get crearMascF() {
     return this.mascotasForm.controls;
   }
-
 }

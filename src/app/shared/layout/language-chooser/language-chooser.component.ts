@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 import * as languages from "../../../data/languages.json";
 @Component({
-  selector: 'app-language-chooser',
-  templateUrl: './language-chooser.component.html',
-  styleUrls: ['./language-chooser.component.styl']
+  selector: "app-language-chooser",
+  templateUrl: "./language-chooser.component.html",
+  styleUrls: ["./language-chooser.component.styl"],
 })
-
 export class LanguageChooserComponent implements OnInit {
-
   languageOptions: Object;
   languageSelected: string;
 
@@ -17,7 +15,5 @@ export class LanguageChooserComponent implements OnInit {
     this.languageSelected = "es-ES";
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
