@@ -4,7 +4,14 @@ body
   word-break break-word
 
 app-header
+  display flex
+  width 100%
+  justify-content center
   background-color primaryBack
+  position -webkit-sticky
+  position sticky
+  top 0
+  z-index 1
 
 app-navbar, .container
   max-width lg
@@ -25,12 +32,19 @@ nav
 .circle-back
   fill #8ab5c3
 
-app-login, app-signup, app-not-found, app-loading-page, app-home, app-navbar, app-header,
+app-login, app-signup, app-not-found, app-loading-page, app-home, app-navbar, app-file-uploader,
 app-services, app-edit-user, app-edit-perfil, app-create-mascota, app-validate-veterinarios,
-app-mascotas, app-form-mascota, app-qrcode, app-events, app-file-uploader, app-pet-search
+app-mascotas, app-form-mascota, app-qrcode, app-events
   display flex
   width 100%
   justify-content center
+
+app-pet-search
+  display flex
+  justify-content center
+  width 75%
+  padding 0 3%
+  margin 0 auto
 
 app-avatar1, app-avatar2, app-avatar3, app-avatar4, app-avatar5, app-avatar6
   display flex
@@ -131,8 +145,8 @@ form
     line-height 1.3em
     font-size 1em
     max-width none
-    width 75%
-    padding 0 3%
+    width 100%
+    padding 0
     justify-content flex-end
     align-items center
   &.stepper-form
@@ -184,6 +198,7 @@ form
   display: flex;
   width: 100%;
   justify-content: center;
+  z-index 0
   .mat-paginator
     margin 0 auto
     width 75%
@@ -203,9 +218,10 @@ form
     span
       margin 0.2em auto
   .mat-card-avatar
-    width 50px
+    width 45px
+    height 45px
     border-radius: 50%
-    margin 0.4em auto
+    margin 5px auto
   button
     background-color transparent
     border none
@@ -377,7 +393,18 @@ a
   font-size 1em
   background-color white
 
+.ocultar
+  display none
+
 @media screen and (max-width: lm)
+  app-pet-search
+    width 90%
+    padding 1%
+    margin 0 auto
+  .container
+    .mat-paginator
+      padding 1%
+      width 90%
   .title-navbar
     display none
   .mat-table
@@ -390,6 +417,16 @@ a
         padding-right 12px
 
 @media screen and (max-width: sm)
+  app-pet-search
+    width 95%
+    padding 1%
+    margin 0 auto
+  .container
+    .mat-paginator
+      font-size 0.9em
+      width 95%
+      padding 1%
+      margin 0 auto
   .cdk-overlay-pane
     .panelClass
       max-width 100%
@@ -409,11 +446,6 @@ a
         padding-right 6px
     .mat-card-avatar
       width 50px
-  .mat-paginator
-    font-size 0.9em
-    margin 1em auto
-    width 100%
-    padding 0
   .desktop
     display none
   .mobile
@@ -430,6 +462,8 @@ a
       line-height: 1.5em;
       .form-group
         margin 0px
+      &.search-form
+        box-shadow none
       &.stepper-form
         background white
 @media screen and (max-width: xs)

@@ -1,14 +1,17 @@
-<app-pet-search (petSearchSubmit)="onPetSearchSubmit($event)"></app-pet-search>
 <div *ngIf="(obs | async)?.length > 0; then ifBlock; else elseBlock"></div>
+<mat-paginator
+  #paginator
+  [class]="(obs | async)?.length == 0 ? 'ocultar' : ''"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  [length]="(mascotas | async)?.length"
+  (page)="pageEvent = handlePage($event)"
+>
+</mat-paginator>
 <ng-template #ifBlock>
-  <mat-paginator
-    #paginator
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"
-    [length]="(mascotas | async)?.length"
-    (page)="pageEvent = handlePage($event)"
-  >
-  </mat-paginator>
+  <app-pet-search
+    (petSearchSubmit)="onPetSearchSubmit($event)"
+  ></app-pet-search>
   <mat-table
     class="mascotas-table mat-elevation-z8"
     [dataSource]="dataSource"

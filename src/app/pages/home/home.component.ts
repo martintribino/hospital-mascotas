@@ -9,6 +9,7 @@ import {
 import { BehaviorSubject } from "rxjs";
 import { MatDialog } from "@angular/material";
 import { QrcodeComponent } from "src/app/shared/qrcode/qrcode.component";
+import { ArchivosService } from "src/app/services/archivos.service";
 
 @Component({
   selector: "app-home",
@@ -23,7 +24,11 @@ export class HomeComponent implements OnInit {
   isLoading: boolean;
   selectedFilter: string;
 
-  constructor(private mascService: MascotaService, public dialog: MatDialog) {
+  constructor(
+    private mascService: MascotaService,
+    private archService: ArchivosService,
+    public dialog: MatDialog
+  ) {
     this.mascSubject.next([]);
     this.qrImage = null;
     this.filtros = [
@@ -43,7 +48,21 @@ export class HomeComponent implements OnInit {
 
   onSuccess(result) {
     this.isLoading = false;
+    result.map((masc) => {
+      masc.open = false;
+      masc.path = "assets/images/pet_default_image.jpg";
+    });
     this.mascSubject.next(result);
+    this.mascSubject.value.map((masc) => {
+      if (masc.imagen != null && masc.imagen.length > 0) {
+        this.archService.cargarImagen(masc).subscribe(
+          (data: IImagen) => {
+            masc.path = `data:image/jpeg;base64,${data.b64str}`;
+          },
+          (error) => console.log(error)
+        );
+      }
+    });
   }
 
   handleError(error) {
